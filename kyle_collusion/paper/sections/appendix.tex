@@ -1,0 +1,36 @@
+\section{Proofs}
+\label{app:proofs}
+
+\paragraph{Proposition~\ref{prop:bench}.} With $x_j=\beta_j v$ and
+$p=\lambda y$, trader $i$'s expected profit is
+$\beta_i\sigma_v^2\big(1-\lambda\sum_j\beta_j\big)$ (the noise term has zero
+mean). Taking $\lambda$ as given, the first-order condition gives
+$\beta_i=(1-\lambda\sum_{j\ne i}\beta_j)/(2\lambda)$, so a symmetric equilibrium
+has $\beta=1/((n+1)\lambda)$. With $\xi=0$, rational pricing gives
+$\lambda=n\beta\sigma_v^2/(n^2\beta^2\sigma_v^2+\sigma_u^2)$. Substituting and
+solving yields $\beta^N=\sigma_u/(\sqrt n\sigma_v)$ and
+$\lambda^N=\sqrt n\sigma_v/((n+1)\sigma_u)$. For the collusive benchmark, total
+learner profit with rational pricing and aggregate $T=B_L+B_P$ is
+$B_L\sigma_v^2\sigma_u^2/(T^2\sigma_v^2+\sigma_u^2)$. The first-order condition
+in $B_L$ is $T^2\sigma_v^2+\sigma_u^2-2B_LT\sigma_v^2=0$, i.e.
+$\sigma_v^2(B_P^2-B_L^2)+\sigma_u^2=0$, which gives $B_L^C$. For $\xi>0$,
+$h(\beta)=(n+1)\beta\lambda(n\beta)-1$ is strictly increasing because both
+$\beta\lambda_B(n\beta)=n\beta^2\sigma_v^2/(n^2\beta^2\sigma_v^2+\sigma_u^2)$ and
+$\xi\beta$ are increasing, and $h(0)=-1$, $h(\infty)>0$, so the root is
+unique. \qed
+
+\paragraph{Proposition~\ref{prop:snr}.} (i) With $\xi=0$ and $P=0$,
+$\beta^C=\sigma_u/(I\sigma_v)$ and $\lambda^C=\sigma_v/(2\sigma_u)$. Then
+$\beta^d=\big(1-\lambda^C(I-1)\beta^C\big)/(2\lambda^C)
+=\frac{\sigma_u}{\sigma_v}\big(1-\tfrac{I-1}{2I}\big)
+=\frac{\sigma_u}{\sigma_v}\cdot\frac{I+1}{2I}$,
+so $\beta^d-\beta^C=\frac{\sigma_u}{\sigma_v}\cdot\frac{I-1}{2I}$ and
+$\mathrm{SNR}=(I-1)/(2I)$. (ii) From \eqref{eq:lambda},
+$\lambda=1/\xi+O(\xi^{-2})$ uniformly in $\lambda_B\in[0,\sigma_v/(2\sigma_u)]$.
+Treating $\lambda$ as constant, the collusive aggregate maximises
+$B(1-\lambda B)$, so $\beta^C=1/(2I\lambda)$, and
+$\beta^d=(1-\lambda(I-1)\beta^C)/(2\lambda)=\frac{1}{2\lambda}\cdot\frac{I+1}{2I}$.
+Hence $\beta^d-\beta^C=\frac{1}{\lambda}\cdot\frac{I-1}{4I}=\xi\frac{I-1}{4I}(1+o(1))$
+and $\mathrm{SNR}=\xi\sigma_v(I-1)/(4I\sigma_u)(1+o(1))$. Numerically, the exact
+ratio at $I=2$, $\sigma_v=1$, $\sigma_u=0.1$, $\theta=0.1$ is $62.49$, $625.00$
+and $6250.0$ for $\xi=50,500,5000$. \qed

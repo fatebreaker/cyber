@@ -1,0 +1,79 @@
+\section{Introduction}
+\label{sec:intro}
+
+Trading is increasingly delegated to algorithms that learn from their own
+profits. A growing literature shows that such algorithms can arrive at
+\emph{supracompetitive} outcomes without communicating: reinforcement-learning
+(RL) pricing agents settle on prices above the competitive level
+\citep{calvano2020,klein2021}, algorithmic market makers quote wider spreads
+\citep{colliard2026,cont2024}, and RL informed speculators trade less
+aggressively than competition would imply, earning collusive profits and
+degrading price informativeness \citep{dou2025}. For regulators the finding is
+alarming, because tacit collusion by algorithms falls outside the reach of
+rules written around agreements among humans \citep{harrington2018,ezrachi2016}.
+
+A supracompetitive outcome, however, is not the same thing as collusion. In the
+game-theoretic sense, collusion is an outcome sustained by the threat of
+punishment: a trader who deviates to grab a larger share of the rent is
+punished by its rivals, so deviating does not pay. The same low-intensity
+outcome can instead come from a learning bias: an algorithm that systematically
+undervalues aggressive actions will trade conservatively even when no rival
+could ever punish it. \citet{dou2025} name both channels in the trading context
+(``price-trigger'' collusion and ``over-pruning'' bias), and a parallel debate
+in industrial organization asks whether Q-learning collusion is genuine or an
+artifact of exploration and learning design
+\citep{calvano2023,abada2023,banchio2023,asker2022,denboer2026}. The
+distinction is not academic. If algorithms punish, transparency matters,
+because monitoring is what makes punishment possible, and the natural remedies
+target information: reporting delays, reduced order-flow disclosure. If the
+outcome is a learning bias, transparency is irrelevant and the remedies target
+algorithm design.
+
+This paper asks how to tell the two apart, and what the answer is for RL
+informed traders in the canonical \citet{kyle1985} market and in the
+\citet{dou2025} extension with information-insensitive investors.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+\item \textbf{A diagnostic toolkit.} We combine five diagnostics that separate
+  punishment from pruning: (i) a paired \emph{rival-deviation} test that
+  forces one trader to play its one-period best response and measures the
+  rivals' reaction under common random numbers; (ii) the \citet{dou2025}
+  \emph{noise-shock} impulse response; (iii) a \emph{myopic placebo}: the same
+  learners with discount factor $\gamma=0$, which have no reason to punish or
+  to fear punishment, so any collusive signature they display is by
+  construction not strategic; (iv) a \emph{no-memory control} that removes the
+  information punishment requires; and (v) \emph{learning-rate sensitivity},
+  since a learning bias should move with the step size while a strategic
+  equilibrium should not.
+\item \textbf{A detectability result.} We show analytically that in the
+  standard Kyle market a one-period deviation from the collusive intensity
+  moves order flow by only $(I-1)/(2I)$ noise standard deviations per unit of
+  $v/\sigma_v$, whatever the volume of noise trading
+  (Proposition~\ref{prop:snr}). Deviations are close to invisible, so
+  price-trigger strategies have little to work with. With a large mass of
+  information-insensitive investors the ratio becomes
+  $\xi\sigma_v(I-1)/(4I\sigma_u)$, which is in the hundreds in the
+  \citet{dou2025} calibration. This explains, from first principles, why
+  punishment-based collusion has been reported only in that regime.
+\item \textbf{Evidence.} In the standard Kyle market, tabular Q-learners
+  reach up to \ResidDeltaInt{} of the way from competition to the cartel
+  outcome, yet rivals do not react to deviations, deviations pay, and the
+  under-trading moves with the learning rate. The results are consistent with
+  pruning, not punishment. \ResultsSummarySentence{}
+\item \textbf{An open testbed.} All experiments run on a batched simulator
+  (hundreds of independent markets per process, CPU only) with exact Nash and
+  cartel benchmarks, tabular Q-learning, DQN and PPO agents, checkpointing,
+  and a test suite that validates the economics and the diagnostics against
+  scripted traders whose behaviour is known.
+\end{enumerate}
+
+\paragraph{Why this matters for policy.} The two channels call for different
+interventions. Our results suggest that in markets like the standard Kyle
+setting, the supracompetitive outcomes produced by off-the-shelf Q-learning are
+properties of the learning procedure, and would respond to algorithm-design
+standards (step sizes, exploration) rather than to limits on transparency.
+Where deviations are highly detectable, as with a large mass of
+information-insensitive investors, the diagnostics must be applied with a
+placebo, because a reaction to a price shock is not by itself evidence of
+punishment.

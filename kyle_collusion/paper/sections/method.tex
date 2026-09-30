@@ -1,0 +1,101 @@
+\section{Learning Traders and Diagnostics}
+\label{sec:method}
+
+\subsection{Learning algorithms}
+
+\paragraph{Tabular Q-learning.} Each trader in each market owns a Q-table
+indexed by a memory state $s$ (what it remembers about the previous period),
+the current value $v$, and an order from a finite grid. It plays
+$\varepsilon$-greedy with $\varepsilon_t=e^{-\beta t}$ and updates
+\[
+Q(s_t,v_t,x_t)\leftarrow Q(s_t,v_t,x_t)+\alpha_t\Big[\pi_t+\gamma\max_{x'}Q(s_{t+1},v_{t+1},x')-Q(s_t,v_t,x_t)\Big].
+\]
+Following \citet{calvano2020} and \citet{dou2025}, $Q$ is initialised to the
+discounted payoff of each order against uniformly random rivals, and the step
+size is constant ($\alpha_t=\alpha$) unless stated otherwise. As an
+alternative we use per-entry decaying step sizes
+$\alpha_n=\alpha(1+n/\kappa)^{-0.7}$, where $n$ counts updates of the entry,
+which satisfy the \citet{robbins1951} conditions.
+
+\paragraph{Deep RL.} Double DQN \citep{mnih2015,vanhasselt2016} and PPO with
+generalised advantage estimation \citep{schulman2017,schulman2016} use the same
+information as continuous features (current value, previous value, and the
+memory signal), the same order grid, and one independent network per trader
+per market.
+
+\paragraph{Memory.} We vary what traders remember from the previous period:
+\emph{none} (no memory; punishment is impossible);
+\emph{flow} (binned aggregate order flow);
+\emph{residual} (previous value and binned flow net of own order, i.e.\ what
+everyone else and noise traders did);
+\emph{orders} (previous value and the rival's exact order: perfect monitoring);
+and \emph{price} (previous value and binned price surprise, the state used by
+\citet{dou2025}).
+
+\paragraph{Market maker.} The market maker re-estimates $\lambda_B$ from
+exponentially weighted moments of $(v,y)$ with a half-life of 2{,}000 periods
+and prices with \eqref{eq:lambda}, so it responds to the learners' strategies
+as they evolve.
+
+\subsection{Diagnostics}
+
+After training, exploration and learning are switched off and greedy play is
+evaluated for 20{,}000 periods while the market maker keeps adapting.
+
+\paragraph{D1: rival-deviation test.} From a point on the greedy path we clone
+each market. In the clone, trader~1 plays its myopic best response for one
+period; afterwards everyone follows the learned strategies in both copies,
+which share every value and noise draw. We report the rivals' change in
+trading intensity at each lag $k$,
+$\Delta\beta^{\mathrm{rival}}_k=\mathbb E[v_k\,\Delta x^{\mathrm{rival}}_k]/\mathrm{Var}(v)$,
+and the deviator's discounted gain over the window. Punishment means
+$\Delta\beta^{\mathrm{rival}}_1>0$ and a negative gain. This is the test
+\citet{calvano2020} use for pricing algorithms, adapted to a stochastic market
+with paired simulations.
+
+\paragraph{D2: noise-shock test.} Following \citet{dou2025}, the clone
+receives an extra noise-trader order in the direction of $v$, moving the price
+the way a rival's over-trading would although nobody deviated. Under
+price-trigger strategies traders trade harder next period; under over-pruning
+they do not react. We size shocks in \emph{deviation units}: $1$ is the flow
+change of a best-response deviation at $|v|=\mathbb E|v|$, so shocks mean the
+same thing in both regimes (Proposition~\ref{prop:snr}).
+
+\paragraph{D3: myopic placebo.} We retrain the same learners with $\gamma=0$.
+A myopic trader values only today's profit, so it gains nothing from
+punishing and fears no punishment. Its Q-values estimate immediate expected
+profit, and any systematic reaction it shows to deviations or shocks cannot be
+a punishment strategy. If myopic learners reproduce a ``collusive'' outcome or
+signature, that outcome or signature does not identify collusion.
+
+\paragraph{D4: no-memory control.} With memory \emph{none}, traders cannot
+condition on the past, so no punishment strategy exists; any supracompetitive
+outcome is a learning bias.
+
+\paragraph{D5: learning-rate sensitivity.} A strategic equilibrium is a
+property of the game; a bias of the learning procedure should scale with the
+step size and weaken under decaying step sizes. We vary the constant $\alpha$
+and compare with decaying step sizes.
+
+\paragraph{Convergence.} Constant-step Q-learning with noisy payoffs keeps
+estimates moving, so greedy strategies need not settle. We report the share
+of greedy table entries that changed over the last $10^5$ training periods and
+the mean on-path change in grid steps.
+
+\subsection{Experimental design and implementation}
+
+Unless noted, $I=2$, $P=0$, $\sigma_v=1$, $\gamma=0.95$, and each configuration
+is run for 100--200 independent markets. Standard-Kyle experiments
+($\xi=0$) use $\sigma_u=1$, 5 values and a 31-point order grid spanning
+$\pm1.5$ times the largest Nash order; results in this regime are invariant to
+$\sigma_u$ (Proposition~\ref{prop:snr}). The \citet{dou2025} replication uses
+their calibration ($\sigma_u=0.1$, $\theta=0.1$, $\alpha=0.05$), 10 values, a
+15-point per-value grid spanning the cartel-to-Nash range plus 10\%, and the
+price state. Confidence intervals are 95\% across markets. The simulator
+advances all markets of a configuration as one batched array operation, which
+makes each experiment a matter of minutes to hours on a 4-core CPU. The code,
+configurations and a 70-test suite are released with the paper; the tests
+check the benchmarks against numerical optimisation, reproduce the Nash and
+cartel outcomes when the corresponding strategies are played, and verify that
+D1 and D2 report a reaction for scripted punishing traders and none for
+scripted memoryless ones.

@@ -96,7 +96,22 @@ sigma_u / sigma_v, so deviation size relative to noise depends only on
 v / sigma_v. Noise volume therefore cannot move this market into an
 easy-monitoring regime, and disclosure noise can only make monitoring worse.
 
-## Next steps
+## exp4: perfect monitoring (Q const alpha 0.15, beta_decay 4e-7, 15M steps, 100 sessions)
+
+| run | memory | Delta intensity | Delta info | Delta profit | rival d_beta lag 1 | deviator gain |
+|---|---|---|---|---|---|---|
+| orders_s0 | orders (sees rival's exact order) | 0.82 ± 0.01 | 0.90 ± 0.02 | 0.38 ± 0.04 | +0.008 ± 0.011 | +0.060 ± 0.010 |
+| orders_s1 | orders | 0.82 ± 0.01 | 0.89 ± 0.02 | 0.39 ± 0.04 | +0.008 ± 0.011 | +0.055 ± 0.011 |
+| residual_s0 | residual | 0.90 ± 0.01 | 0.97 ± 0.01 | 0.54 ± 0.04 | +0.001 ± 0.006 | +0.058 ± 0.006 |
+| none_s0 | none | 0.27 ± 0.06 | 0.28 ± 0.05 | 0.21 ± 0.10 | 0 | +0.026 ± 0.004 |
+
+Even with perfect monitoring, rivals do not react to a deviation and
+deviating pays. Monitoring is not what is missing: Q-learning does not find
+punishment strategies in the standard Kyle market. This matches the
+detectability result (a deviation is only (I-1)/(2I) noise sd per unit of v)
+and Dou et al.'s own regime classification (over-pruning only at xi = 0).
+
+## Previous next-steps list (superseded by the paper plan)
 
 1. Decisive monitoring test: add a perfect-monitoring memory mode (traders see
    rivals' last orders exactly). If punishment still does not appear, Q-learning

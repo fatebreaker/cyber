@@ -1,0 +1,51 @@
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Algorithmic collusion.} \citet{calvano2020} show that Q-learning
+agents in a repeated Bertrand game learn supracompetitive prices sustained by
+punishment, documented through impulse responses to a forced deviation;
+\citet{klein2021} obtains similar results under sequential pricing. A second
+wave questions how these outcomes arise. \citet{asker2022,asker2024} show that
+the outcome depends on algorithm design: asynchronous updating (learning only
+from the action taken) yields near-monopoly prices, while synchronous,
+counterfactual updating yields competitive ones. \citet{abada2023} attribute
+seemingly collusive outcomes to imperfect exploration and show that a
+regulator can restore competition by intervening in the learning process.
+\citet{banchio2023} show that collusion can arise from spontaneous coupling
+of the learning dynamics rather than from punishment strategies.
+\citet{denboer2026} argue that the collusive equilibria of Q-learning are
+reached only on time scales irrelevant in practice and require implausibly
+synchronized algorithms. \citet{calvano2023} discuss when algorithmic
+collusion is genuine or spurious. Deep RL agents \citep{deng2024} and large
+language models \citep{fish2024} can also price above competitive levels.
+We contribute a placebo-based diagnostic (the myopic learner) and a
+detectability analysis to this debate, in a financial market with
+adverse selection.
+
+\paragraph{Algorithms in financial markets.} \citet{colliard2026} study
+Q-learning market makers and find mark-ups over the competitive price driven
+by limited experimentation and noisy feedback, the same mechanism we find for
+informed traders. \citet{cartea2022} show that the tick size bounds the
+excess rents of learning liquidity providers, and \citet{cont2024} study
+tacit collusion among market-making algorithms in dealer markets.
+\citet{dou2025} extend \citet{kyle1985} to several informed speculators,
+information-insensitive investors, and a market maker who trades off pricing
+error against inventory. They show that Q-learning speculators sustain
+collusive profits and reduce price informativeness, and separate price-trigger
+collusion from over-pruning bias with noise-shock impulse responses, finding
+the former only when information-insensitive investors are present. An
+independent reimplementation \citep{esquinas2026} reproduces both regimes and
+finds that the level of collusion depends on the update protocol. Our paper
+adds the rival-deviation test, the myopic placebo and the learning-rate
+sensitivity analysis, explains the regime difference analytically, and
+provides a validated open testbed.
+
+\paragraph{Estimation bias in Q-learning.} The max operator makes Q-learning
+over-estimate action values under noise \citep{thrun1993,vanhasselt2010}. The
+bias relevant here runs the other way for rarely chosen actions: with a
+constant step size and $\varepsilon$-greedy exploration, an action whose
+estimate falls below the greedy action by chance is rarely updated again, so
+pessimistic errors persist while optimistic ones are corrected. Actions with
+noisier payoffs are more exposed. Decreasing step sizes that satisfy the
+\citet{robbins1951} conditions remove the persistent component
+asymptotically \citep{evendar2003}.

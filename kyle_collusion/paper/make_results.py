@@ -82,7 +82,8 @@ def impulse_pooled(runs: list[dict], key: str = "d_beta_rival"):
     gci = np.array([r["impulse"]["cum_gain_dev_ci95"] for r in runs])
     g = float((w * gains).sum() / w.sum())
     gse = float(np.sqrt(((w / w.sum()) ** 2 * (gci / 1.96) ** 2).sum()))
-    return mean, 1.96 * se, g, 1.96 * gse, int(w.sum())
+    dev0 = float((w * np.array([r["impulse"]["d_beta_dev"][0] for r in runs])).sum() / w.sum())
+    return mean, 1.96 * se, g, 1.96 * gse, int(w.sum()), dev0
 
 
 def fmt(x: float, d: int = 2) -> str:
@@ -140,10 +141,10 @@ if exp4:
 core_rows = [row for row in core_rows if row[1]]
 if core_rows:
     lines = [
-        "\\begin{tabular}{lcccccc}",
+        "\\begin{tabular}{lccccccc}",
         "\\toprule",
-        "Condition & $\\Delta$ intensity & $\\Delta$ informativeness & $\\Delta$ profit & "
-        "Rival $\\Delta\\beta_1$ & Deviator gain & Markets \\\\",
+        "Condition & $\\Delta$ intensity & $\\Delta$ inform. & $\\Delta$ profit & "
+        "Rival $\\Delta\\beta_1$ & $\\Delta\\beta_1/\\Delta\\beta^{\\mathrm{dev}}_0$ & Deviator gain & Markets \\\\",
         "\\midrule",
     ]
     for label, runs, _ in core_rows:
@@ -153,9 +154,10 @@ if core_rows:
         imp = impulse_pooled(runs)
         rv = pm(imp[0][1], imp[1][1], 3) if imp else "--"
         gn = pm(imp[2], imp[3], 3) if imp else "--"
+        ratio = fmt(imp[0][1] / imp[5], 2) if imp and imp[5] else "--"
         lines.append(
             f"{label} & ${pm(*di[:2])}$ & ${pm(*dinf[:2])}$ & ${pm(*dp[:2])}$ & "
-            f"${rv}$ & ${gn}$ & {di[2]} \\\\"
+            f"${rv}$ & ${ratio}$ & ${gn}$ & {di[2]} \\\\"
         )
     lines += ["\\bottomrule", "\\end{tabular}"]
     open(os.path.join(ROOT, "paper", "table_core.tex"), "w").write("\n".join(lines))
@@ -203,6 +205,7 @@ if core_rows:
         if imp:
             macro("OrdersRivalLagOne", fmt(imp[0][1], 3))
             macro("OrdersGain", fmt(imp[2], 3))
+            macro("OrdersReactionPct", fmt(100 * imp[0][1] / imp[5], 0))
 
 # ------------------------------------------ Figure 2: deviation impulse (xi=0)
 irf_rows = [(l, r, c) for l, r, c in core_rows if impulse_pooled(r)]

@@ -54,11 +54,60 @@ Preliminary only: 20x fewer steps than Q and not tuned. It is consistent with
 collusion depending on the algorithm (Deng et al., 2024), which is the reason
 to test every intervention across algorithms.
 
+## exp3: punishment test and learning-rate schedule (Q, 6M steps, 200 sessions)
+
+Punishment test: 40 paired deviation events per session. The deviator plays
+its myopic best response for one period; rival d_beta is the change in the
+rivals' trading intensity at later lags (positive = punishment).
+
+| run | Delta intensity | Delta info | on-path order shift (grid steps, last 100k) | rival d_beta, lag 1 | deviator discounted gain (16 periods) |
+|---|---|---|---|---|---|
+| const alpha, residual (= exp2) | 0.88 ± 0.01 | 0.95 ± 0.01 | 1.39 | +0.001 ± 0.005 | +0.053 ± 0.005 |
+| visits alpha, none | -0.60 ± 0.03 | -0.38 ± 0.02 | 0.81 | 0 (by construction) | +0.017 ± 0.002 |
+| visits alpha, flow | -0.19 ± 0.03 | 0.03 ± 0.02 | 2.52 | +0.001 ± 0.005 | +0.047 ± 0.006 |
+| visits alpha, residual | -0.50 ± 0.02 | -0.01 ± 0.02 | 4.74 | +0.002 ± 0.008 | +0.087 ± 0.007 |
+
+(The const-alpha residual run reproduces exp2 exactly with the same seed.)
+
+Findings:
+1. **No punishment anywhere.** Rivals do not react to a deviation at any lag,
+   and deviating pays in every condition. The near-collusive outcome in the
+   const-alpha residual run (Delta 0.88) is therefore *not* sustained by
+   trigger strategies. It is a supracompetitive outcome without enforcement,
+   which fits Dou et al.'s "artificial stupidity" (learning-bias) channel
+   rather than their "artificial intelligence" (price-trigger) channel.
+2. **Outcomes flip with the learning-rate schedule.** With per-entry decaying
+   step sizes, the same markets move from strong under-trading (Delta +0.24 to
+   +0.88) to over-trading beyond Nash (Delta -0.19 to -0.60). Likely cause:
+   step sizes shrink while the market maker's lambda is still low during
+   heavy exploration (about 0.31 at 1M steps versus 0.47 Nash), so estimates
+   freeze around best responses to a too-cheap market and over-trade.
+3. **Neither schedule converges.** On-path greedy orders still move by 0.8 to
+   4.7 grid steps over the last 100k steps. Every greedy entry is visited in
+   20k evaluation periods, so on-path and all-entry change coincide here.
+4. The monitoring conditions (flow, residual) differ from the memoryless
+   control in level, but without punishment the difference cannot be read as
+   strategic collusion. More states per value mean fewer visits per entry,
+   which changes the size of the learning bias.
+
+Model limitation found while interpreting this: in the Gaussian Kyle model
+the detectability of a deviation is invariant to sigma_u. Orders scale with
+sigma_u / sigma_v, so deviation size relative to noise depends only on
+v / sigma_v. Noise volume therefore cannot move this market into an
+easy-monitoring regime, and disclosure noise can only make monitoring worse.
+
 ## Next steps
 
-1. Convergence: decaying alpha, on-path policy-change metric, save final policies.
-2. Mechanism: impulse response. Force one learner to deviate once and trace
-   whether the other punishes (the evidence Calvano et al. use for real collusion).
-3. More I (3, 4) and sigma_u values; longer DQN and PPO runs with tuning.
-4. Interventions: passive traders (avoid I = P + 1), disclosure noise, order
-   cap, tick size, across all three algorithms.
+1. Decisive monitoring test: add a perfect-monitoring memory mode (traders see
+   rivals' last orders exactly). If punishment still does not appear, Q-learning
+   in this market does not find trigger strategies and the collusion here is a
+   learning artifact. If it does, monitoring precision is the lever, which maps
+   directly onto transparency regulation.
+2. Get Dou, Goldstein & Ji's exact specification. They report price-trigger
+   collusion, so their setup must include a feature that makes deviations
+   detectable (value distribution, noise structure or state design).
+3. Convergence: Calvano's criterion (greedy strategy unchanged for 100k
+   periods) is not met under either schedule. Try longer runs, alpha decay
+   that only starts after exploration has faded, and a final pure-exploitation
+   phase.
+4. Then: more I and algorithms (DQN, PPO), and the intervention sweep.

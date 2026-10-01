@@ -469,7 +469,6 @@ if base:
 by_tag = {os.path.basename(r["_file"])[:-5]: r for r in exp9}
 for tag, lab, grp in (("opaque_residual", "Reduced transparency", "information"),
                       ("random35", "Uninformative random memory", "information"),
-                      ("passive2_residual", "Two passive Nash traders", "market"),
                       ("counterfactual_residual", "Counterfactual updates", "learning"),
                       ("counterfactual_none", "Counterfactual, no memory", "learning")):
     if tag in by_tag:
@@ -492,12 +491,22 @@ if len(bars) > 1:
     ax.set_xlim(-0.85, 1.15)
     ax.set_xlabel("Collusion index Δ (trading intensity):  0 = Nash,  1 = cartel")
     from matplotlib.patches import Patch
-    ax.legend(handles=[Patch(color=C["flow"], label="information"), Patch(color=C["grey"], label="market structure"),
+    ax.legend(handles=[Patch(color=C["flow"], label="information"),
                        Patch(color=C["none"], label="learning rule"), Patch(color=C["myopic"], label="step-size schedule")],
               fontsize=6.5, loc="lower right")
     fig.tight_layout()
     fig.savefig(os.path.join(FIG, "fig_design.pdf"))
     plt.close(fig)
+
+pas = by_tag.get("passive2_residual")
+if pas:
+    a = np.array(pas["per_session"]["agg_intensity"])
+    p = np.array(pas["per_session"]["profit"])
+    b = pas["benchmarks"]
+    macro("PassiveAgg", fmt(a.mean()))
+    macro("PassiveAggNash", fmt(b["agg_nash"]))
+    macro("PassiveAggColl", fmt(b["agg_coll"]))
+    macro("PassiveProfitPct", fmt(100 * (1 - p.mean() / b["profit_nash"]), 0))
 
 # ------------------------------------------------ Appendix: robustness table
 exp1 = load("exp1/q_*.json")

@@ -36,12 +36,18 @@ These learners are not converged either (on-path orders still move by
 $\VisitsShift$ grid steps), which underlines how strongly the learning
 procedure, rather than the game, shapes the outcome.
 
-\paragraph{Market structure.} Adding two passive informed traders who play the
-Nash strategy changes the benchmarks (the cartel now faces outside
-competition) and yields $\Delta=\PassiveDeltaInt$. Without punishment in any
-treatment (rival reactions in Table~\ref{tab:design} are indistinguishable from
-zero and deviations pay), we read this as a change in what the biased learners
-converge to rather than as a disruption of collusion.
+\paragraph{When collusion means trading more.} Adding two passive informed
+traders who play the Nash strategy reverses the benchmarks: facing outside
+competition, the two learners would maximise their joint profit by trading
+\emph{more} than their Nash intensity (aggregate $\PassiveAggColl$ versus
+$\PassiveAggNash$), because extra informed flow lowers the market maker's price
+impact. A collusive force should push them up. Instead they trade
+$\PassiveAgg$, half their Nash intensity, moving away from the cartel and
+earning $\PassiveProfitPct$\% less than in the Nash equilibrium. The learners
+under-trade whichever side of Nash the collusive outcome lies on, which is what a
+learning bias predicts and the opposite of what collusion predicts. (In the
+collusion index this appears as $\Delta=\PassiveDeltaInt$, which is why
+Table~\ref{tab:design} should be read with the benchmarks in mind.)
 
 \begin{figure}[t]
   \centering

@@ -777,7 +777,9 @@ val_b = _val_rows("bertrand", (("baseline", "Baseline ($\\gamma=0.95$, memory)")
                                ("random", "Uninformative memory"),
                                ("noise", "Noisy profits ($\\sigma=0.1$)"),
                                ("noise_myopic", "Noisy profits, myopic"),
-                               ("counterfactual", "Counterfactual updates")))
+                               ("counterfactual", "Counterfactual updates"),
+                               ("nomemory_calvano_spec", "No memory, their spec. ($\\gamma=0$, $\\alpha=0.25$, $\\beta=10^{-4}$)"),
+                               ("nomemory_calvano_spec_g095", "\\quad same with $\\gamma=0.95$")))
 val_q = _val_rows("quotes", (("baseline", "Baseline ($\\gamma=0.95$, memory)"),
                              ("myopic", "Myopic ($\\gamma=0$)"),
                              ("nomemory", "No memory"),
@@ -802,7 +804,9 @@ if val_b or val_q:
     for tag, lab in (("Base", "Baseline ($\\gamma=0.95$, memory)"), ("Myopic", "Myopic ($\\gamma=0$)"),
                      ("None", "No memory"), ("Random", "Uninformative memory"),
                      ("Noise", "Noisy profits ($\\sigma=0.1$)"), ("NoiseMyopic", "Noisy profits, myopic"),
-                     ("Cf", "Counterfactual updates")):
+                     ("Cf", "Counterfactual updates"),
+                     ("NoneSpec", "No memory, their spec. ($\\gamma=0$, $\\alpha=0.25$, $\\beta=10^{-4}$)"),
+                     ("NoneSpecG", "\\quad same with $\\gamma=0.95$")):
         if lab in vb:
             macro(f"Bert{tag}", fmt(vb[lab][0][0]))
             macro(f"Bert{tag}Rival", fmt(vb[lab][2][0]))

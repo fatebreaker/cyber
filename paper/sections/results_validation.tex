@@ -39,7 +39,17 @@ punish; the departure from Nash is their learning bias. Memoryless learners
 reach $\Delta=\BertNone$, \emph{higher} than the baseline, with no rival
 reaction at all and a profitable deviation ($\BertNoneGain$): a price level
 indistinguishable from collusion with nothing behind it, the ``spontaneous
-coupling'' of \citet{banchio2023}. An uninformative memory of the same size as
+coupling'' of \citet{banchio2023}. This differs from the modest gains that
+\citet{calvano2020} report for memoryless algorithms, and the difference is
+instructive. For $k=0$ they argue that there is no loss of generality in
+setting $\delta=0$, and run memoryless learners with $\delta=0$, $\alpha=0.25$
+and $\beta=10^{-4}$ (their online appendix, Section A4.1). With that
+specification we reproduce their result ($\Delta=\BertNoneSpec$). Keeping
+every parameter but setting $\delta=0.95$ gives $\Delta=\BertNoneSpecG$, again
+with no punishment. Setting $\delta=0$ is innocuous for equilibrium, since a
+memoryless strategy cannot condition on the past, but not for learning:
+the discount factor changes the dynamics of the estimates, and with it the
+outcome. An uninformative memory of the same size as
 the real one collapses prices to $\Delta=\BertRandom$, so in this game what
 memory contains matters, as punishment requires. With noisy profits the
 baseline still gives $\Delta=\BertNoise$ and still punishes (myopic:

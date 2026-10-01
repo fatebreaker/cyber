@@ -43,8 +43,11 @@ Status: [ ] unverified, [x] verified against the paper, [!] needs a change.
 
 ## Others
 
-- [ ] Calvano et al. (2020, AER): Q-learning Bertrand, punishment shown by
-      impulse response to forced deviation; Q init; alpha/beta conventions.
+- [x] Calvano et al. (2020, AER 110(10):3267-3297): Q-learning Bertrand,
+      punishment shown by impulse response to a one-period deviation to the
+      static best response (>95% of cases unprofitable), gradual return; Q init
+      = discounted payoff vs uniform rivals (eq. 8); alpha = 0.15, beta = 4e-6
+      is their highlighted point. Verified from the AER PDF.
 - [ ] Calvano et al. (2023, IJIO) "Genuine or spurious?": role of exploration.
 - [ ] Klein (2021, RAND): sequential pricing, similar results.
 - [ ] Asker, Fershtman & Pakes (2022 AEA P&P; 2024 JEMS): asynchronous ->
@@ -52,29 +55,32 @@ Status: [ ] unverified, [x] verified against the paper, [!] needs a change.
 - [ ] Abada & Lambin (2023, MS): wording now limited to "quickly reach seemingly
       collusive outcomes; regulator can restore competition by enforcing
       decentralised learning or intervening in learning".
-- [ ] Banchio & Mantegazza (EC 2023): collusion via spontaneous coupling, not
-      punishment.
-- [ ] den Boer, Meylahn & Schinkel (MS, 2026?): collusive equilibria on
-      irrelevant time scales; need synchronised algorithms. Check year/volume.
+- [x] Banchio & Mantegazza: collusion via spontaneous coupling, not punishment.
+- [~] den Boer, Meylahn & Schinkel: published in Management Science, 2026
+      (OpenAlex). Volume/pages and the content claim still unchecked.
 - [ ] Colliard, Foucault & Lovo (RFS, forthcoming?): Q-learning market makers,
       mark-ups from limited experimentation and noisy feedback. Check status.
 - [ ] Cartea, Chang & Penalva (2022): tick size bounds excess rents.
 - [ ] Cont & Xiong (2024, Math Finance): tacit collusion of market makers.
-- [ ] Deng, Schiffer & Bichler (2024): deep RL collusion depends on algorithm.
-- [ ] Fish, Gonczarowski & Shorrer (2024): LLM pricing collusion.
+- [x] Deng, Schiffer & Bichler (2024, arXiv:2406.02437): collusion depends on
+      algorithm; TQL more collusive than DRL; PPO least.
+- [x] Fish, Gonczarowski & Shorrer (arXiv:2404.00806v6, 2026): LLM pricing
+      agents reach supracompetitive prices.
 - [ ] Thrun & Schwartz (1993), van Hasselt (2010): max-operator over-estimation.
 - [ ] Even-Dar & Mansour (2003): learning rates for Q-learning.
 - [ ] All bibliographic details (volumes, pages, years) in refs.bib.
 
 ## Added with the validation, theory and dealer sections
 
-- [ ] Calvano et al. (2020) baseline: a_i = 2, a_0 = 0, mu = 1/4, c = 1, m = 15,
+- [x] Calvano et al. (2020) baseline: a_i = 2, a_0 = 0, mu = 1/4, c = 1, m = 15,
       xi = 0.1 grid extension, alpha = 0.15, beta = 4e-6, delta = 0.95, memory
       one; Nash price ~1.473 and monopoly ~1.925 (our code reproduces these
       numbers); Delta ~0.85 at baseline; impulse response shows punishment
       followed by gradual return.
-- [ ] Banchio & Mantegazza (2023): "spontaneous coupling" as the term for
-      supracompetitive play by memoryless Q-learners.
+- [x] Banchio & Mantegazza (arXiv:2202.05946v5, 2023): "spontaneous coupling",
+      collusion without reward-punishment among memoryless eps-greedy
+      Q-learners; also explains AFP's asynchronous vs synchronous result.
+      Bib entry switched to the arXiv version actually read.
 - [ ] Green & Porter (1984, Econometrica 52(1):87-100): trigger strategies
       under imperfect monitoring with price wars on the equilibrium path.
 - [ ] Abreu, Pearce & Stacchetti (1990, Econometrica 58(5):1041-1063).
@@ -87,3 +93,10 @@ Status: [ ] unverified, [x] verified against the paper, [!] needs a change.
 - [ ] Kushner & Yin (2003) / Borkar (2008): constant-step SA iterates
       concentrate within O(sqrt(alpha)) of the ODE equilibrium (check the
       exact theorem and its conditions, e.g. Kushner-Yin ch. 10, Borkar ch. 9).
+
+## Finding from verification (2026-10-01)
+
+Calvano et al.'s "modest profit gains" for memoryless algorithms use delta = 0,
+alpha = 0.25, beta = 1e-4 (online appendix A4.1). We reproduce Delta = 0.16
+with that spec; the same spec with delta = 0.95 gives 0.93. Added to the
+validation section and table.

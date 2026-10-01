@@ -128,7 +128,11 @@ their calibration ($\sigma_u=0.1$, $\theta=0.1$, $\alpha=0.05$), 10 values, a
 15-point per-value grid spanning the cartel-to-Nash range plus 10\%, and the
 price state. Confidence intervals are 95\% across markets. The simulator
 advances all markets of a configuration as one batched array operation, which
-makes each experiment a matter of minutes to hours on a 4-core CPU. The code,
+makes each experiment a matter of minutes to hours on a 4-core CPU. A
+compiled engine runs each market in its own loop with the same model and
+learning rule and is 5 to 18 times faster; it draws different random numbers,
+so we checked that the two engines give the same outcomes in distribution, and
+use it for some second-seed replications and for the longest runs. The code,
 configurations and a 72-test suite are released with the paper; the tests
 check the benchmarks against numerical optimisation, reproduce the Nash and
 cartel outcomes when the corresponding strategies are played, and verify that

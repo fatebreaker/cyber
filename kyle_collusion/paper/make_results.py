@@ -508,6 +508,67 @@ if pas:
     macro("PassiveAggColl", fmt(b["agg_coll"]))
     macro("PassiveProfitPct", fmt(100 * (1 - p.mean() / b["profit_nash"]), 0))
 
+# ---------------------------------------------- shared tables (exp10)
+exp10 = load("exp10_shared/*.json")
+if exp10:
+    by = {os.path.basename(r["_file"])[:-5]: r for r in exp10}
+    fig, ax = plt.subplots(figsize=(3.6, 2.5))
+    rows_s = []
+    for tag, col, ls, lab in (("xi500_shared_g0", C["myopic"], "-", "ξ=500, myopic (γ=0)"),
+                              ("xi500_shared_g095", C["strategic"], "-", "ξ=500, γ=0.95"),
+                              ("xi0_shared_g0", C["myopic"], ":", "ξ=0, myopic (γ=0)"),
+                              ("xi0_shared_g095", C["strategic"], ":", "ξ=0, γ=0.95")):
+        r = by.get(tag)
+        if not r:
+            continue
+        bn = r["benchmarks"]["beta_nash"]
+        sh = sorted(r.get("noise_shocks", []), key=lambda x: x["shock_devs"])
+        xs = [x["shock_devs"] for x in sh]
+        ys = [100 * x["d_beta_all"][1] / bn for x in sh]
+        cs = [100 * x["d_beta_all_ci95"][1] / bn for x in sh]
+        ax.errorbar(xs, ys, yerr=cs, color=col, ls=ls, marker="o", ms=4, lw=1.2, capsize=2, label=lab)
+        di = pooled([r], "delta_intensity")
+        key = {"xi500_shared_g0": "SharedDouMyopic", "xi500_shared_g095": "SharedDouStrat",
+               "xi0_shared_g0": "SharedKyleMyopic", "xi0_shared_g095": "SharedKyleStrat"}[tag]
+        macro(f"{key}DeltaInt", fmt(di[0]))
+        for x in sh:
+            nm = {0.05: "Small", 0.25: "Mid", 1.0: "Large"}.get(round(x["shock_devs"], 2))
+            if nm:
+                macro(f"{key}Shock{nm}", fmt(100 * x["d_beta_all"][1] / bn, 2))
+                macro(f"{key}Shock{nm}CI", fmt(100 * x["d_beta_all_ci95"][1] / bn, 2))
+        imp = impulse_pooled([r])
+        rows_s.append((tag, key, r, di, sh, imp, bn))
+    ax.axhline(0, color="k", lw=0.6)
+    ax.set_xscale("log")
+    ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
+    ax.set_xticks([0.05, 0.25, 1.0], ["0.05", "0.25", "1"])
+    ax.set_xlabel("Noise shock (deviation units)")
+    ax.set_ylabel("Next-period intensity change (% of β$^N$)")
+    ax.legend(fontsize=6.5)
+    fig.tight_layout()
+    fig.savefig(os.path.join(FIG, "fig_shared.pdf"))
+    plt.close(fig)
+
+    labs = {"xi0_shared_g095": ("0", "$\\gamma=0.95$"), "xi0_shared_g0": ("0", "$\\gamma=0$ (myopic placebo)"),
+            "xi500_shared_g095": ("500", "$\\gamma=0.95$"), "xi500_shared_g0": ("500", "$\\gamma=0$ (myopic placebo)")}
+    lines = ["\\begin{tabular}{llccccc}", "\\toprule",
+             "$\\xi$ & Shared Q-table & $\\Delta$ intensity & \\multicolumn{3}{c}{Shock response (\\% of $\\beta^N$)} & Rival reaction \\\\",
+             " & & & 0.05 & 0.25 & 1 & (\\% of $\\beta^N$) \\\\", "\\midrule"]
+    for tag in ("xi0_shared_g095", "xi0_shared_g0", "xi500_shared_g095", "xi500_shared_g0"):
+        row = [x for x in rows_s if x[0] == tag]
+        if not row:
+            continue
+        _, key, r, di, sh, imp, bn = row[0]
+        cells = []
+        for target in (0.05, 0.25, 1.0):
+            m = [x for x in sh if abs(x["shock_devs"] - target) < 1e-9]
+            cells.append(pm(100 * m[0]["d_beta_all"][1] / bn, 100 * m[0]["d_beta_all_ci95"][1] / bn, 2) if m else "--")
+        rv = pm(100 * imp[0][1] / bn, 100 * imp[1][1] / bn, 2) if imp else "--"
+        xi_s, lab = labs[tag]
+        lines.append(f"{xi_s} & {lab} & ${pm(*di[:2])}$ & ${cells[0]}$ & ${cells[1]}$ & ${cells[2]}$ & ${rv}$ \\\\")
+    lines += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(ROOT, "paper", "table_shared.tex"), "w").write("\n".join(lines))
+
 # ------------------------------------------------ Appendix: robustness table
 exp1 = load("exp1/q_*.json")
 rob = []

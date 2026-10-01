@@ -1,31 +1,35 @@
-To check why a myopic shared-table learner reacts to large noise shocks at
-$\xi=500$, we trained one more time (20 markets, $1.5\times10^7$ periods,
-otherwise as in Table~\ref{tab:shared}), then recorded which price states greedy
-play visits and the greedy trading intensity in every state, expressed on a
-scale where 0 is the cartel and 1 is Nash.
+To see why a myopic shared-table learner reacts to large noise shocks and to
+deviations at $\xi=500$, we trained it once more under each price-state
+binning (20 markets, $1.5\times10^7$ periods, otherwise as in
+Table~\ref{tab:shared}), recorded which states greedy play visits, and
+computed the greedy trading intensity in every state on a scale where 0 is the
+cartel and 1 is Nash.
 
-Greedy play visits only the two outermost price-surprise bins
-(together 100.0\% of visits). Because the learners trade well below
-Nash, the realised price is hundreds of noise standard deviations away from the
-Nash-expected price that our state is centred on, so the surprise saturates
-the outer bins. In those visited states the learned intensity is close to the
-cartel (0.29--0.29 on the 0--1 scale). The thirteen interior
-bins are never visited in greedy play, and their greedy orders remain close to
-the initialisation, which favours Nash-like trading (0.79--0.81).
+\paragraph{Noise-unit binning.} Greedy play visits only the two outermost
+price-surprise bins (100\% of visits), because learners that trade below Nash
+move the price hundreds of noise standard deviations from the Nash-expected
+value. In those states the learned intensity is close to the cartel
+(0.29--0.29). The thirteen interior bins are never visited, and their
+greedy orders remain near their Nash-like initialisation (0.79--0.81). A
+shock in the direction of $v$ moves the next state towards the interior; small
+shocks do not reach it, large ones do, which produces the threshold.
 
-This explains the shock response. A shock in the direction of $v$ moves the
-price towards the Nash-expected price and hence the next state towards the
-interior bins. Small shocks do not reach them; large ones do, and there the
-learner trades as it was initialised, harder than on path. The resulting
-threshold-shaped reaction is not a learned punishment but the behaviour of a
-learner in states it never learned about.
+\paragraph{Grid-range binning.} Greedy play now spreads over all fifteen
+price bins (3.8--9.8\% of visits each), and the gradient is milder but has
+the same sign: intensity is 0.30 in states visited more often than the
+median, 0.35 in states visited less often, and 0.47 in (value, price) states
+never visited in greedy play. Learned intensity also varies across price bins
+(0.31--0.42) for reasons unrelated to rivals' behaviour, since with $\gamma=0$
+each state's Q-values only estimate immediate profit.
 
-Two caveats follow. First, our price state bins the surprise in units of
-noise-driven price variation, which saturates at $\xi=500$; \citet{dou2025}
-bin the price over the range implied by the order grid, which may leave more
-states on path. Our replication therefore does not reproduce their state
-space exactly, and the separate-table learners in Section~\ref{sec:dou} saw
-an effectively coarse price signal. Second, the general lesson does not depend
-on the binning: whenever shocks move a Q-learner into rarely or never visited
-states, its reaction reflects initialisation and incomplete exploration rather
-than strategy, which is exactly what the myopic placebo detects.
+\paragraph{Interpretation.} With pruning, how aggressively a Q-learner trades in
+a state depends on how often, and how recently, that state has been updated:
+heavily visited states are pruned most, rarely visited ones less, and
+never-visited ones not at all. A shock or a rival's deviation moves the market
+into a different price state, and the learner's trading changes with it. The
+change looks like a reaction to the shock or the deviation, but it reflects
+the uneven training of the states, not a strategy, which is why it appears in a
+learner with $\gamma=0$. The general lesson does not depend on the binning:
+whenever shocks or deviations move a Q-learner into less-trained states, its
+reaction reflects initialisation and incomplete exploration, and only a
+placebo can tell it apart from punishment.

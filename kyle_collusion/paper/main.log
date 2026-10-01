@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.30)  1 OCT 2026 06:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.30)  1 OCT 2026 07:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -570,10 +570,7 @@ Overfull \hbox (48.80493pt too wide) in paragraph at lines 128--146
  [][] 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-) [19] [20] (./main.aux)
+[19]) [20] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -582,8 +579,8 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 5BC6A8D727AAE0EF6BDEF9B30C6EB336;4174.
  ) 
 Here is how much of TeX's memory you used:
- 15370 strings out of 476182
- 242236 string characters out of 5795595
+ 15373 strings out of 476182
+ 242269 string characters out of 5795595
  1947975 words of memory out of 5000000
  36785 multiletter control sequences out of 15000+600000
  576918 words of font info for 190 fonts, out of 8000000 for 9000
@@ -609,10 +606,10 @@ ts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/symbols/msbm10.pfb>
-Output written on main.pdf (20 pages, 472351 bytes).
+Output written on main.pdf (20 pages, 472907 bytes).
 PDF statistics:
- 1010 PDF objects out of 1200 (max. 8388607)
- 548 compressed objects within 6 object streams
- 135 named destinations out of 1000 (max. 500000)
+ 1011 PDF objects out of 1200 (max. 8388607)
+ 549 compressed objects within 6 object streams
+ 138 named destinations out of 1000 (max. 500000)
  31969 words of extra memory for PDF output out of 35830 (max. 10000000)
 

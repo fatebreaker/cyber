@@ -1,0 +1,67 @@
+{
+ "by_bin": {
+  "0": {
+   "visit_share": 0.075519,
+   "nash_share_of_intensity": 0.3102429140902086
+  },
+  "1": {
+   "visit_share": 0.038287,
+   "nash_share_of_intensity": 0.33218629766881563
+  },
+  "2": {
+   "visit_share": 0.05725300000000001,
+   "nash_share_of_intensity": 0.40416719511103083
+  },
+  "3": {
+   "visit_share": 0.078972,
+   "nash_share_of_intensity": 0.4119703204041813
+  },
+  "4": {
+   "visit_share": 0.09451499999999999,
+   "nash_share_of_intensity": 0.38311897047643373
+  },
+  "5": {
+   "visit_share": 0.08460900000000002,
+   "nash_share_of_intensity": 0.34655634207868813
+  },
+  "6": {
+   "visit_share": 0.05606700000000001,
+   "nash_share_of_intensity": 0.3398954391253807
+  },
+  "7": {
+   "visit_share": 0.039497,
+   "nash_share_of_intensity": 0.33781314404554635
+  },
+  "8": {
+   "visit_share": 0.057428,
+   "nash_share_of_intensity": 0.3399648637631425
+  },
+  "9": {
+   "visit_share": 0.085944,
+   "nash_share_of_intensity": 0.35146003912310525
+  },
+  "10": {
+   "visit_share": 0.097943,
+   "nash_share_of_intensity": 0.3859481843995317
+  },
+  "11": {
+   "visit_share": 0.077844,
+   "nash_share_of_intensity": 0.416532256747731
+  },
+  "12": {
+   "visit_share": 0.055188,
+   "nash_share_of_intensity": 0.40872323875349464
+  },
+  "13": {
+   "visit_share": 0.038204999999999996,
+   "nash_share_of_intensity": 0.32595529718435584
+  },
+  "14": {
+   "visit_share": 0.06272900000000001,
+   "nash_share_of_intensity": 0.30887506247283886
+  }
+ },
+ "common_states_nash_share": 0.30485997878879945,
+ "rare_states_nash_share": 0.34904279697070706,
+ "never_visited_nash_share": 0.46753405302220824
+}

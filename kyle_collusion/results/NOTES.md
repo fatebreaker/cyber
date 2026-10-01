@@ -196,3 +196,21 @@ DQN Delta -0.36 (myopic -0.17); PPO -0.02 (myopic -0.28). No punishment.
 
 residual: 0.19, 0.86, 1.12 at alpha 0.05, 0.15, 0.3; no memory: -0.03, 0.24,
 0.51. No punishment at any step size.
+
+## exp11/exp12: xi = 500 with grid-range price state (Dou-style binning), 2 seeds for key cells
+
+Noise-unit price binning saturates at xi = 500 (greedy play visits only the
+two outer bins), so the main xi = 500 results use bins over the price range
+the order grid can produce.
+
+| learners | Delta intensity | shock response at 0.05 / 0.25 / 1 dev (% beta^N) | rival reaction (% beta^N) |
+|---|---|---|---|
+| separate, gamma 0.95 (2 seeds) | 0.48 | ~0 | -0.5 ± 0.6 |
+| separate, gamma 0 | 0.13 | +0.6 ± 0.4 at 1 dev | +0.5 ± 0.5 |
+| shared, gamma 0.95 (2 seeds) | 0.62 | 0.1 / 0.1 / -0.3 (n.s.) | +0.4 ± 0.6 |
+| shared, gamma 0 (2 seeds) | 0.71 | 0.30 / 1.04 / 4.01 | +2.93 ± 0.17 |
+
+The myopic shared learner shows both "punishment" signatures; deviating still
+pays. Rare-state check (grid binning): intensity 0.30 in common states, 0.35
+in rare, 0.47 in never-visited (0 = cartel, 1 = Nash): uneven training across
+states produces the reactions.

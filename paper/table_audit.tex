@@ -8,6 +8,7 @@ Kyle, $\xi=0$ & residual memory & $\ResidDeltaInt$ & no & pays ($+\ResidGain$) &
 Kyle, $\xi=0$ & perfect monitoring & $\OrdersDeltaInt$ & no & pays ($+\OrdersGain$) & as above & -- & learning bias \\
 Kyle, $\xi=500$ & separate tables & $\DouStratDeltaInt$ & no & pays & myopic $\DouMyopicDeltaInt$ & -- & learning bias \\
 Kyle, $\xi=500$ & shared table & $\SharedDouStratDeltaInt$ & no & pays & myopic $\SharedDouMyopicDeltaInt$ (reacts to shocks) & -- & learning bias \\
+Kyle, $\xi=500$ & \citeauthor{dou2025}'s protocol & $\FaDeltaProfit$ (profit) & borderline ($\FaRival\%$) & pays & myopic $\FaMyopicDeltaProfit$ (same shock response); no lagged price $\FaNoPriceDeltaProfit$ & -- & learning bias \\
 Dealers & memory one & $\QuoteBaseProfit$ & \QuoteBaseRivalWord & \QuoteBaseGainWord & myopic $\QuoteMyopicProfit$, no memory $\QuoteNoneProfit$ & $\QuoteCfProfit$ & \QuoteVerdict \\
 \bottomrule
 \end{tabular}

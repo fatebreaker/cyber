@@ -20,10 +20,11 @@ with passive traders learners trade half their Nash intensity although
 collusion would mean trading more. A lone trader with no rival under-trades by
 up to 57\%, in proportion to the square root of the step size. Reducing
 transparency changes nothing (\OpaqueDeltaInt{}); counterfactual updating
-restores competition (\CfResidDeltaInt{}). Where deviations are hundreds of noise standard deviations large,
-forward-looking learners still never punish, while a myopic shared-table
-learner shows the reactions to price shocks and deviations that have been read
-as punishment. We turn the diagnostics into an audit protocol and release a
+restores competition (\CfResidDeltaInt{}). Where deviations are hundreds of noise standard deviations large, including
+under the exact protocol of Dou et al., forward-looking learners show no
+reaction to shocks or deviations that a myopic learner, which cannot punish,
+does not show as well, and removing the lagged price barely changes the
+outcome. We turn the diagnostics into an audit protocol and release a
 validated, CPU-only testbed with exact benchmarks, tabular and deep RL agents,
 and all diagnostics.
 \end{abstract}

@@ -42,7 +42,7 @@ Status: [ ] unverified, [x] verified against the paper, [!] needs a change.
       aggressively at t = 4; at high sigma_u and at xi = 5 the rival does not
       react.
 - [x] Removing p_{t-1} from the state drops Delta_C to zero at xi = 500,
-      sigma_u = 0.1 (Sec. 5.3). Tested directly in exp16 (memory = value).
+      sigma_u = 0.1 (Sec. 5.3). Tested in exp16: we get 0.29 -> 0.24, not 0.
 - [x] Theory: price-trigger equilibria impossible with high sigma_u or low xi
       (Prop. 3.1). Our sustainability section now credits this.
 - [x] Their collusion index Delta_C is profit-based (normalized trading

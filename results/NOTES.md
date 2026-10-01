@@ -274,3 +274,21 @@ the compiled engine.
 Separate-table index matches Esquinas Coves's 0.31 at 5e8. Diagnostics
 unchanged from 1.5e7 periods. On-path greedy entries still change (~0.9
 share over the last 1e7 periods) with constant step size.
+
+## Faithful Dou et al. protocol (exp16, 4e8 periods, numba)
+
+alpha = 0.01, value-specific exploration beta = 5e-7, common 31-point price
+grid (price_bins = "dou"), xi = 500; our EWMA market maker (theirs: rolling
+OLS, T_m = 10,000). Resumed from 3.2e8 checkpoints after a container restart.
+
+| learners | Delta profit | Delta intensity | shock 0.05 / 0.25 / 1 dev (% beta^N) | rival reaction |
+|---|---|---|---|---|
+| price, gamma 0.95, sigma_u 0.1 | 0.29 | 0.18 | 0.04 / -0.04 / 1.93 ± 0.30 | 0.23 ± 0.19 |
+| price, gamma 0 | 0.12 | 0.07 | 0.04 / -0.08 / 2.22 ± 0.26 | -0.04 ± 0.10 |
+| lagged value only, gamma 0.95 | 0.24 | 0.14 | n/a | 0 |
+| price, gamma 0.95, sigma_u 100 | 0.37 | 0.24 | 0 / 0 / 0 | 0 |
+
+Deviating pays in every condition. Dou et al. report Delta_C ~ 0.75 here,
+collusion -> 0 without the lagged price, and trigger responses at 2.5-15%
+shocks; we reproduce none of these. The 40% shock response is shared by the
+myopic placebo.

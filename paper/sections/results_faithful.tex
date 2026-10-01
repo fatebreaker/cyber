@@ -1,3 +1,57 @@
 \paragraph{The \citet{dou2025} protocol, exactly.}
 \label{sec:faithful}
-Runs with every element of their protocol ($\alpha=0.01$, value-specific exploration counters with $\beta=5\times10^{-7}$, their common 31-point price grid, $4\times10^8$ periods) are in progress.\FaithfulSentence
+Our replication above follows the reimplementation of \citet{esquinas2026}.
+The original differs in four respects: a step size of $\alpha=0.01$ rather
+than $0.05$; exploration that decays with the number of visits to the
+current value, $\varepsilon=e^{-\beta t(v)}$ with $\beta=5\times10^{-7}$,
+rather than with calendar time; one common 31-point price grid rather than
+bins over each value's range; and a market maker that re-estimates its rule
+by least squares over a rolling window. We repeat the experiment with the
+first three exactly, keeping our market maker, for $4\times10^8$ periods
+(100 markets; exploration has then fallen to about $e^{-20}$), and add the
+placebo and the control that \citet{dou2025} themselves use: removing the
+lagged price from the state. Table~\ref{tab:faithful} reports the results;
+shocks are in deviation units, $0.05$, $0.25$ and $1$ corresponding to about
+2\%, 10\% and 40\% of a trader's average order (theirs: 0.25\% to 15\%).
+
+\begin{table}[t]
+  \centering
+  \caption{The \citet{dou2025} protocol ($\alpha=0.01$, value-specific
+  exploration with $\beta=5\times10^{-7}$, common 31-point price grid,
+  $\xi=500$, $\sigma_u=0.1$ unless noted; $4\times10^8$ periods, 100 markets).
+  $\Delta$ profit is their normalised profitability $\Delta_C$. Shock columns:
+  change in per-trader intensity one period after a noise shock of the given
+  size in deviation units; rival reaction: change in the rival's intensity one
+  period after a forced best-response deviation; both in \% of $\beta^N$;
+  95\% CIs.}
+  \label{tab:faithful}
+  \resizebox{\linewidth}{!}{\input{table_faithful.tex}}
+\end{table}
+
+Three results stand out. First, collusion is lower than in our first
+replication and well below the $\Delta_C\approx0.75$ that \citet{dou2025}
+use to calibrate their theoretical benchmark to their simulations in this
+regime (their Section 5.3): $\Delta_C=\FaDeltaProfit$ (intensity:
+$\FaDeltaInt$). Second, the
+forward-looking learner ignores shocks of 2\% and 10\% of its order, and
+responds to a shock of 40\% ($\FaShockLarge\pm\FaShockLargeCI\%$ of $\beta^N$),
+a threshold-like pattern; but the myopic placebo, which cannot punish,
+responds in the same way and by as much
+($\FaMyopicShockLarge\pm\FaMyopicShockLargeCI\%$), and a forced deviation
+still pays. The rival's reaction to a deviation is small and borderline
+($\FaRival\pm\FaRivalCI\%$). Third, removing the lagged price lowers
+collusion only from $\FaDeltaProfit$ to $\FaNoPriceDeltaProfit$, whereas
+\citet{dou2025} find that it falls to zero. With heavy noise trading
+($\sigma_u=100$) collusion is higher ($\FaHighDeltaProfit$) and no reaction of
+any kind appears, as they report for over-pruning.
+
+What we cannot reproduce is therefore the evidence that separates their
+price-trigger regime from over-pruning: the level of collusion, the
+dependence on the lagged price, and a shock response that a myopic learner
+does not share. The remaining difference in protocol is the market maker,
+and their convergence criterion (strategies unchanged for $10^6$ periods)
+rather than a fixed horizon; either could matter, and we do not claim that
+price-trigger collusion cannot arise under their exact design. Our claim is
+narrower: under a protocol that matches theirs in every element of the
+learning algorithm and state, the signatures that would identify punishment
+either do not appear or appear equally in a learner that cannot punish.

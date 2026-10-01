@@ -75,12 +75,17 @@ informed traders in the canonical \citet{kyle1985} market and in the
   Blurring the order flow changes nothing ($\Delta=\OpaqueDeltaInt$), while
   counterfactual updating, a change to the learning rule alone, restores
   competition ($\Delta=\CfResidDeltaInt$).
-\item \textbf{Where deviations are glaring.} In the \citet{dou2025} regime,
-  forward-looking learners still never react to shocks or deviations, while a
-  \emph{myopic} shared-table learner reacts to both: it shows the
-  threshold-shaped response to price shocks that has been read as a price
-  trigger, although it has no reason to punish and deviating still pays.
-  These signatures do not identify collusion without a placebo.
+\item \textbf{Where deviations are glaring.} In the \citet{dou2025} regime, a
+  \emph{myopic} learner reproduces the threshold-shaped response to price
+  shocks that has been read as a price trigger, and rivals of a myopic
+  shared-table learner trade harder after a forced deviation, although it has
+  no reason to punish and deviating still pays. Under the exact protocol of
+  \citet{dou2025} (their step size, exploration schedule and price grid,
+  $4\times10^8$ periods), forward-looking learners respond to large shocks
+  no more than the myopic placebo does, and removing the lagged price lowers
+  collusion only from $\FaDeltaProfit$ to $\FaNoPriceDeltaProfit$, where they
+  report a fall to zero. These signatures do not identify collusion without
+  a placebo.
 \item \textbf{An audit protocol and an open testbed.} We assemble the
   diagnostics into a five-step protocol that returns \emph{collusion} for the
   \citet{calvano2020} baseline and \emph{learning bias} for every market of

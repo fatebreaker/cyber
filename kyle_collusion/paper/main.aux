@@ -25,9 +25,6 @@
 \citation{fish2024}
 \@writefile{toc}{\contentsline {paragraph}{Contributions.}{2}{section*.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Why this matters for policy.}{2}{section*.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}{section.2}\protected@file@percent }
-\newlabel{sec:related}{{2}{2}{Related Work}{section.2}{}}
-\@writefile{toc}{\contentsline {paragraph}{Algorithmic collusion.}{2}{section*.3}\protected@file@percent }
 \citation{colliard2026}
 \citation{cartea2022}
 \citation{cont2024}
@@ -38,16 +35,21 @@
 \citation{robbins1951}
 \citation{evendar2003}
 \citation{dou2025}
-\citation{kyle1985}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{3}{section.2}\protected@file@percent }
+\newlabel{sec:related}{{2}{3}{Related Work}{section.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Algorithmic collusion.}{3}{section*.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Algorithms in financial markets.}{3}{section*.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Estimation bias in Q-learning.}{3}{section*.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3}Model}{3}{section.3}\protected@file@percent }
 \newlabel{sec:model}{{3}{3}{Model}{section.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}The repeated market}{3}{subsection.3.1}\protected@file@percent }
-\newlabel{eq:lambda}{{1}{3}{The repeated market}{equation.3.1}{}}
+\citation{kyle1985}
 \citation{calvano2020}
 \citation{dou2025}
 \citation{dou2025}
+\citation{dou2025}
+\citation{dou2025}
+\newlabel{eq:lambda}{{1}{4}{The repeated market}{equation.3.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Benchmarks}{4}{subsection.3.2}\protected@file@percent }
 \newlabel{prop:bench}{{1}{4}{Nash and collusive benchmarks}{proposition.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3}How detectable is a deviation?}{4}{subsection.3.3}\protected@file@percent }
@@ -58,34 +60,64 @@
 \citation{mnih2015,vanhasselt2016}
 \citation{schulman2017,schulman2016}
 \citation{dou2025}
-\citation{calvano2020}
-\citation{dou2025}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Signal-to-noise ratio of a one-period best-response deviation from the collusive intensity (order-flow change per unit of $v/\sigma _v$, in noise standard deviations), as a function of the mass of information-insensitive investors ($\sigma _v=1$, $\sigma _u=0.1$, $\theta =0.1$). Dotted lines: the $\xi =0$ values $(I-1)/(2I)$. Deviations become visible above noise only once $\xi $ exceeds about one; at the \citet  {dou2025} calibration they are several hundred noise standard deviations large.}}{5}{figure.caption.6}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:snr}{{1}{5}{Signal-to-noise ratio of a one-period best-response deviation from the collusive intensity (order-flow change per unit of $v/\sigma _v$, in noise standard deviations), as a function of the mass of information-insensitive investors ($\sigma _v=1$, $\sigma _u=0.1$, $\theta =0.1$). Dotted lines: the $\xi =0$ values $(I-1)/(2I)$. Deviations become visible above noise only once $\xi $ exceeds about one; at the \citet {dou2025} calibration they are several hundred noise standard deviations large}{figure.caption.6}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Learning Traders and Diagnostics}{5}{section.4}\protected@file@percent }
 \newlabel{sec:method}{{4}{5}{Learning Traders and Diagnostics}{section.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Learning algorithms}{5}{subsection.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Tabular Q-learning.}{5}{section*.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Deep RL.}{5}{section*.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Memory.}{5}{section*.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Market maker.}{5}{section*.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Diagnostics}{5}{subsection.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{D1: rival-deviation test.}{5}{section*.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{D2: noise-shock test.}{5}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Tabular Q-learning.}{5}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Deep RL.}{5}{section*.8}\protected@file@percent }
+\citation{calvano2020}
+\citation{dou2025}
+\citation{dou2025}
+\@writefile{toc}{\contentsline {paragraph}{Memory.}{6}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Market maker.}{6}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Diagnostics}{6}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{D1: rival-deviation test.}{6}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{D2: noise-shock test.}{6}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{D3: myopic placebo.}{6}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{D4: no-memory control.}{6}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{D5: learning-rate sensitivity.}{6}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Convergence.}{6}{section*.16}\protected@file@percent }
+\citation{dou2025}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Experimental design and implementation}{7}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{7}{section.5}\protected@file@percent }
+\newlabel{sec:results}{{5}{7}{Results}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Pruning without a game}{7}{subsection.5.1}\protected@file@percent }
+\newlabel{sec:mechanism}{{5.1}{7}{Pruning without a game}{subsection.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}The standard Kyle market: low trading without punishment}{7}{subsection.5.2}\protected@file@percent }
+\newlabel{sec:kyle}{{5.2}{7}{The standard Kyle market: low trading without punishment}{subsection.5.2}{}}
+\citation{calvano2020}
+\citation{dou2025}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Pruning without a game. One informed trader facing a fixed price rule ($I=1$, no memory, $3\times 10^5$ periods, 100 runs per point, 95\% CIs). (a) With $\gamma =0$, standard Q-learning under-trades by about $0.91\sqrt  \alpha $ (dashed); counterfactual updates learn the optimal order at every step size. (b) At $\alpha =0.15$ the shortfall shrinks as the discount factor rises.}}{8}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:mechanism}{{2}{8}{Pruning without a game. One informed trader facing a fixed price rule ($I=1$, no memory, $3\times 10^5$ periods, 100 runs per point, 95\% CIs). (a) With $\gamma =0$, standard Q-learning under-trades by about $\MechSqrtCoef \sqrt \alpha $ (dashed); counterfactual updates learn the optimal order at every step size. (b) At $\alpha =0.15$ the shortfall shrinks as the discount factor rises}{figure.caption.17}{}}
+\@writefile{toc}{\contentsline {paragraph}{Outcomes.}{8}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{The myopic placebo.}{8}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Punishment tests.}{8}{section*.20}\protected@file@percent }
+\citation{asker2022,asker2024}
+\citation{abada2023}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Standard Kyle market ($\xi =0$, $I=2$, constant $\alpha =0.15$). $\Delta $: collusion indices (0 = Nash, 1 = cartel) pooled over markets and seeds. Rival $\Delta \beta _1$: change in rivals' trading intensity one period after a forced best-response deviation; next column: the same as a fraction of the deviation. Deviator gain: discounted profit gain from deviating over 16 periods. 95\% confidence intervals.}}{9}{table.caption.22}\protected@file@percent }
+\newlabel{tab:core}{{1}{9}{Standard Kyle market ($\xi =0$, $I=2$, constant $\alpha =0.15$). $\Delta $: collusion indices (0 = Nash, 1 = cartel) pooled over markets and seeds. Rival $\Delta \beta _1$: change in rivals' trading intensity one period after a forced best-response deviation; next column: the same as a fraction of the deviation. Deviator gain: discounted profit gain from deviating over 16 periods. 95\% confidence intervals}{table.caption.22}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Collusion index (trading intensity) by condition. The myopic placebo, which cannot collude, scores beyond the cartel.}}{9}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:core}{{3}{9}{Collusion index (trading intensity) by condition. The myopic placebo, which cannot collude, scores beyond the cartel}{figure.caption.23}{}}
+\@writefile{toc}{\contentsline {paragraph}{Convergence.}{9}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Discussion}{9}{section.6}\protected@file@percent }
+\newlabel{sec:discussion}{{6}{9}{Discussion}{section.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{What the diagnostics show.}{9}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Policy.}{9}{section*.26}\protected@file@percent }
+\citation{calvano2020}
 \citation{dou2025}
 \bibstyle{plainnat}
 \bibdata{refs}
 \bibcite{abada2023}{{1}{2023}{{Abada and Lambin}}{{}}}
 \bibcite{asker2022}{{2}{2022}{{Asker et~al.}}{{Asker, Fershtman, and Pakes}}}
 \bibcite{asker2024}{{3}{2024}{{Asker et~al.}}{{Asker, Fershtman, and Pakes}}}
-\@writefile{toc}{\contentsline {paragraph}{D3: myopic placebo.}{6}{section*.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{D4: no-memory control.}{6}{section*.13}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{D5: learning-rate sensitivity.}{6}{section*.14}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Convergence.}{6}{section*.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Experimental design and implementation}{6}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{6}{section.5}\protected@file@percent }
-\newlabel{sec:results}{{5}{6}{Results}{section.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Discussion}{6}{section.6}\protected@file@percent }
-\newlabel{sec:discussion}{{6}{6}{Discussion}{section.6}{}}
 \bibcite{banchio2023}{{4}{2023}{{Banchio and Mantegazza}}{{}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Rival-deviation test. Left: change in rivals' trading intensity after trader~1 plays its one-period best response at lag 0. Right: the deviator's change in profit. Paired simulations with common random numbers; 95\% confidence intervals.}}{10}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:deviation}{{4}{10}{Rival-deviation test. Left: change in rivals' trading intensity after trader~1 plays its one-period best response at lag 0. Right: the deviator's change in profit. Paired simulations with common random numbers; 95\% confidence intervals}{figure.caption.24}{}}
+\@writefile{toc}{\contentsline {paragraph}{Limitations.}{10}{section*.27}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Conclusion.}{10}{section*.28}\protected@file@percent }
 \bibcite{calvano2020}{{5}{2020}{{Calvano et~al.}}{{Calvano, Calzolari, Denicol{\`o}, and Pastorello}}}
 \bibcite{calvano2023}{{6}{2023}{{Calvano et~al.}}{{Calvano, Calzolari, Denicol{\`o}, and Pastorello}}}
 \bibcite{cartea2022}{{7}{2022}{{Cartea et~al.}}{{Cartea, Chang, and Penalva}}}
@@ -108,8 +140,18 @@
 \bibcite{thrun1993}{{24}{1993}{{Thrun and Schwartz}}{{}}}
 \bibcite{vanhasselt2010}{{25}{2010}{{van Hasselt}}{{}}}
 \bibcite{vanhasselt2016}{{26}{2016}{{van Hasselt et~al.}}{{van Hasselt, Guez, and Silver}}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Proofs}{8}{appendix.A}\protected@file@percent }
-\newlabel{app:proofs}{{A}{8}{Proofs}{appendix.A}{}}
-\@writefile{toc}{\contentsline {paragraph}{Proposition~\ref {prop:bench}.}{8}{section*.17}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Proposition~\ref {prop:snr}.}{8}{section*.18}\protected@file@percent }
-\gdef \@abspage@last{8}
+\citation{dou2025}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Proofs}{12}{appendix.A}\protected@file@percent }
+\newlabel{app:proofs}{{A}{12}{Proofs}{appendix.A}{}}
+\@writefile{toc}{\contentsline {paragraph}{Proposition~\ref {prop:bench}.}{12}{section*.30}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Proposition~\ref {prop:snr}.}{12}{section*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B}Robustness}{12}{appendix.B}\protected@file@percent }
+\newlabel{app:robust}{{B}{12}{Robustness}{appendix.B}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Implementation details}{12}{appendix.C}\protected@file@percent }
+\newlabel{app:impl}{{C}{12}{Implementation details}{appendix.C}{}}
+\@writefile{toc}{\contentsline {paragraph}{Validation.}{12}{section*.34}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Robustness of the standard-Kyle outcomes. $\beta $ is the exploration decay ($\varepsilon _t=e^{-\beta t}$). 100--200 markets per row; 95\% CIs.}}{13}{table.caption.32}\protected@file@percent }
+\newlabel{tab:robust}{{2}{13}{Robustness of the standard-Kyle outcomes. $\beta $ is the exploration decay ($\varepsilon _t=e^{-\beta t}$). 100--200 markets per row; 95\% CIs}{table.caption.32}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Default parameters.}}{13}{table.caption.33}\protected@file@percent }
+\newlabel{tab:params}{{3}{13}{Default parameters}{table.caption.33}{}}
+\gdef \@abspage@last{13}

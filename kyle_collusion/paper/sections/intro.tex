@@ -60,7 +60,10 @@ informed traders in the canonical \citet{kyle1985} market and in the
   reach up to \ResidDeltaInt{} of the way from competition to the cartel
   outcome, yet rivals do not react to deviations, deviations pay, and the
   under-trading moves with the learning rate. The results are consistent with
-  pruning, not punishment. \ResultsSummarySentence{}
+  pruning, not punishment. Myopic learners, which cannot collude, trade even less
+(\MyopicResidDeltaInt{} of the way, i.e.\ beyond the cartel), and a lone
+trader with no rival under-trades by up to 57\%, by an amount proportional to
+$\sqrt\alpha$ that counterfactual updating removes.
 \item \textbf{An open testbed.} All experiments run on a batched simulator
   (hundreds of independent markets per process, CPU only) with exact Nash and
   cartel benchmarks, tabular Q-learning, DQN and PPO agents, checkpointing,

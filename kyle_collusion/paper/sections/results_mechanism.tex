@@ -25,17 +25,29 @@ to $\sqrt\alpha\,\lambda\sigma_u|x|$, which shifts the learned order toward
 zero by an amount proportional to $\sqrt\alpha$. Counterfactual updates remove
 the selection, because every order is updated every period.
 
+The bias also depends on the discount factor (Figure~\ref{fig:mechanism}b).
+At $\alpha=0.15$ the learned intensity rises from \MechGammaA{} of the optimum
+at $\gamma=0$ to \MechGammaB{}, \MechGammaC{} and \MechGammaD{} at
+$\gamma=0.5,0.8,0.95$. With $\gamma>0$ every update target also contains the
+continuation value $\gamma\max_{x'}Q(s',v',x')$, whose noise comes from the next
+value draw and is the same whatever order was submitted. This adds
+action-independent noise that dilutes the size-dependent payoff noise behind the
+selection effect. Myopic learners therefore prune more than forward-looking ones,
+for reasons that have nothing to do with strategy.
+
 This is the over-pruning bias of \citet{dou2025}, here isolated from any
-interaction: it alone produces trading intensities 13--57\% below the
+interaction: it alone produces trading intensities 11--57\% below the
 optimum. Any test for collusion in a market of such learners must therefore
 separate this bias from strategic behaviour.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.5\linewidth]{figures/fig_mechanism.pdf}
+  \includegraphics[width=0.9\linewidth]{figures/fig_mechanism.pdf}
   \caption{Pruning without a game. One informed trader facing a fixed price rule
-  ($I=1$, $\gamma=0$, no memory, $3\times10^5$ periods, 100 runs per point,
-  95\% CIs). Standard Q-learning under-trades by about $0.91\sqrt\alpha$
-  (dashed); counterfactual updates learn the optimal order at every step size.}
+  ($I=1$, no memory, $3\times10^5$ periods, 100 runs per point, 95\% CIs).
+  (a) With $\gamma=0$, standard Q-learning under-trades by about
+  $\MechSqrtCoef\sqrt\alpha$ (dashed); counterfactual updates learn the optimal
+  order at every step size. (b) At $\alpha=0.15$ the shortfall shrinks as the
+  discount factor rises.}
   \label{fig:mechanism}
 \end{figure}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.30)  30 SEP 2026 23:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.30)  1 OCT 2026 00:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -475,45 +475,85 @@ Package microtype Info: Loading generic protrusion settings for font family
 (./sections/abstract.tex) (./sections/intro.tex [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]) (./sections/related.tex [
-2]) (./sections/model.tex [3]) (./sections/method.tex [4] [5]) (./sections/resu
-lts.tex (./sections/results_body.tex)) (./sections/discussion.tex (./sections/d
-iscussion_body.tex)) (./main.bbl [6] [7]) (./sections/appendix.tex) [8] (./main
-.aux)
+2]) (./sections/model.tex [3]
+<figures/fig_snr.pdf, id=170, 245.718pt x 173.448pt>
+File: figures/fig_snr.pdf Graphic file (type pdf)
+<use figures/fig_snr.pdf>
+Package pdftex.def Info: figures/fig_snr.pdf  used on input line 89.
+(pdftex.def)             Requested size: 258.36668pt x 182.39836pt.
+) (./sections/method.tex [4] [5 <./figures/fig_snr.pdf>]) (./sections/results.t
+ex [6] (./sections/results_body.tex (./sections/results_mechanism.tex
+<figures/fig_mechanism.pdf, id=271, 462.52798pt x 173.448pt>
+File: figures/fig_mechanism.pdf Graphic file (type pdf)
+<use figures/fig_mechanism.pdf>
+Package pdftex.def Info: figures/fig_mechanism.pdf  used on input line 45.
+(pdftex.def)             Requested size: 422.77664pt x 158.54985pt.
+) (./sections/results_kyle.tex [7] [8 <./figures/fig_mechanism.pdf>] (./table_c
+ore.tex)
+<figures/fig_core.pdf, id=351, 448.07399pt x 173.448pt>
+File: figures/fig_core.pdf Graphic file (type pdf)
+<use figures/fig_core.pdf>
+Package pdftex.def Info: figures/fig_core.pdf  used on input line 73.
+(pdftex.def)             Requested size: 375.80544pt x 145.47565pt.
+<figures/fig_deviation.pdf, id=352, 462.52798pt x 166.22101pt>
+File: figures/fig_deviation.pdf Graphic file (type pdf)
+<use figures/fig_deviation.pdf>
+Package pdftex.def Info: figures/fig_deviation.pdf  used on input line 81.
+(pdftex.def)             Requested size: 422.77664pt x 151.9436pt.
+) (./sections/results_dou.tex) (./sections/results_design.tex))) (./sections/di
+scussion.tex (./sections/discussion_body.tex [9 <./figures/fig_core.pdf>])) (./
+main.bbl [10 <./figures/fig_deviation.pdf>] [11]) (./sections/appendix.tex (./t
+able_robust.tex)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Overfull \hbox (48.80493pt too wide) in paragraph at lines 63--81
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [12] [13] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 4C53DAEA0DCDCC752C13F2C89012A01E;1745.
+(rerunfilecheck)             Checksum: ED04F78FF0D3D03B0819923C4C9F2F3F;2534.
  ) 
 Here is how much of TeX's memory you used:
- 14808 strings out of 476182
- 231914 string characters out of 5795595
- 1940975 words of memory out of 5000000
- 36356 multiletter control sequences out of 15000+600000
- 574516 words of font info for 169 fonts, out of 8000000 for 9000
+ 15009 strings out of 476182
+ 235575 string characters out of 5795595
+ 1949975 words of memory out of 5000000
+ 36498 multiletter control sequences out of 15000+600000
+ 575038 words of font info for 177 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,6n,79p,1001b,611s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1001b,613s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (8 pages, 249147 bytes).
+t/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (13 pages, 365501 bytes).
 PDF statistics:
- 315 PDF objects out of 1000 (max. 8388607)
- 268 compressed objects within 3 object streams
- 76 named destinations out of 1000 (max. 500000)
- 31849 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 641 PDF objects out of 1000 (max. 8388607)
+ 386 compressed objects within 4 object streams
+ 101 named destinations out of 1000 (max. 500000)
+ 31901 words of extra memory for PDF output out of 35830 (max. 10000000)
 

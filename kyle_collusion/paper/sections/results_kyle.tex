@@ -1,1 +1,87 @@
-% pending
+\subsection{The standard Kyle market: low trading without punishment}
+\label{sec:kyle}
+
+Table~\ref{tab:core} and Figure~\ref{fig:core} report outcomes for two
+learners in the standard Kyle market ($\xi=0$) with a constant step size
+$\alpha=0.15$, 200 markets per seed and three seeds per condition.
+
+\paragraph{Outcomes.} Forward-looking learners that remember what their rivals
+and the noise traders did (\emph{residual} memory) trade far below Nash: their
+aggregate intensity covers $\ResidDeltaInt$ of the distance from competition to
+the cartel (seed means $\ResidSeedRange$), informativeness $\ResidDeltaInfo$,
+and profit $\ResidDeltaProfit$. With perfect monitoring of each other's
+orders, the index is $\OrdersDeltaInt$. Without memory, where punishment is
+impossible, learners still close $\NoneDeltaInt$ of the gap. Read
+conventionally, these numbers describe substantial collusion.
+
+\paragraph{The myopic placebo.} Retraining the residual-memory learners with
+$\gamma=0$, which removes any reason to punish or to fear punishment, produces
+an intensity index of $\MyopicResidDeltaInt$ and an informativeness index of
+$\MyopicResidDeltaInfo$: myopic learners trade \emph{less than the cartel} and
+make prices less informative than full collusion would. They do not, however,
+earn collusive profits ($\Delta$ profit $=\MyopicResidDeltaProfit$), because
+trading below the cartel level gives up profit. A learner that cannot collude
+thus scores higher on the intensity- and informativeness-based indices than
+learners that might. These indices measure how little algorithms trade, not
+why, and cannot by themselves identify collusion.
+
+\paragraph{Punishment tests.} The rival-deviation test is decisive.
+Figure~\ref{fig:deviation} shows that after a forced one-period best-response
+deviation, rivals' trading intensity is unchanged at every lag in every
+condition: the reaction at the first lag is $\ResidRivalLagOne\pm\ResidRivalLagOneCI$
+for residual memory and $\OrdersRivalLagOne\pm\OrdersRivalLagOneCI$ (about
+$\OrdersReactionPct$\% of the deviation itself) with perfect monitoring.
+Deviating pays: the deviator's discounted gain over the following 16 periods is
+$\ResidGain\pm\ResidGainCI$ with residual memory and
+$\OrdersGain\pm\OrdersGainCI$ with perfect monitoring, essentially all of it
+earned in the deviation period. No condition shows the
+punishment-then-reversion pattern that identifies collusion in
+\citet{calvano2020}. The outcome is supracompetitive but not
+self-enforcing, which is the signature of pruning.
+
+This matches Proposition~\ref{prop:snr}: at $\xi=0$ a best-response deviation
+is about a quarter of a noise standard deviation per unit of $v/\sigma_v$, so
+a trigger on observed flow would fire mostly on noise. It also matches the
+classification of \citet{dou2025}, who attribute collusion at $\xi=0$ to
+over-pruning. What our diagnostics add is that even perfect monitoring, which
+removes the detectability problem entirely, does not lead Q-learners to
+discover punishment.
+
+\paragraph{Convergence.} With a constant step size and noisy payoffs, greedy
+strategies keep changing among neighbouring orders: on-path orders moved by
+$\ResidShift$ grid steps on average over the last $10^5$ training periods
+(residual memory). Outcomes are nevertheless stable: seed-to-seed variation
+in $\Delta$ is a few hundredths, and the residual-memory results are unchanged
+between $6\times10^6$ and $1.5\times10^7$ training periods (Appendix
+Table~\ref{tab:robust}).
+
+\begin{table}[t]
+  \centering
+  \small
+  \resizebox{\linewidth}{!}{\input{table_core.tex}}
+  \caption{Standard Kyle market ($\xi=0$, $I=2$, constant $\alpha=0.15$).
+  $\Delta$: collusion indices (0 = Nash, 1 = cartel) pooled over markets and
+  seeds. Rival $\Delta\beta_1$: change in rivals' trading intensity one period
+  after a forced best-response deviation; next column: the same as a fraction
+  of the deviation. Deviator gain: discounted profit gain from deviating over
+  16 periods. 95\% confidence intervals.}
+  \label{tab:core}
+\end{table}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/fig_core.pdf}
+  \caption{Collusion index (trading intensity) by condition. The myopic
+  placebo, which cannot collude, scores beyond the cartel.}
+  \label{fig:core}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/fig_deviation.pdf}
+  \caption{Rival-deviation test. Left: change in rivals' trading intensity
+  after trader~1 plays its one-period best response at lag 0. Right: the
+  deviator's change in profit. Paired simulations with common random numbers;
+  95\% confidence intervals.}
+  \label{fig:deviation}
+\end{figure}

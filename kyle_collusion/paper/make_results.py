@@ -180,33 +180,35 @@ if core_rows:
     fig.savefig(os.path.join(FIG, "fig_core.pdf"))
     plt.close(fig)
 
+    for key, runs in (("Resid", sel(exp5, memory="residual", gamma=0.95)),
+                      ("MyopicResid", sel(exp5, memory="residual", gamma=0.0)),
+                      ("None", sel(exp5, memory="none", gamma=0.95)),
+                      ("MyopicNone", sel(exp5, memory="none", gamma=0.0)),
+                      ("Orders", sel(exp4, memory="orders"))):
+        if not runs:
+            continue
+        for metric, tag in (("delta_intensity", "Int"), ("delta_info", "Info"), ("delta_profit", "Profit")):
+            m, c, n = pooled(runs, metric)
+            macro(f"{key}Delta{tag}", fmt(m))
+            macro(f"{key}Delta{tag}CI", fmt(c))
+        lo = min(np.nanmean(r["per_session"]["delta_intensity"]) for r in runs)
+        hi = max(np.nanmean(r["per_session"]["delta_intensity"]) for r in runs)
+        macro(f"{key}SeedRange", f"{lo:.2f}--{hi:.2f}")
+        macro(f"{key}Markets", str(sum(len(r["per_session"]["delta_intensity"]) for r in runs)))
+        imp = impulse_pooled(runs)
+        if imp:
+            macro(f"{key}RivalLagOne", fmt(imp[0][1], 3))
+            macro(f"{key}RivalLagOneCI", fmt(imp[1][1], 3))
+            macro(f"{key}Gain", fmt(imp[2], 3))
+            macro(f"{key}GainCI", fmt(imp[3], 3))
+            if imp[5]:
+                macro(f"{key}ReactionPct", fmt(100 * imp[0][1] / imp[5], 0))
+        sh = pooled(runs, "order_shift_onpath")
+        macro(f"{key}Shift", fmt(sh[0]))
     r = sel(exp5, memory="residual", gamma=0.95)
     if r:
         m, c, n = pooled(r, "delta_intensity")
         macro("ResidDeltaInt", fmt(m))
-        macro("ResidDeltaIntCI", fmt(c))
-    r = sel(exp5, memory="residual", gamma=0.0)
-    if r:
-        m, c, n = pooled(r, "delta_intensity")
-        macro("MyopicResidDeltaInt", fmt(m))
-        macro("MyopicResidDeltaIntCI", fmt(c))
-    r = sel(exp5, memory="none", gamma=0.95)
-    if r:
-        m, c, n = pooled(r, "delta_intensity")
-        macro("NoneDeltaInt", fmt(m))
-    r = sel(exp5, memory="none", gamma=0.0)
-    if r:
-        m, c, n = pooled(r, "delta_intensity")
-        macro("MyopicNoneDeltaInt", fmt(m))
-    r = sel(exp4, memory="orders")
-    if r:
-        m, c, n = pooled(r, "delta_intensity")
-        macro("OrdersDeltaInt", fmt(m))
-        imp = impulse_pooled(r)
-        if imp:
-            macro("OrdersRivalLagOne", fmt(imp[0][1], 3))
-            macro("OrdersGain", fmt(imp[2], 3))
-            macro("OrdersReactionPct", fmt(100 * imp[0][1] / imp[5], 0))
 
 # ------------------------------------------ Figure 2: deviation impulse (xi=0)
 irf_rows = [(l, r, c) for l, r, c in core_rows if impulse_pooled(r)]
@@ -353,41 +355,79 @@ plt.close(fig)
 
 # -------------------------------------- Figure: single-trader pruning mechanism
 mech_f = os.path.join(RES, "mechanism", "single_trader.json")
+mech_g = os.path.join(RES, "mechanism", "single_trader_gamma.json")
 if os.path.exists(mech_f):
     mech = json.load(open(mech_f))
-    fig, ax = plt.subplots(figsize=(3.4, 2.4))
-    for upd, col, lab in (("taken", C["strategic"], "standard Q-learning"),
-                          ("counterfactual", C["none"], "counterfactual updates")):
-        a = mech["alphas"]
-        m = [mech["results"][f"{upd}_{x}"]["mean"] for x in a]
-        c = [mech["results"][f"{upd}_{x}"]["ci95"] for x in a]
-        ax.errorbar(a, m, yerr=c, color=col, marker="o", ms=4, lw=1.2, capsize=2, label=lab)
-    ax.axhline(1.0, color="k", lw=0.6)
+    has_g = os.path.exists(mech_g)
+    fig, axes = plt.subplots(1, 2 if has_g else 1, figsize=(6.4 if has_g else 3.4, 2.4), squeeze=False)
+    ax = axes[0, 0]
     a_arr = np.array(mech["alphas"])
     short = 1 - np.array([mech["results"][f"taken_{x}"]["mean"] for x in mech["alphas"]])
-    cf_ = float((np.sqrt(a_arr) * short).sum() / a_arr.sum())
-    xs = np.geomspace(a_arr.min(), a_arr.max(), 100)
-    ax.plot(xs, 1 - cf_ * np.sqrt(xs), color=C["grey"], lw=0.8, ls="--", label=f"1 − {cf_:.2f}√α")
-    ax.set_xscale("log")
-    ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
-    ax.set_xticks(mech["alphas"], [str(x) for x in mech["alphas"]])
-    ax.set_xlabel("Step size α")
-    ax.set_ylabel("Learned / optimal intensity")
-    ax.legend(fontsize=7)
-    fig.tight_layout()
-    fig.savefig(os.path.join(FIG, "fig_mechanism.pdf"))
-    plt.close(fig)
-    a_arr = np.array(mech["alphas"])
-    short = 1 - np.array([mech["results"][f"taken_{x}"]["mean"] for x in mech["alphas"]])
-    c_fit = float((np.sqrt(a_arr) * short).sum() / (a_arr).sum())  # least squares through origin
+    c_fit = float((np.sqrt(a_arr) * short).sum() / a_arr.sum())  # least squares through origin
     resid = short - c_fit * np.sqrt(a_arr)
     r2 = 1 - (resid**2).sum() / ((short - short.mean()) ** 2).sum()
     macro("MechSqrtCoef", fmt(c_fit))
     macro("MechSqrtRsq", fmt(r2, 3))
-    xs = np.linspace(min(a_arr), max(a_arr), 100)
+    for upd, col, lab in (("taken", C["strategic"], "standard Q-learning"),
+                          ("counterfactual", C["none"], "counterfactual updates")):
+        m = [mech["results"][f"{upd}_{x}"]["mean"] for x in mech["alphas"]]
+        c = [mech["results"][f"{upd}_{x}"]["ci95"] for x in mech["alphas"]]
+        ax.errorbar(mech["alphas"], m, yerr=c, color=col, marker="o", ms=4, lw=1.2, capsize=2, label=lab)
+    xs = np.geomspace(a_arr.min(), a_arr.max(), 100)
+    ax.plot(xs, 1 - c_fit * np.sqrt(xs), color=C["grey"], lw=0.8, ls="--", label=f"1 − {c_fit:.2f}√α")
+    ax.axhline(1.0, color="k", lw=0.6)
+    ax.set_xscale("log")
+    ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
+    ax.set_xticks(mech["alphas"], [str(x) for x in mech["alphas"]])
+    ax.set_xlabel("Step size α  (γ = 0)")
+    ax.set_ylabel("Learned / optimal intensity")
+    ax.set_title("(a) step size")
+    ax.legend(fontsize=6.5)
     for upd, tag in (("taken", "Taken"), ("counterfactual", "Cf")):
         for x, name in zip(mech["alphas"], ("A", "B", "C", "D", "E")):
             macro(f"Mech{tag}{name}", fmt(mech["results"][f"{upd}_{x}"]["mean"]))
+    if has_g:
+        mg = json.load(open(mech_g))
+        ax = axes[0, 1]
+        g = [float(x) for x in mg["gammas"]]
+        m = [mg["results"][str(x)]["mean"] for x in mg["gammas"]]
+        c = [mg["results"][str(x)]["ci95"] for x in mg["gammas"]]
+        ax.errorbar(g, m, yerr=c, color=C["strategic"], marker="o", ms=4, lw=1.2, capsize=2)
+        ax.axhline(1.0, color="k", lw=0.6)
+        ax.set_xlabel(f"Discount factor γ  (α = {mg['alpha']})")
+        ax.set_title("(b) discount factor")
+        ax.set_ylim(axes[0, 0].get_ylim())
+        for x, name in zip(mg["gammas"], ("A", "B", "C", "D")):
+            macro(f"MechGamma{name}", fmt(mg["results"][str(x)]["mean"]))
+    fig.tight_layout()
+    fig.savefig(os.path.join(FIG, "fig_mechanism.pdf"))
+    plt.close(fig)
+
+# ------------------------------------------------ Appendix: robustness table
+exp1 = load("exp1/q_*.json")
+rob = []
+for label, runs in (
+    ("Residual, $1.5\\times10^6$ periods, $\\beta=4\\times10^{-6}$", sel(exp1, memory="residual")),
+    ("Residual, $6\\times10^6$, $\\beta=10^{-6}$, seed 0", [r for r in sel(exp5, memory="residual", gamma=0.95) if r["seed"] == 0]),
+    ("Residual, $6\\times10^6$, $\\beta=10^{-6}$, seed 1", [r for r in sel(exp5, memory="residual", gamma=0.95) if r["seed"] == 1]),
+    ("Residual, $6\\times10^6$, $\\beta=10^{-6}$, seed 2", [r for r in sel(exp5, memory="residual", gamma=0.95) if r["seed"] == 2]),
+    ("Residual, $1.5\\times10^7$, $\\beta=4\\times10^{-7}$", sel(exp4, memory="residual")),
+    ("Flow, $1.5\\times10^6$, $\\beta=4\\times10^{-6}$", sel(exp1, memory="flow")),
+    ("Flow, $6\\times10^6$, $\\beta=10^{-6}$", sel(exp2, memory="flow")),
+    ("No memory, $1.5\\times10^6$, $\\beta=4\\times10^{-6}$", sel(exp1, memory="none")),
+    ("No memory, $6\\times10^6$, $\\beta=10^{-6}$ (3 seeds)", sel(exp5, memory="none", gamma=0.95)),
+    ("No memory, $1.5\\times10^7$, $\\beta=4\\times10^{-7}$", sel(exp4, memory="none")),
+):
+    if runs:
+        rob.append((label, pooled(runs, "delta_intensity"), pooled(runs, "delta_info")))
+if rob:
+    lines = ["\\begin{tabular}{lcc}", "\\toprule",
+             "Configuration ($\\gamma=0.95$, $\\alpha=0.15$) & $\\Delta$ intensity & $\\Delta$ informativeness \\\\",
+             "\\midrule"]
+    for label, di, dinf in rob:
+        lines.append(f"{label} & ${pm(*di[:2])}$ & ${pm(*dinf[:2])}$ \\\\")
+    lines += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(ROOT, "paper", "table_robust.tex"), "w").write("\n".join(lines))
 
 # ----------------------------------------------------------- misc numbers
 if exp3:

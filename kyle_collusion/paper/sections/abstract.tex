@@ -16,9 +16,12 @@ trading, while with a large mass of information-insensitive investors the
 ratio is in the hundreds, which explains why punishment-based collusion has
 been reported only in that regime. In simulations with hundreds of
 independent markets per configuration, Q-learners in the standard Kyle market
-reach up to \ResidDeltaInt{} of the way from competition to the cartel, yet
+close on average \ResidDeltaInt{} of the gap between competition and the cartel, yet
 rivals never punish deviations, even with perfect monitoring of each other's
-orders, and deviating always pays. \AbstractPlaceboSentence{} We release a
+orders, and deviating always pays. The myopic placebo, which cannot collude, trades even less
+(index \MyopicResidDeltaInt{}, beyond the cartel), and a single trader with no
+rival under-trades by up to 57\%, a shortfall proportional to the square root
+of the step size that counterfactual updating removes. We release a
 validated, CPU-only testbed with exact benchmarks, tabular and deep RL agents,
 and all diagnostics.
 \end{abstract}

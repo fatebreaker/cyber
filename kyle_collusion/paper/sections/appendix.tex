@@ -34,3 +34,61 @@ Hence $\beta^d-\beta^C=\frac{1}{\lambda}\cdot\frac{I-1}{4I}=\xi\frac{I-1}{4I}(1+
 and $\mathrm{SNR}=\xi\sigma_v(I-1)/(4I\sigma_u)(1+o(1))$. Numerically, the exact
 ratio at $I=2$, $\sigma_v=1$, $\sigma_u=0.1$, $\theta=0.1$ is $62.49$, $625.00$
 and $6250.0$ for $\xi=50,500,5000$. \qed
+
+\section{Robustness}
+\label{app:robust}
+
+Table~\ref{tab:robust} reports the collusion indices of forward-looking
+Q-learners in the standard Kyle market across training horizons, exploration
+schedules and seeds. Outcomes are stable once exploration is long enough; the
+residual-memory run with the fastest exploration decay is the exception
+because its larger table is under-explored (about 46 exploratory visits per
+entry), and it is excluded from the main results.
+
+\begin{table}[h]
+  \centering
+  \small
+  \input{table_robust.tex}
+  \caption{Robustness of the standard-Kyle outcomes. $\beta$ is the exploration
+  decay ($\varepsilon_t=e^{-\beta t}$). 100--200 markets per row; 95\% CIs.}
+  \label{tab:robust}
+\end{table}
+
+\section{Implementation details}
+\label{app:impl}
+
+\begin{table}[h]
+  \centering
+  \small
+  \begin{tabular}{ll}
+    \toprule
+    Parameter & Value \\
+    \midrule
+    Values $v$ & 5 (standard Kyle) or 10 (Dou replication) equiprobable normal quantiles, variance rescaled to $\sigma_v^2$ \\
+    Orders & 31-point grid on $\pm1.5\,\beta^N\max|v|$ (wide); 15 per value on the cartel--Nash bracket $\pm10\%$ \\
+    Memory bins & 7 flow/residual bins on $\pm2$ sd; 15 price-surprise bins on $\pm2.5$ sd \\
+    Q-learning & $\alpha=0.15$ (0.05 in Dou replication), $\gamma=0.95$, $\varepsilon_t=e^{-\beta t}$ \\
+    Q initialisation & discounted payoff against uniformly random rivals at $\lambda^N$ \\
+    Decaying step & $\alpha_n=\alpha(1+n/50)^{-0.7}$ per entry \\
+    Market maker & EWMA moments of $(v,y)$, half-life 2{,}000 periods, starts at Nash \\
+    Evaluation & 20{,}000 greedy periods, learning off, market maker adapting \\
+    Deviation test & 40 events per market, 50 greedy periods apart, 16-period window \\
+    Noise-shock test & shocks of 0.25 and 1 deviation units, 20 events per market \\
+    DQN & 2$\times$64 MLP, Double DQN, Huber loss, Adam $10^{-3}$, buffer $5\times10^4$, batch 64 \\
+    PPO & 2$\times$64 actor-critic, clip 0.2, GAE $\lambda=0.95$, 4 epochs, rollout 256, entropy annealed to 0 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Default parameters.}
+  \label{tab:params}
+\end{table}
+
+\paragraph{Validation.} The test suite (68 tests) checks that the benchmarks
+maximise the relevant objectives on fine grids, that the closed forms and the
+numerical solver agree at $\xi=0$, and that the solver reproduces the
+\citet{dou2025} values at $\xi=500$ ($\beta^N=166.667$, $\beta^C=125$,
+$\lambda^N=0.002$); that simulated Nash and cartel play recover the
+corresponding price impact, profit and collusion index; that sessions are
+independent; that counterfactual profits equal realised profits for the
+order taken; that a resumed run reproduces an uninterrupted one exactly; and
+that the deviation and noise-shock tests report a reaction for scripted
+punishing or price-trigger traders and none for memoryless ones.

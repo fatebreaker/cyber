@@ -1,0 +1,4 @@
+baseline: best-ask Delta 0.645+-0.017
+baseline: Delta 0.839+-0.016 rival dp1 +0.009 gain +0.1066+-0.0546
+myopic: best-ask Delta 0.841+-0.004
+myopic: Delta 0.974+-0.003 rival dp1 -0.001 gain +0.0810+-0.0024

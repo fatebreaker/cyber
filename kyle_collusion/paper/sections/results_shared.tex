@@ -17,10 +17,11 @@ $\SharedDouMyopicShockLarge\pm\SharedDouMyopicShockLargeCI\%$ at one deviation
 unit): the threshold pattern that \citet{dou2025} interpret as a price
 trigger. A learner with $\gamma=0$ cannot be punishing anyone, so this response
 cannot be a punishment strategy. The forward-looking shared learner shows no
-significant response at our horizon. A natural explanation, which we check
-in Appendix~\ref{app:rare}, is that large shocks push the market into
-rarely visited price states, where estimates have been updated less often and
-therefore pruned less, so the learned orders there are more aggressive. Under
+significant response at our horizon. Appendix~\ref{app:rare} shows why: greedy play visits only
+the two outermost price states, large shocks push the market into interior
+states that greedy play never visits, and there the learner's orders are still
+close to their Nash-like initialisation, so it trades harder. Small shocks do
+not reach those states, which produces the threshold. Under
 pruning, the response of a Q-learner to a price shock depends on how often the
 resulting state has been visited, so a threshold-like reaction can arise
 without any strategy. The noise-shock test therefore needs the placebo to be

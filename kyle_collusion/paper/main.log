@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.30)  1 OCT 2026 05:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.30)  1 OCT 2026 05:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -505,7 +505,7 @@ shared.tex [10 <./figures/fig_deviation.pdf>] (./table_shared.tex)
 <figures/fig_shared.pdf, id=549, 260.17201pt x 180.675pt>
 File: figures/fig_shared.pdf Graphic file (type pdf)
 <use figures/fig_shared.pdf>
-Package pdftex.def Info: figures/fig_shared.pdf  used on input line 44.
+Package pdftex.def Info: figures/fig_shared.pdf  used on input line 45.
 (pdftex.def)             Requested size: 234.8775pt x 163.11876pt.
 ) (./table_dou.tex)
 <figures/fig_dou.pdf, id=552, 462.52798pt x 173.448pt>
@@ -556,11 +556,11 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D10064866DCA350173808251A50B8A8B;3985.
  ) 
 Here is how much of TeX's memory you used:
- 15315 strings out of 476182
- 241198 string characters out of 5795595
+ 15317 strings out of 476182
+ 241214 string characters out of 5795595
  1944975 words of memory out of 5000000
  36735 multiletter control sequences out of 15000+600000
- 576924 words of font info for 192 fonts, out of 8000000 for 9000
+ 576975 words of font info for 193 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,12n,83p,1001b,617s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us

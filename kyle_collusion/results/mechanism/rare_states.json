@@ -1,0 +1,67 @@
+{
+ "by_bin": {
+  "0": {
+   "visit_share": 0.5001059999999999,
+   "nash_share_of_intensity": 0.28893461436449447
+  },
+  "1": {
+   "visit_share": 1.3000000000000001e-05,
+   "nash_share_of_intensity": 0.801583261594305
+  },
+  "2": {
+   "visit_share": 1e-05,
+   "nash_share_of_intensity": 0.7965711290953376
+  },
+  "3": {
+   "visit_share": 1.6000000000000003e-05,
+   "nash_share_of_intensity": 0.8003810610633715
+  },
+  "4": {
+   "visit_share": 1.3000000000000001e-05,
+   "nash_share_of_intensity": 0.7935399540498789
+  },
+  "5": {
+   "visit_share": 1.3000000000000001e-05,
+   "nash_share_of_intensity": 0.806062094785436
+  },
+  "6": {
+   "visit_share": 2.6000000000000002e-05,
+   "nash_share_of_intensity": 0.8017156857726033
+  },
+  "7": {
+   "visit_share": 1.7999999999999997e-05,
+   "nash_share_of_intensity": 0.7898166839906254
+  },
+  "8": {
+   "visit_share": 1.9999999999999998e-05,
+   "nash_share_of_intensity": 0.7952919499744473
+  },
+  "9": {
+   "visit_share": 1.8999999999999998e-05,
+   "nash_share_of_intensity": 0.7956767126433738
+  },
+  "10": {
+   "visit_share": 1.4000000000000001e-05,
+   "nash_share_of_intensity": 0.7892849191678819
+  },
+  "11": {
+   "visit_share": 1.3000000000000001e-05,
+   "nash_share_of_intensity": 0.7994937469673238
+  },
+  "12": {
+   "visit_share": 1.2000000000000002e-05,
+   "nash_share_of_intensity": 0.7994473159906001
+  },
+  "13": {
+   "visit_share": 1.8e-05,
+   "nash_share_of_intensity": 0.7920166517385328
+  },
+  "14": {
+   "visit_share": 0.49968900000000005,
+   "nash_share_of_intensity": 0.2924880464492527
+  }
+ },
+ "common_states_nash_share": 0.13642810370544514,
+ "rare_states_nash_share": 0.36904841889915785,
+ "never_visited_nash_share": 0.7827654522983707
+}

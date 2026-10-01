@@ -1,6 +1,6 @@
 """Build every figure and number in the paper from results/*.json.
 
-    cd kyle_collusion && python paper/make_results.py
+    python paper/make_results.py   # from the repository root
 
 Writes paper/figures/*.pdf and paper/numbers.tex (LaTeX macros). Missing
 experiments are skipped, so the script runs at any stage of the project.

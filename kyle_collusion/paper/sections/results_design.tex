@@ -1,1 +1,54 @@
-% pending
+\subsection{What changes the outcome: information or learning design?}
+\label{sec:design}
+
+The two channels make opposite predictions about interventions. If low trading
+were sustained by punishment, degrading the information traders use to
+monitor each other should restore competition, and the content of their memory
+should matter. If it is pruning, information is irrelevant and changes to the
+learning procedure should matter. Table~\ref{tab:design} reports treatments
+in the standard Kyle market, each against the residual-memory baseline
+($\Delta=\ResidDeltaInt$).
+
+\paragraph{Information does not matter.} Blurring the order flow that traders
+observe with noise of twice the noise-trading volume leaves the outcome
+unchanged ($\Delta=\OpaqueDeltaInt$). Replacing the informative memory with a
+\emph{random} state that carries no information at all, but has the same
+number of states, reproduces it ($\Delta=\RandomMemDeltaInt$). The difference
+between forward-looking learners with and without memory
+(\ResidDeltaInt{} versus \NoneDeltaInt{}) is therefore a matter of table size:
+more states mean fewer updates per entry and more room for the selection effect
+of Section~\ref{sec:mechanism}, not more information to coordinate on.
+
+\paragraph{Learning design matters.} Two changes to the learning rule move the
+outcome substantially. Counterfactual updating, which removes the selection
+effect, eliminates the supracompetitive outcome: forward-looking learners end
+at $\Delta=\CfResidDeltaInt$ with residual memory and $\CfNoneDeltaInt$ without,
+that is, at (marginally beyond) the competitive level, with price
+informativeness at its Nash value ($\Delta$ informativeness
+$\CfResidDeltaInfo$). The market, the agents' information and the exploration
+schedule are unchanged; only the update rule differs. Per-entry decaying step sizes
+change even the sign: with the schedule of Section~\ref{sec:method}, learners
+\emph{over}-trade relative to Nash ($\Delta=\VisitsResidual$ with residual
+memory, $\VisitsNone$ without), because step sizes shrink while the market
+maker's price impact is still depressed by heavy exploration, freezing
+estimates around best responses to a market that is too cheap to trade in.
+These learners are not converged either (on-path orders still move by
+$\VisitsShift$ grid steps), which underlines how strongly the learning
+procedure, rather than the game, shapes the outcome.
+
+\paragraph{Market structure.} Adding two passive informed traders who play the
+Nash strategy changes the benchmarks (the cartel now faces outside
+competition) and yields $\Delta=\PassiveDeltaInt$. Without punishment in any
+treatment (rival reactions in Table~\ref{tab:design} are indistinguishable from
+zero and deviations pay), we read this as a change in what the biased learners
+converge to rather than as a disruption of collusion.
+
+\begin{table}[t]
+  \centering
+  \small
+  \resizebox{\linewidth}{!}{\input{table_design.tex}}
+  \caption{Treatments in the standard Kyle market ($\xi=0$, $I=2$, residual
+  memory unless noted, $6\times10^6$ periods, 200 markets). Baseline:
+  $\Delta$ intensity $\ResidDeltaInt$. 95\% CIs.}
+  \label{tab:design}
+\end{table}

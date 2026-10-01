@@ -21,7 +21,13 @@ rivals never punish deviations, even with perfect monitoring of each other's
 orders, and deviating always pays. The myopic placebo, which cannot collude, trades even less
 (index \MyopicResidDeltaInt{}, beyond the cartel), and a single trader with no
 rival under-trades by up to 57\%, a shortfall proportional to the square root
-of the step size that counterfactual updating removes. We release a
+of the step size. Interventions confirm the diagnosis: reducing
+transparency leaves trading unchanged (\OpaqueDeltaInt{}), an uninformative
+random memory of the same size reproduces the outcome (\RandomMemDeltaInt{}),
+and counterfactual updating restores competition (\CfResidDeltaInt{}). In the
+regime with information-insensitive investors, where deviations are hundreds of
+noise standard deviations large, separate-table Q-learners still do not
+punish. We release a
 validated, CPU-only testbed with exact benchmarks, tabular and deep RL agents,
 and all diagnostics.
 \end{abstract}

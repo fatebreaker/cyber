@@ -63,7 +63,13 @@ informed traders in the canonical \citet{kyle1985} market and in the
   pruning, not punishment. Myopic learners, which cannot collude, trade even less
 (\MyopicResidDeltaInt{} of the way, i.e.\ beyond the cartel), and a lone
 trader with no rival under-trades by up to 57\%, by an amount proportional to
-$\sqrt\alpha$ that counterfactual updating removes.
+$\sqrt\alpha$. Blurring the order flow traders observe changes nothing
+($\Delta=\OpaqueDeltaInt$), an uninformative random memory reproduces the
+outcome ($\RandomMemDeltaInt$), and counterfactual updating, a change to the
+learning rule alone, restores competition ($\CfResidDeltaInt$). In the
+\citet{dou2025} regime with information-insensitive investors, our
+separate-table learners match the independent replication's collusion level
+and still do not punish.
 \item \textbf{An open testbed.} All experiments run on a batched simulator
   (hundreds of independent markets per process, CPU only) with exact Nash and
   cartel benchmarks, tabular Q-learning, DQN and PPO agents, checkpointing,

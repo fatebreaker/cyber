@@ -152,3 +152,47 @@ updates per entry). Test: memory="random" with 35 states in exp9.
   155 states. Inconclusive: with lambda frozen the Q initialisation is exactly
   the true expected profit, and with many states most entries stay near it in a
   300k-period run. Not used; the market version (exp9 random35) is the test.
+
+## exp7: Dou et al. calibration, separate Q-tables (sigma_u 0.1, alpha 0.05, bracket grid, price state, 15M steps, 100 sessions)
+
+| xi | learners | Delta intensity | Delta profit | shock response (1 dev, % beta^N) | rival reaction |
+|---|---|---|---|---|---|
+| 0 | gamma 0.95, price | 0.48 | 0.59 | +0.5 ± 0.6 | none |
+| 0 | gamma 0 (myopic) | 0.63 | 0.74 | +0.3 ± 0.5 | none |
+| 0 | gamma 0.95, no memory | 0.37 | 0.50 | 0 | 0 |
+| 500 | gamma 0.95, price | 0.31 | 0.45 | -0.6 ± 0.5 | none |
+| 500 | gamma 0 (myopic) | 0.11 | 0.18 | 0.0 ± 0.3 | none |
+| 500 | gamma 0.95, no memory | 0.24 | 0.36 | 0 | 0 |
+
+xi = 500 separate-table Delta 0.31 matches Esquinas Coves's 0.31. Caveat found
+later: the default (noise-unit) price binning saturates at xi = 500, so these
+learners saw an effectively coarse price state; exp11 reruns with grid binning.
+
+## exp9: interventions (standard Kyle, residual baseline Delta 0.87)
+
+| treatment | Delta intensity |
+|---|---|
+| reduced transparency (disclosure noise 2 sigma_u) | 0.90 |
+| uninformative random memory (35 states) | 0.84 |
+| uninformative random memory, myopic | 1.16 |
+| counterfactual updates, residual | -0.10 |
+| counterfactual updates, no memory | -0.09 |
+| two passive Nash traders | aggregate 0.48 vs Nash 1.00 and cartel 1.41 (cartel above Nash), profit 30% below Nash |
+
+## exp10: shared Q-tables (Dou calibration, noise-unit price bins)
+
+Delta intensity: xi 0: 0.68 (gamma 0.95), 0.86 (myopic); xi 500: 0.71, 0.86.
+Myopic shared learner at xi 500 responds to noise shocks with a threshold
+(0.00, +0.75, +3.34 % of beta^N at 0.05, 0.25, 1 deviation units); the
+forward-looking one does not. Rare-state check: greedy play visits only the
+two outer price bins; interior bins keep Nash-like initial orders; large
+shocks land there. The trigger-like response is an off-path artifact.
+
+## exp8: deep RL (residual memory, 400k steps, 50 sessions)
+
+DQN Delta -0.36 (myopic -0.17); PPO -0.02 (myopic -0.28). No punishment.
+
+## exp6: step size in the market (gamma 0.95)
+
+residual: 0.19, 0.86, 1.12 at alpha 0.05, 0.15, 0.3; no memory: -0.03, 0.24,
+0.51. No punishment at any step size.

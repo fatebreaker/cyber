@@ -5,9 +5,9 @@ The two channels make opposite predictions about interventions. If low trading
 were sustained by punishment, degrading the information traders use to
 monitor each other should restore competition, and the content of their memory
 should matter. If it is pruning, information is irrelevant and changes to the
-learning procedure should matter. Table~\ref{tab:design} reports treatments
-in the standard Kyle market, each against the residual-memory baseline
-($\Delta=\ResidDeltaInt$).
+learning procedure should matter. Table~\ref{tab:design} and
+Figure~\ref{fig:design} report treatments in the standard Kyle market, each
+against the residual-memory baseline ($\Delta=\ResidDeltaInt$).
 
 \paragraph{Information does not matter.} Blurring the order flow that traders
 observe with noise of twice the noise-trading volume leaves the outcome
@@ -42,6 +42,15 @@ competition) and yields $\Delta=\PassiveDeltaInt$. Without punishment in any
 treatment (rival reactions in Table~\ref{tab:design} are indistinguishable from
 zero and deviations pay), we read this as a change in what the biased learners
 converge to rather than as a disruption of collusion.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/fig_design.pdf}
+  \caption{Interventions in the standard Kyle market. Treatments that change
+  what traders observe leave the outcome unchanged; treatments that change how
+  they learn move it to, or past, competition.}
+  \label{fig:design}
+\end{figure}
 
 \begin{table}[t]
   \centering

@@ -175,7 +175,8 @@ if core_rows:
     ax.axvline(0, color="k", lw=0.6)
     ax.axvline(1, color=C["grey"], lw=0.6, ls="--")
     ax.set_xlabel("Collusion index Δ (trading intensity):  0 = Nash,  1 = cartel")
-    ax.set_xlim(min(-0.2, ax.get_xlim()[0]), 1.1)
+    top = max(pooled(r, "delta_intensity")[0] for _, r, _ in core_rows)
+    ax.set_xlim(min(-0.2, ax.get_xlim()[0]), max(1.1, top + 0.2))
     fig.tight_layout()
     fig.savefig(os.path.join(FIG, "fig_core.pdf"))
     plt.close(fig)
@@ -213,7 +214,7 @@ if core_rows:
 # ------------------------------------------ Figure 2: deviation impulse (xi=0)
 irf_rows = [(l, r, c) for l, r, c in core_rows if impulse_pooled(r)]
 if irf_rows:
-    fig, axes = plt.subplots(1, 2, figsize=(6.4, 2.3))
+    fig, axes = plt.subplots(1, 2, figsize=(6.4, 2.8))
     for label, runs, col in irf_rows:
         mean, ci, *_ = impulse_pooled(runs)
         k = np.arange(len(mean))[:9]
@@ -226,8 +227,9 @@ if irf_rows:
         ax.set_xlabel("Periods after the deviation")
     axes[0].set_ylabel("Rivals' change in intensity")
     axes[1].set_ylabel("Deviator's change in profit")
-    axes[0].legend(fontsize=6.5, loc="upper right")
-    fig.tight_layout()
+    h, l = axes[0].get_legend_handles_labels()
+    fig.legend(h, l, loc="lower center", ncol=3, fontsize=7, frameon=False)
+    fig.tight_layout(rect=(0, 0.16, 1, 1))
     fig.savefig(os.path.join(FIG, "fig_deviation.pdf"))
     plt.close(fig)
 
@@ -458,6 +460,44 @@ if design_rows:
         lines.append(f"{LABELS.get(tag, tag)} & ${pm(*di[:2])}$ & ${pm(*dp[:2])}$ & ${rv}$ & ${gn}$ \\\\")
     lines += ["\\bottomrule", "\\end{tabular}"]
     open(os.path.join(ROOT, "paper", "table_design.tex"), "w").write("\n".join(lines))
+
+# ------------------------------------------------- Figure: interventions
+bars = []
+base = sel(exp5, memory="residual", gamma=0.95)
+if base:
+    bars.append(("Baseline: remembers rivals", base, C["strategic"], "baseline"))
+by_tag = {os.path.basename(r["_file"])[:-5]: r for r in exp9}
+for tag, lab, grp in (("opaque_residual", "Reduced transparency", "information"),
+                      ("random35", "Uninformative random memory", "information"),
+                      ("passive2_residual", "Two passive Nash traders", "market"),
+                      ("counterfactual_residual", "Counterfactual updates", "learning"),
+                      ("counterfactual_none", "Counterfactual, no memory", "learning")):
+    if tag in by_tag:
+        col = {"information": C["flow"], "market": C["grey"], "learning": C["none"]}[grp]
+        bars.append((lab, [by_tag[tag]], col, grp))
+vis = sel(exp3, memory="residual", schedule="visits")
+if vis:
+    bars.append(("Decaying step sizes", vis, C["myopic"], "learning"))
+if len(bars) > 1:
+    fig, ax = plt.subplots(figsize=(6.2, 2.5))
+    ys = np.arange(len(bars))[::-1]
+    for y, (lab, runs, col, grp) in zip(ys, bars):
+        m, c, _ = pooled(runs, "delta_intensity")
+        ax.barh(y, m, xerr=c, color=col, height=0.6, capsize=2, error_kw={"lw": 0.8})
+        ax.text(m + (0.03 if m >= 0 else -0.03), y, f"{m:.2f}", va="center",
+                ha="left" if m >= 0 else "right", fontsize=8)
+    ax.set_yticks(ys, [b[0] for b in bars])
+    ax.axvline(0, color="k", lw=0.6)
+    ax.axvline(1, color=C["grey"], lw=0.6, ls="--")
+    ax.set_xlim(-0.85, 1.15)
+    ax.set_xlabel("Collusion index Δ (trading intensity):  0 = Nash,  1 = cartel")
+    from matplotlib.patches import Patch
+    ax.legend(handles=[Patch(color=C["flow"], label="information"), Patch(color=C["grey"], label="market structure"),
+                       Patch(color=C["none"], label="learning rule"), Patch(color=C["myopic"], label="step-size schedule")],
+              fontsize=6.5, loc="lower right")
+    fig.tight_layout()
+    fig.savefig(os.path.join(FIG, "fig_design.pdf"))
+    plt.close(fig)
 
 # ------------------------------------------------ Appendix: robustness table
 exp1 = load("exp1/q_*.json")

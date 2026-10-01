@@ -326,6 +326,53 @@ if exp7:
         if sh and runs:
             macro(key + "Shock", fmt(sh["d_beta_all"][1] / runs[0]["benchmarks"]["beta_nash"], 3))
 
+# --------------------------------------- Figure: deviation detectability (theory)
+import sys  # noqa: E402
+
+sys.path.insert(0, os.path.join(ROOT, "src"))
+from kylecollusion.theory import deviation_gap, kyle_benchmarks  # noqa: E402
+
+xis = np.logspace(-1, 4, 200)
+fig, ax = plt.subplots(figsize=(3.4, 2.4))
+for I, col in ((2, C["strategic"]), (3, C["myopic"]), (5, C["none"])):
+    snr = [deviation_gap(kyle_benchmarks(I, 1.0, 0.1, xi=x, theta=0.1)) / 0.1 for x in xis]
+    ax.loglog(xis, snr, color=col, lw=1.4, label=f"I = {I}")
+    ax.axhline((I - 1) / (2 * I), color=col, lw=0.6, ls=":")
+ax.axhline(1.0, color="k", lw=0.6)
+ax.text(0.12, 1.25, "deviation = 1 noise sd", fontsize=7)
+ax.axvline(500, color=C["grey"], lw=0.6, ls="--")
+ax.text(430, 2e3, "Dou et al.\nξ = 500", fontsize=7, color=C["grey"], ha="right")
+ax.set_xlabel("Information-insensitive investors ξ")
+ax.set_ylabel("Deviation signal-to-noise")
+ax.legend(fontsize=7, loc="upper left")
+ax.set_ylim(0.1, 3e4)
+fig.tight_layout()
+fig.savefig(os.path.join(FIG, "fig_snr.pdf"))
+plt.close(fig)
+
+# -------------------------------------- Figure: single-trader pruning mechanism
+mech_f = os.path.join(RES, "mechanism", "single_trader.json")
+if os.path.exists(mech_f):
+    mech = json.load(open(mech_f))
+    fig, ax = plt.subplots(figsize=(3.4, 2.4))
+    for upd, col, lab in (("taken", C["strategic"], "standard Q-learning"),
+                          ("counterfactual", C["none"], "counterfactual updates")):
+        a = mech["alphas"]
+        m = [mech["results"][f"{upd}_{x}"]["mean"] for x in a]
+        c = [mech["results"][f"{upd}_{x}"]["ci95"] for x in a]
+        ax.errorbar(a, m, yerr=c, color=col, marker="o", ms=4, lw=1.2, capsize=2, label=lab)
+    ax.axhline(1.0, color="k", lw=0.6)
+    ax.set_xscale("log")
+    ax.set_xlabel("Step size α")
+    ax.set_ylabel("Learned / optimal intensity")
+    ax.legend(fontsize=7)
+    fig.tight_layout()
+    fig.savefig(os.path.join(FIG, "fig_mechanism.pdf"))
+    plt.close(fig)
+    for upd, tag in (("taken", "Taken"), ("counterfactual", "Cf")):
+        for x, name in zip(mech["alphas"], ("A", "B", "C", "D", "E")):
+            macro(f"Mech{tag}{name}", fmt(mech["results"][f"{upd}_{x}"]["mean"]))
+
 # ----------------------------------------------------------- misc numbers
 if exp3:
     r = sel(exp3, memory="residual", schedule="const")

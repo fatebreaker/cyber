@@ -275,6 +275,7 @@ for mem, runs in visits.items():
 exp10 = load("exp10_shared/*.json")
 exp11 = load("exp11_dou_gridprice/*.json")
 exp12 = load("exp12_dou_seeds/*.json")
+exp13 = load("exp13_seeds/*.json")
 
 
 def tag_of(r):
@@ -289,10 +290,13 @@ def dou_runs(xi, gamma, memory="price", shared=False, binning=None):
         return (abs(r["config"]["xi"] - xi) < 1e-9 and r["config"]["memory"] == memory
                 and abs(r["agent_kwargs"].get("gamma", 0.95) - gamma) < 1e-9
                 and bool(r["agent_kwargs"].get("shared", False)) == shared)
+    def binning_of(r):
+        return r["config"].get("price_bins", "noise")
     if memory == "price" and xi == 500.0 and binning != "noise":
-        return [r for r in exp11 + exp12 if match(r)]
-    pool = exp10 if shared else exp7
-    return [r for r in pool if match(r)]
+        return [r for r in exp11 + exp12 + exp13 if match(r) and binning_of(r) == "grid"]
+    pool = (exp10 if shared else exp7) + exp13
+    return [r for r in pool if match(r) and (memory != "price" or binning_of(r) == "noise")
+            and r["config"].get("sigma_u") == 0.1]
 
 
 def shock_pooled(runs, devs, lag=1):
@@ -458,16 +462,19 @@ NAMES = {
     "dqn_g095": "Dqn", "dqn_g0": "DqnMyopic", "ppo_g095": "Ppo", "ppo_g0": "PpoMyopic",
 }
 design_rows = []
-for r in exp9 + exp8:
-    tag = os.path.basename(r["_file"])[:-5]
+groups: dict[str, list] = {}
+for r in exp9 + exp8 + [x for x in exp13 if os.path.basename(x["_file"])[:-5] in NAMES]:
+    groups.setdefault(os.path.basename(r["_file"])[:-5], []).append(r)
+for tag, grp in groups.items():
     key = NAMES.get(tag)
     if not key:
         continue
+    r = grp  # list of seeds
     for metric, t in (("delta_intensity", "Int"), ("delta_profit", "Profit"), ("delta_info", "Info")):
-        m, c, _ = pooled([r], metric)
+        m, c, _ = pooled(r, metric)
         macro(f"{key}Delta{t}", fmt(m))
         macro(f"{key}Delta{t}CI", fmt(c))
-    imp = impulse_pooled([r])
+    imp = impulse_pooled(r)
     if imp:
         macro(f"{key}RivalLagOne", fmt(imp[0][1], 3))
         macro(f"{key}RivalLagOneCI", fmt(imp[1][1], 3))
@@ -491,8 +498,8 @@ if design_rows:
              "Treatment ($\\xi=0$, $I=2$) & $\\Delta$ intensity & $\\Delta$ profit & Rival $\\Delta\\beta_1$ & Deviator gain \\\\",
              "\\midrule"]
     for tag, key, r, imp in design_rows:
-        di = pooled([r], "delta_intensity")
-        dp = pooled([r], "delta_profit")
+        di = pooled(r, "delta_intensity")
+        dp = pooled(r, "delta_profit")
         rv = pm(imp[0][1], imp[1][1], 3) if imp else "--"
         gn = pm(imp[2], imp[3], 3) if imp else "--"
         lines.append(f"{LABELS.get(tag, tag)} & ${pm(*di[:2])}$ & ${pm(*dp[:2])}$ & ${rv}$ & ${gn}$ \\\\")
@@ -504,14 +511,14 @@ bars = []
 base = sel(exp5, memory="residual", gamma=0.95)
 if base:
     bars.append(("Baseline: remembers rivals", base, C["strategic"], "baseline"))
-by_tag = {os.path.basename(r["_file"])[:-5]: r for r in exp9}
+by_tag = groups  # tag -> list of seeds
 for tag, lab, grp in (("opaque_residual", "Reduced transparency", "information"),
                       ("random35", "Uninformative random memory", "information"),
                       ("counterfactual_residual", "Counterfactual updates", "learning"),
                       ("counterfactual_none", "Counterfactual, no memory", "learning")):
     if tag in by_tag:
         col = {"information": C["flow"], "market": C["grey"], "learning": C["none"]}[grp]
-        bars.append((lab, [by_tag[tag]], col, grp))
+        bars.append((lab, by_tag[tag], col, grp))
 vis = sel(exp3, memory="residual", schedule="visits")
 if vis:
     bars.append(("Decaying step sizes", vis, C["myopic"], "learning"))
@@ -536,11 +543,11 @@ if len(bars) > 1:
     fig.savefig(os.path.join(FIG, "fig_design.pdf"))
     plt.close(fig)
 
-pas = by_tag.get("passive2_residual")
-if pas:
-    a = np.array(pas["per_session"]["agg_intensity"])
-    p = np.array(pas["per_session"]["profit"])
-    b = pas["benchmarks"]
+pas_runs = by_tag.get("passive2_residual")
+if pas_runs:
+    a = np.concatenate([np.array(x["per_session"]["agg_intensity"]) for x in pas_runs])
+    p = np.concatenate([np.array(x["per_session"]["profit"]) for x in pas_runs])
+    b = pas_runs[0]["benchmarks"]
     macro("PassiveAgg", fmt(a.mean()))
     macro("PassiveAggNash", fmt(b["agg_nash"]))
     macro("PassiveAggColl", fmt(b["agg_coll"]))

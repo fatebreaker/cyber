@@ -285,6 +285,11 @@ INPUT ./figures/fig_dou.pdf
 INPUT ./sections/results_design.tex
 INPUT ./sections/results_design.tex
 INPUT sections/results_design.tex
+INPUT ./figures/fig_alpha.pdf
+INPUT ./figures/fig_alpha.pdf
+INPUT ./figures/fig_alpha.pdf
+INPUT ./figures/fig_alpha.pdf
+INPUT ./figures/fig_alpha.pdf
 INPUT ./figures/fig_design.pdf
 INPUT ./figures/fig_design.pdf
 INPUT ./figures/fig_design.pdf

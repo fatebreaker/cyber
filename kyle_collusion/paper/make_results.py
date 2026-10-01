@@ -253,14 +253,12 @@ if alpha_pts:
         if mem not in alpha_pts:
             continue
         a, m, c = zip(*alpha_pts[mem])
-        ax.errorbar(a, m, yerr=c, color=col, marker="o", ms=4, lw=1.2, capsize=2, label=f"constant α, {lab}")
-        if visits.get(mem):
-            vm, vc, _ = pooled(visits[mem], "delta_intensity")
-            ax.errorbar([0.34], [vm], yerr=[vc], color=col, marker="s", ms=4, mfc="white", capsize=2)
+        ax.errorbar(a, m, yerr=c, color=col, marker="o", ms=4, lw=1.2, capsize=2, label=lab)
     ax.axhline(0, color="k", lw=0.6)
-    ax.set_xlabel("Step size α   (open squares: decaying step size)")
+    ax.axhline(1, color=C["grey"], lw=0.6, ls="--")
+    ax.set_xlabel("Step size α  (γ = 0.95)")
     ax.set_ylabel("Δ intensity")
-    ax.legend(fontsize=6.5)
+    ax.legend(fontsize=6.5, loc="lower right")
     fig.tight_layout()
     fig.savefig(os.path.join(FIG, "fig_alpha.pdf"))
     plt.close(fig)

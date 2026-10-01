@@ -19,8 +19,15 @@ between forward-looking learners with and without memory
 more states mean fewer updates per entry and more room for the selection effect
 of Section~\ref{sec:mechanism}, not more information to coordinate on.
 
-\paragraph{Learning design matters.} Two changes to the learning rule move the
-outcome substantially. Counterfactual updating, which removes the selection
+\paragraph{Learning design matters.} The step size alone sets the level of the
+outcome (Figure~\ref{fig:alpha}): with residual memory the index is
+$\AlphaResidLow$, $\AlphaResidMid$ and $\AlphaResidHigh$ at $\alpha=0.05$,
+$0.15$ and $0.3$, and without memory $\AlphaNoneLow$, $\AlphaNoneMid$ and
+$\AlphaNoneHigh$, running from competition to beyond the cartel, with no
+punishment at any step size. A strategic equilibrium would not move with a
+learning parameter in this way; the square-root law of
+Section~\ref{sec:mechanism} predicts that it should. Two further changes to
+the learning rule move the outcome substantially. Counterfactual updating, which removes the selection
 effect, eliminates the supracompetitive outcome: forward-looking learners end
 at $\Delta=\CfResidDeltaInt$ with residual memory and $\CfNoneDeltaInt$ without,
 that is, at (marginally beyond) the competitive level, with price
@@ -48,6 +55,15 @@ under-trade whichever side of Nash the collusive outcome lies on, which is what 
 learning bias predicts and the opposite of what collusion predicts. (In the
 collusion index this appears as $\Delta=\PassiveDeltaInt$, which is why
 Table~\ref{tab:design} should be read with the benchmarks in mind.)
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.45\linewidth]{figures/fig_alpha.pdf}
+  \caption{The collusion index rises with the constant step size $\alpha$
+  (standard Kyle market, $\gamma=0.95$, 200 markets per point). No
+  configuration punishes deviations.}
+  \label{fig:alpha}
+\end{figure}
 
 \begin{figure}[t]
   \centering

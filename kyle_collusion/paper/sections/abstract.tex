@@ -1,34 +1,24 @@
 \begin{abstract}
-Reinforcement-learning traders often settle on supracompetitive outcomes
-without communicating: in Kyle markets, Q-learning informed traders trade far
-less than competition implies, earning near-cartel profits and making prices
-less informative. Whether this is \emph{collusion}, an outcome sustained by
-the threat of punishment, or a \emph{learning bias} that prunes aggressive
-actions matters for policy: the first calls for limits on transparency, the
-second for standards on algorithm design. We develop diagnostics that separate
-the two: a paired rival-deviation test, a noise-shock test, a no-memory
-control, learning-rate sensitivity, and a new \emph{myopic placebo} that
-retrains the same learners with no concern for the future and therefore no
-reason to punish. We show analytically that in the standard Kyle market a
-one-period deviation moves order flow by only $(I-1)/(2I)$ noise standard
-deviations per unit of the value signal, whatever the volume of noise
-trading, while with a large mass of information-insensitive investors the
-ratio is in the hundreds, which explains why punishment-based collusion has
-been reported only in that regime. In simulations with hundreds of
-independent markets per configuration, Q-learners in the standard Kyle market
-close on average \ResidDeltaInt{} of the gap between competition and the cartel, yet
-rivals never punish deviations, even with perfect monitoring of each other's
-orders, and deviating always pays. The myopic placebo, which cannot collude, trades even less
-(index \MyopicResidDeltaInt{}, beyond the cartel), and a single trader with no
-rival under-trades by up to 57\%, a shortfall proportional to the square root
-of the step size. Interventions confirm the diagnosis: reducing
-transparency leaves trading unchanged (\OpaqueDeltaInt{}), an uninformative
-random memory of the same size reproduces the outcome (\RandomMemDeltaInt{}),
-and counterfactual updating restores competition (\CfResidDeltaInt{}). In the
-regime with information-insensitive investors, where deviations are hundreds of
-noise standard deviations large, separate-table Q-learners still do not punish,
-and with a shared Q-table the myopic placebo reproduces the threshold-shaped
-response to price shocks that has been read as a price trigger. We release a
+Q-learning informed traders in Kyle markets trade far less than competition
+implies, earning supracompetitive profits and making prices less informative.
+Whether this is \emph{collusion}, sustained by the threat of punishment, or a
+\emph{learning bias} that prunes aggressive orders matters for policy: the
+first calls for limits on transparency, the second for standards on algorithm
+design. We separate the two with a paired rival-deviation test and three
+placebos that cannot collude: myopic learners, an uninformative memory, and
+passive traders that move the cartel above Nash. Analytically, a one-period
+deviation in the standard Kyle market moves order flow by only $(I-1)/(2I)$
+noise standard deviations per unit of the value signal, whatever the noise
+volume; with many information-insensitive investors the ratio is in the
+hundreds. In simulations, Q-learners close \ResidDeltaInt{} of the gap from
+competition to the cartel, yet never punish deviations, even with perfect
+monitoring, and deviating pays. Myopic learners trade even less
+(\MyopicResidDeltaInt{}), an uninformative memory reproduces the outcome, and
+with passive traders learners trade half their Nash intensity although
+collusion would mean trading more. A lone trader with no rival under-trades by
+up to 57\%, in proportion to the square root of the step size. Reducing
+transparency changes nothing (\OpaqueDeltaInt{}); counterfactual updating
+restores competition (\CfResidDeltaInt{}). \DouAbstractSentence{} We release a
 validated, CPU-only testbed with exact benchmarks, tabular and deep RL agents,
 and all diagnostics.
 \end{abstract}

@@ -48,10 +48,17 @@ any kind appears, as they report for over-pruning.
 What we cannot reproduce is therefore the evidence that separates their
 price-trigger regime from over-pruning: the level of collusion, the
 dependence on the lagged price, and a shock response that a myopic learner
-does not share. The remaining difference in protocol is the market maker,
-and their convergence criterion (strategies unchanged for $10^6$ periods)
-rather than a fixed horizon; either could matter, and we do not claim that
-price-trigger collusion cannot arise under their exact design. Our claim is
+does not share. Two differences in protocol remain. Their market maker
+estimates the investors' demand slope and $\mathbb E[v\mid y]$ by least squares
+over the last $10^4$ periods; since that demand is deterministic, the slope is
+recovered exactly and the pricing rule differs from ours only in weighting
+past data equally over $10^4$ periods rather than exponentially with a
+half-life of $2{,}000$. The larger difference is their stopping rule: each
+session runs until greedy strategies are unchanged for $10^6$ periods, which
+takes up to $5\times10^{10}$ periods, whereas on-path strategies in our runs
+still change ($\FaPolicyChange$ of entries over the last $10^7$ periods).
+Longer training could matter, and we do not claim that price-trigger
+collusion cannot arise under their exact design. Our claim is
 narrower: under a protocol that matches theirs in every element of the
 learning algorithm and state, the signatures that would identify punishment
 either do not appear or appear equally in a learner that cannot punish.

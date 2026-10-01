@@ -126,3 +126,29 @@ and Dou et al.'s own regime classification (over-pruning only at xi = 0).
    that only starts after exploration has faded, and a final pure-exploitation
    phase.
 4. Then: more I and algorithms (DQN, PPO), and the intervention sweep.
+
+## exp5: myopic placebo 2x2 (Q const alpha 0.15, beta 1e-6, 6M steps, 200 sessions x 3 seeds)
+
+| | no memory | residual memory |
+|---|---|---|
+| gamma 0.95 | 0.24 (Delta profit 0.17) | 0.87 (Delta profit 0.46) |
+| gamma 0 (myopic) | 1.27 (Delta profit -0.03) | 1.24 (Delta profit -0.01) |
+
+Myopic learners, which cannot collude, trade below the cartel (Delta > 1) with
+competitive profits. Memory matters only for forward-looking learners, and the
+deviation test still finds no punishment there. Open question: why memory
+raises under-trading for gamma = 0.95. Candidate: state-space size (fewer
+updates per entry). Test: memory="random" with 35 states in exp9.
+
+## Single-trader mechanism (I = 1, lambda frozen, no rival)
+
+- Step size (gamma 0): learned/optimal 0.87, 0.81, 0.71, 0.57, 0.43 for alpha
+  0.02-0.4; shortfall = 0.91 sqrt(alpha), R^2 0.994. Counterfactual updates:
+  1.00-1.01 at every alpha.
+- Discount factor (alpha 0.15): 0.64, 0.73, 0.82, 0.89 for gamma 0, 0.5, 0.8,
+  0.95. Continuation-value noise is action-independent and dilutes the
+  size-dependent payoff noise behind the pruning.
+- Irrelevant random states (gamma 0.95): 0.89, 0.84, 0.91, 0.98 for 1, 7, 35,
+  155 states. Inconclusive: with lambda frozen the Q initialisation is exactly
+  the true expected profit, and with many states most entries stay near it in a
+  300k-period run. Not used; the market version (exp9 random35) is the test.

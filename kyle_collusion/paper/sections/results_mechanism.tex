@@ -22,7 +22,8 @@ estimates. An order whose estimate dips below the greedy order is updated only
 during exploration, so the dip persists; an order whose estimate rises is
 chosen and quickly corrected. The asymmetry acts like a penalty proportional
 to $\sqrt\alpha\,\lambda\sigma_u|x|$, which shifts the learned order toward
-zero by an amount proportional to $\sqrt\alpha$. Counterfactual updates remove
+zero by an amount proportional to $\sqrt\alpha$ (Appendix~\ref{app:sqrt}
+gives a heuristic derivation). Counterfactual updates remove
 the selection, because every order is updated every period.
 
 The bias also depends on the discount factor (Figure~\ref{fig:mechanism}b).

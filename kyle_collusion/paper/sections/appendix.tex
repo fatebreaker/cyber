@@ -35,6 +35,43 @@ and $\mathrm{SNR}=\xi\sigma_v(I-1)/(4I\sigma_u)(1+o(1))$. Numerically, the exact
 ratio at $I=2$, $\sigma_v=1$, $\sigma_u=0.1$, $\theta=0.1$ is $62.49$, $625.00$
 and $6250.0$ for $\xi=50,500,5000$. \qed
 
+\section{Why pruning scales with $\sqrt{\alpha}$: a heuristic}
+\label{app:sqrt}
+
+Consider one trader, value $v>0$, a fixed price rule with impact $\lambda$,
+and orders $x$ with expected profit $\mu(x)=vx-\lambda x^2$ and payoff noise
+$\sigma(x)=\lambda\sigma_u x$. With a constant step size, the estimate of an
+order updated at every visit is an exponentially weighted average of past
+payoffs, with stationary standard deviation
+$s(x)=\sigma(x)\sqrt{\alpha/(2-\alpha)}\approx\sigma(x)\sqrt{\alpha/2}$.
+
+Under $\varepsilon$-greedy play the greedy order is updated almost every
+period, so its estimate stays close to $\mu$. A competing order is updated
+only when explored, so after an update its estimate stays frozen for a long
+time. If the frozen estimate is below the greedy one the order stays
+non-greedy until the next exploration; if it is above, the order becomes
+greedy, is updated repeatedly, and its estimate is pulled back to $\mu$. The
+greedy order is therefore, roughly, the one that keeps winning these
+comparisons, which favours orders whose estimates are \emph{reliably} high:
+to first order the learner behaves as if it maximised
+$\mu(x)-c\,s(x)$ for a constant $c>0$ that depends on the exploration
+schedule. With $s(x)\propto\sqrt\alpha\,\lambda\sigma_u x$, the maximiser is
+\[
+x^\ast_\alpha=\frac{v-c'\sqrt\alpha\,\lambda\sigma_u}{2\lambda},
+\qquad
+1-\frac{x^\ast_\alpha}{x^\ast_0}=c'\sqrt\alpha\,\frac{\lambda\sigma_u}{v},
+\]
+a shortfall linear in $\sqrt\alpha$, as found in
+Figure~\ref{fig:mechanism}a ($R^2=\MechSqrtRsq$). Counterfactual updates
+refresh every order every period, so no order is ever frozen and the
+selection disappears. With $\gamma>0$, each target also carries
+continuation-value noise that does not depend on $x$; this raises $s(x)$
+equally for all orders and makes the comparison less sensitive to the
+size-dependent part, which is why the shortfall shrinks with $\gamma$
+(Figure~\ref{fig:mechanism}b). We do not offer this as a proof; it is the
+intuition behind the selection effect, and the experiments test its
+predictions.
+
 \section{Robustness}
 \label{app:robust}
 

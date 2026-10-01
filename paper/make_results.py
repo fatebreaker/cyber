@@ -711,6 +711,47 @@ for tag, key in (("shared_g095_200M", "LongShared"), ("shared_g0_200M", "LongSha
         if "policy_change_onpath" in r[0]["summary"]:
             macro(f"{key}PolicyChange", fmt(r[0]["summary"]["policy_change_onpath"]["mean"], 3))
 
+# ---------------------------- faithful Dou et al. protocol (exp16, 4e8 periods)
+exp16 = {tag_of(r): r for r in load("exp16_dou_faithful/*.json")}
+for tag, key in (("price_g095_lownoise", "Fa"), ("price_g0_lownoise", "FaMyopic"),
+                 ("value_g095_lownoise", "FaNoPrice"), ("price_g095_highnoise", "FaHigh")):
+    if tag in exp16:
+        r = [exp16[tag]]
+        for metric, t in (("delta_intensity", "Int"), ("delta_profit", "Profit")):
+            m, c, _ = pooled(r, metric)
+            macro(f"{key}Delta{t}", fmt(m))
+            macro(f"{key}Delta{t}CI", fmt(c))
+        for devs, sfx in ((0.05, "ShockSmall"), (0.25, "ShockMid"), (1.0, "ShockLarge")):
+            sm, sc = shock_pooled(r, devs)
+            macro(f"{key}{sfx}", fmt(sm))
+            macro(f"{key}{sfx}CI", fmt(sc))
+        rv = rival_pct(r)
+        macro(f"{key}Rival", fmt(rv[0]))
+        macro(f"{key}RivalCI", fmt(rv[1]))
+        macro(f"{key}Gain", fmt(rv[2]))
+        macro(f"{key}GainCI", fmt(rv[3]))
+        if "policy_change_onpath" in r[0]["summary"]:
+            macro(f"{key}PolicyChange", fmt(r[0]["summary"]["policy_change_onpath"]["mean"], 3))
+if exp16:
+    rows = [("Price memory, $\\gamma=0.95$ (their baseline)", "price_g095_lownoise"),
+            ("Price memory, $\\gamma=0$ (myopic placebo)", "price_g0_lownoise"),
+            ("Lagged value only, $\\gamma=0.95$ (their control)", "value_g095_lownoise"),
+            ("Price memory, $\\gamma=0.95$, $\\sigma_u=100$", "price_g095_highnoise")]
+    lines = ["\\begin{tabular}{lcccccc}", "\\toprule",
+             "Learners ($\\xi=500$) & $\\Delta$ profit & $\\Delta$ intensity & Shock 0.05 & Shock 0.25 & Shock 1 & Rival reaction \\\\",
+             "\\midrule"]
+    for lab, tag in rows:
+        if tag not in exp16:
+            continue
+        r = [exp16[tag]]
+        dp, di = pooled(r, "delta_profit"), pooled(r, "delta_intensity")
+        sh = [shock_pooled(r, d) for d in (0.05, 0.25, 1.0)]
+        rv = rival_pct(r)
+        lines.append(f"{lab} & ${pm(*dp[:2])}$ & ${pm(*di[:2])}$ & " + " & ".join(f"${pm(*x)}$" for x in sh)
+                     + f" & ${pm(rv[0], rv[1])}$ \\\\")
+    lines += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(ROOT, "paper", "table_faithful.tex"), "w").write("\n".join(lines))
+
 # ------------------------------------- Figure: sustainability of collusion
 sus_f = os.path.join(RES, "theory", "sustain.json")
 if os.path.exists(sus_f):

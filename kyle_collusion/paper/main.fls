@@ -266,6 +266,14 @@ INPUT sections/results_dou.tex
 INPUT ./sections/results_shared.tex
 INPUT ./sections/results_shared.tex
 INPUT sections/results_shared.tex
+INPUT ./table_shared.tex
+INPUT ./table_shared.tex
+INPUT table_shared.tex
+INPUT ./figures/fig_shared.pdf
+INPUT ./figures/fig_shared.pdf
+INPUT ./figures/fig_shared.pdf
+INPUT ./figures/fig_shared.pdf
+INPUT ./figures/fig_shared.pdf
 INPUT ./table_dou.tex
 INPUT ./table_dou.tex
 INPUT table_dou.tex
@@ -303,6 +311,9 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT ./sections/appendix_rare.tex
+INPUT ./sections/appendix_rare.tex
+INPUT sections/appendix_rare.tex
 INPUT ./table_robust.tex
 INPUT ./table_robust.tex
 INPUT table_robust.tex

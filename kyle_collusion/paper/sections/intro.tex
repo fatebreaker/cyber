@@ -69,7 +69,10 @@ informed traders in the canonical \citet{kyle1985} market and in the
   to the learning rule alone, restores competition ($\Delta=\CfResidDeltaInt$).
   In the \citet{dou2025} regime, where deviations are glaring, our
   separate-table learners match the independent replication's collusion
-  level ($\DouStratDeltaInt$) and still do not punish.\SharedIntroSentence{}
+  level ($\DouStratDeltaInt$) and still do not punish. With a shared Q-table, a \emph{myopic} learner
+  reproduces both the high collusion index ($\SharedDouMyopicDeltaInt$) and the
+  threshold-shaped response to noise shocks that has been read as a price
+  trigger, so that signature does not identify collusion without a placebo.
 \item \textbf{An open testbed.} A batched, CPU-only simulator with exact
   benchmarks, tabular Q-learning, DQN and PPO agents, all diagnostics, and a
   test suite that validates the economics and the diagnostics against

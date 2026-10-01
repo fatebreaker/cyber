@@ -16,15 +16,10 @@ decides whether punishment is even feasible: in the standard Kyle market a
 deviation is a fraction of a noise standard deviation
 (Proposition~\ref{prop:snr}).
 
-\paragraph{Implications for auditing algorithms.} Our results suggest a
-simple protocol before treating a supracompetitive outcome as collusion:
-(i) run a paired deviation test and check that deviating does not pay;
-(ii) retrain the algorithm myopically and check that the outcome and any
-response to shocks disappear; (iii) replace its informative state by an
-uninformative one of the same size; and (iv) check whether the outcome
-survives a change to the update rule that removes selection effects. Each
-step can fail, and a genuine punishment scheme would pass all four. None of
-the outcomes we study does.
+\paragraph{Implications for auditing algorithms.} Section~\ref{sec:audit}
+turns the diagnostics into a protocol. Its value is that every step can fail:
+applied to the \citet{calvano2020} baseline it finds punishment, and applied
+to informed traders it does not.
 
 \paragraph{Implications for policy.} If supracompetitive trading is a learning
 bias, interventions aimed at collusion through information, such as delayed or

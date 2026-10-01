@@ -35,6 +35,40 @@ and $\mathrm{SNR}=\xi\sigma_v(I-1)/(4I\sigma_u)(1+o(1))$. Numerically, the exact
 ratio at $I=2$, $\sigma_v=1$, $\sigma_u=0.1$, $\theta=0.1$ is $62.49$, $625.00$
 and $6250.0$ for $\xi=50,500,5000$. \qed
 
+\paragraph{Proposition~\ref{prop:trigger}.} In the collusive regime a
+trader earns $\pi(b)$ today; with probability $1-q_0$ the regime continues and
+with probability $q_0$ a punishment phase of $T$ periods at $\pi^N$ starts,
+after which the regime resumes. Hence
+$V=\pi(b)+\delta(1-q_0)V+\delta q_0(\pi^Nw_T+\delta^TV)$, which gives the
+expression for $V$. A one-period deviation at value $v$ earns $\pi(b)+g(v)$
+today, with $\pi(b)$ replaced by its value-$v$ counterpart, and triggers
+punishment with probability $q_1(v)$. It is unprofitable iff
+$g(v)\le\delta(q_1-q_0)\big[V-(\pi^Nw_T+\delta^TV)\big]
+=\delta(q_1-q_0)(1-\delta^T)\big(V-\pi^N/(1-\delta)\big)$. By the one-shot
+deviation principle it suffices to check one-period deviations from the
+collusive regime; during punishment, static Nash play is a stage
+equilibrium, so no deviation pays there. Profits are evaluated with
+$\lambda$ fixed at its on-path value during the deviation period, since the
+market maker's estimate moves by a fraction $1-2^{-1/2000}$ per period, and
+with the rational $\lambda^N$ during punishment. In
+Figure~\ref{fig:sustain}, $b$ is scanned on 400 points from $\beta^C$ to
+$\beta^N$, $k$ on a grid from $-3$ to $6$ in steps of $0.05$, and $v$ ranges
+over the value grid used in the experiments. \qed
+
+\paragraph{Proposition~\ref{prop:anypun}.} Fix any strategy profile and a
+history at which the path prescribes $b$, and let $W(\omega)$ be the
+deviator's continuation value as a function of everything observed at the
+end of the period, $\omega$. Under conformity and deviation $\omega$ has
+distributions $P_0$ and $P_1$ that differ only through aggregate order flow,
+which is Gaussian with the same variance $\sigma_u^2$ and means that differ by
+$(\beta^d-b)v$. For any $W$ with values in $[W_{\min},W_{\max}]$,
+$\mathbb E_{P_0}W-\mathbb E_{P_1}W\le \mathrm{TV}(P_0,P_1)(W_{\max}-W_{\min})$,
+and $\mathrm{TV}=2\Phi(d(v)/2)-1$ for two Gaussians whose means differ by $d$
+standard deviations. Since a trader can guarantee zero by not trading,
+$W_{\min}\ge0$; since with rational pricing the learners' joint profit never
+exceeds $I\pi^C$ per period, $W_{\max}\le I\pi^C/(1-\delta)$. The deviation is
+unprofitable only if $g(v)\le\delta\,\mathrm{TV}\,(W_{\max}-W_{\min})$. \qed
+
 \section{Why pruning scales with $\sqrt{\alpha}$: a heuristic}
 \label{app:sqrt}
 

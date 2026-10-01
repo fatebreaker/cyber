@@ -1,0 +1,13 @@
+\begin{tabular}{lllccccl}
+\toprule
+Market & Learners & $\Delta$ & Rival responds & Deviating & Placebo $\Delta$ (no punishment possible) & Counterfactual $\Delta$ & Verdict \\
+\midrule
+Logit Bertrand & memory one & $\BertBase$ & yes ($\BertBaseRival$) & loses ($\BertBaseGain$) & myopic $\BertMyopic$, no memory $\BertNone$ & $\BertCf$ & collusion \\
+Logit Bertrand & no memory & $\BertNone$ & no & pays ($+\BertNoneGain$) & (is a placebo) & -- & learning bias \\
+Kyle, $\xi=0$ & residual memory & $\ResidDeltaInt$ & no & pays ($+\ResidGain$) & myopic $\MyopicResidDeltaInt$, random memory $\RandomMemDeltaInt$ & $\CfResidDeltaInt$ & learning bias \\
+Kyle, $\xi=0$ & perfect monitoring & $\OrdersDeltaInt$ & no & pays ($+\OrdersGain$) & as above & -- & learning bias \\
+Kyle, $\xi=500$ & separate tables & $\DouStratDeltaInt$ & no & pays & myopic $\DouMyopicDeltaInt$ & -- & learning bias \\
+Kyle, $\xi=500$ & shared table & $\SharedDouStratDeltaInt$ & no & pays & myopic $\SharedDouMyopicDeltaInt$ (reacts to shocks) & -- & learning bias \\
+Dealers & memory one & $\QuoteBaseProfit$ & \QuoteBaseRivalWord & \QuoteBaseGainWord & myopic $\QuoteMyopicProfit$, no memory $\QuoteNoneProfit$ & $\QuoteCfProfit$ & \QuoteVerdict \\
+\bottomrule
+\end{tabular}

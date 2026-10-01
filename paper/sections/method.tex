@@ -66,7 +66,29 @@ A myopic trader values only today's profit, so it gains nothing from
 punishing and fears no punishment. Its Q-values estimate immediate expected
 profit, and any systematic reaction it shows to deviations or shocks cannot be
 a punishment strategy. If myopic learners reproduce a ``collusive'' outcome or
-signature, that outcome or signature does not identify collusion.
+signature, that outcome or signature does not identify collusion. The placebo
+also has an exact benchmark:
+
+\begin{proposition}[Myopic rest points are competitive]\label{prop:myopic}
+Let $\gamma=0$ and take any rest point of learning at which each trader's
+greedy policy is fixed and its Q-values equal the expected one-period profit
+of each order given rivals' greedy play and the market maker's $\lambda$.
+Then at every memory state each greedy order is a best response on the grid
+to the rivals' orders, and the stage game (which does not depend on the
+state) has a unique equilibrium given $\lambda$, $\beta=1/((n+1)\lambda)$.
+If the market maker prices rationally, play is the Nash benchmark up to grid
+resolution.
+\end{proposition}
+
+\noindent Payoffs depend on the memory state only through what rivals do, and
+best responses $x_i=(v-\lambda\sum_{j\ne i}x_j)/(2\lambda)$ have slope
+$-1/2$, so the stage equilibrium is unique and the same in every state; the
+rational $\lambda$ given $\beta^N$ is $\lambda^N$. Consequently, whenever
+myopic learners settle away from Nash, their value estimates are biased, and
+the size of that departure measures the learning bias with no strategic
+component. The argument applies verbatim to any stage game with a unique
+equilibrium, including the logit Bertrand game of \citet{calvano2020}
+(Section~\ref{sec:validation}).
 
 \paragraph{D4: no-memory control.} With memory \emph{none}, traders cannot
 condition on the past, so no punishment strategy exists; any supracompetitive

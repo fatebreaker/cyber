@@ -675,6 +675,119 @@ if rob:
     lines += ["\\bottomrule", "\\end{tabular}"]
     open(os.path.join(ROOT, "paper", "table_robust.tex"), "w").write("\n".join(lines))
 
+# ------------------------------------- Figure: sustainability of collusion
+sus_f = os.path.join(RES, "theory", "sustain.json")
+if os.path.exists(sus_f):
+    sus = json.load(open(sus_f))
+    ds = np.array(sus["deltas"])
+    fig, axes = plt.subplots(1, 2, figsize=(6.4, 2.4), sharey=True)
+    for ax, key, title in ((axes[0], "xi0", "Standard Kyle market (ξ = 0)"),
+                           (axes[1], "xi500", "Dou et al. calibration (ξ = 500)")):
+        d = sus[key]
+        ax.plot(ds, d["any"], color=C["grey"], lw=1.2, ls="--", label="any punishment (necessary)")
+        ax.plot(ds, d["grim"], color=C["strategic"], lw=1.4, label="Nash reversion, grim")
+        ax.plot(ds, d["T1"], color=C["myopic"], lw=1.4, label="Nash reversion, one period")
+        ax.axvline(0.95, color="k", lw=0.5, ls=":")
+        ax.set_title(title)
+        ax.set_xlabel("Discount factor δ")
+        ax.set_ylim(-0.03, 1.05)
+    axes[0].set_ylabel("Most collusive sustainable Δ")
+    axes[1].legend(fontsize=7, loc="lower right")
+    fig.tight_layout()
+    fig.savefig(os.path.join(FIG, "fig_sustain.pdf"))
+    plt.close(fig)
+    i95 = sus["deltas"].index(0.95)
+    macro("SusKyleGrim", fmt(sus["xi0"]["grim"][i95]))
+    macro("SusKyleAny", fmt(sus["xi0"]["any"][i95]))
+    macro("SusDouGrim", fmt(sus["xi500"]["grim"][i95]))
+    macro("SusDouTOne", fmt(sus["xi500"]["T1"][i95]))
+    macro("SusDouTOneMax", fmt(sus["xi500"]["T1"][-1]))
+    first = [d for d, x in zip(sus["deltas"], sus["xi500"]["grim"]) if x >= 0.999]
+    macro("SusDouGrimDelta", fmt(first[0]) if first else "--")
+
+# ------------------------------- Table: diagnostics outside the Kyle market
+sys.path.insert(0, os.path.join(ROOT, "src"))
+from kylecollusion.quotes import QuoteConfig, quote_benchmarks  # noqa: E402
+
+_qb = quote_benchmarks(QuoteConfig())
+macro("QuoteAN", fmt(_qb["p_nash"]))
+macro("QuoteAM", fmt(_qb["p_mono"]))
+
+def _val_rows(market, rows):
+    out = []
+    for tag, label in rows:
+        f = os.path.join(RES, market, f"{tag}.json")
+        if not os.path.exists(f):
+            continue
+        r = json.load(open(f))
+        b = r["bench"]
+        span_p = b["p_mono"] - b["p_nash"]
+        span_pi = b["pi_mono"] - b["pi_nash"]
+        devs = r["deviation"]
+        riv = np.mean([d["d_price_rival"][1] for d in devs]) / span_p
+        rivc = np.mean([d["d_price_rival_ci95"][1] for d in devs]) / span_p
+        gain = np.mean([d["cum_gain_dev"] for d in devs]) / span_pi
+        gainc = np.mean([d["cum_gain_dev_ci95"] for d in devs]) / span_pi
+        dp = r["delta"]
+        da = r.get("delta_best_ask")
+        verdict = "punishment" if (riv + rivc < 0 and gain + gainc < 0) else "no punishment"
+        out.append((label, dp, da, (riv, rivc), (gain, gainc), verdict))
+    return out
+
+
+val_b = _val_rows("bertrand", (("baseline", "Baseline ($\\gamma=0.95$, memory)"),
+                               ("myopic", "Myopic ($\\gamma=0$)"),
+                               ("nomemory", "No memory"),
+                               ("random", "Uninformative memory"),
+                               ("noise", "Noisy profits ($\\sigma=0.1$)"),
+                               ("noise_myopic", "Noisy profits, myopic"),
+                               ("counterfactual", "Counterfactual updates")))
+val_q = _val_rows("quotes", (("baseline", "Baseline ($\\gamma=0.95$, memory)"),
+                             ("myopic", "Myopic ($\\gamma=0$)"),
+                             ("nomemory", "No memory"),
+                             ("random", "Uninformative memory"),
+                             ("counterfactual", "Counterfactual updates"),
+                             ("counterfactual_nomemory", "Counterfactual, no memory")))
+if val_b or val_q:
+    lines = ["\\begin{tabular}{lccccl}", "\\toprule",
+             "Learners & $\\Delta$ profit & $\\Delta$ best ask & Rival price response & Deviator gain & Verdict \\\\",
+             "\\midrule"]
+    for title, rows in (("\\emph{Logit Bertrand (Calvano et al.)}", val_b),
+                        ("\\emph{Dealers under adverse selection}", val_q)):
+        if not rows:
+            continue
+        lines.append(f"\\multicolumn{{6}}{{l}}{{{title}}} \\\\")
+        for label, dp, da, rv, gn, verdict in rows:
+            das = f"${pm(*da)}$" if da else "--"
+            lines.append(f"\\quad {label} & ${pm(*dp)}$ & {das} & ${pm(*rv)}$ & ${pm(*gn)}$ & {verdict} \\\\")
+    lines += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(ROOT, "paper", "table_validation.tex"), "w").write("\n".join(lines))
+    vb = {lab: x for lab, *x in val_b}
+    for tag, lab in (("Base", "Baseline ($\\gamma=0.95$, memory)"), ("Myopic", "Myopic ($\\gamma=0$)"),
+                     ("None", "No memory"), ("Random", "Uninformative memory"),
+                     ("Noise", "Noisy profits ($\\sigma=0.1$)"), ("NoiseMyopic", "Noisy profits, myopic"),
+                     ("Cf", "Counterfactual updates")):
+        if lab in vb:
+            macro(f"Bert{tag}", fmt(vb[lab][0][0]))
+            macro(f"Bert{tag}Rival", fmt(vb[lab][2][0]))
+            macro(f"Bert{tag}Gain", fmt(vb[lab][3][0]))
+    vq = {lab: x for lab, *x in val_q}
+    for tag, lab in (("Base", "Baseline ($\\gamma=0.95$, memory)"), ("Myopic", "Myopic ($\\gamma=0$)"),
+                     ("None", "No memory"), ("Random", "Uninformative memory"),
+                     ("Cf", "Counterfactual updates"), ("CfNone", "Counterfactual, no memory")):
+        if lab in vq:
+            macro(f"Quote{tag}", fmt(vq[lab][1][0]) if vq[lab][1] else "--")
+            macro(f"Quote{tag}Profit", fmt(vq[lab][0][0]))
+            macro(f"Quote{tag}Rival", fmt(vq[lab][2][0]))
+            macro(f"Quote{tag}Gain", fmt(vq[lab][3][0]))
+    base = vq.get("Baseline ($\\gamma=0.95$, memory)")
+    if base:
+        (rv, rvc), (gn, gnc), verdict = base[2], base[3], base[4]
+        responds = rv + rvc < 0
+        macro("QuoteBaseRivalWord", f"yes (${fmt(rv)}$)" if responds else "no")
+        macro("QuoteBaseGainWord", f"loses (${fmt(gn)}$)" if gn + gnc < 0 else f"pays ($+{fmt(gn)}$)")
+        macro("QuoteVerdict", "collusion" if verdict == "punishment" else "learning bias")
+
 # ----------------------------------------------------------- misc numbers
 if exp3:
     r = sel(exp3, memory="residual", schedule="const")
@@ -694,7 +807,8 @@ with open(os.path.join(ROOT, "paper", "numbers.tex"), "w") as fh:
     # paper always compiles; a missing number shows as "--".
     import re
     used = set()
-    for f in glob.glob(os.path.join(ROOT, "paper", "sections", "*.tex")):
+    for f in (glob.glob(os.path.join(ROOT, "paper", "sections", "*.tex"))
+              + glob.glob(os.path.join(ROOT, "paper", "table_*.tex"))):
         used |= set(re.findall(r"\\([A-Z][A-Za-z]+)", open(f).read()))
     for name in sorted(used - set(macros)):
         if name in {"Delta", "Large", "Big", "Longrightarrow", "Rightarrow", "Pr", "E"}:

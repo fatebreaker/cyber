@@ -1,0 +1,61 @@
+\section{An Audit Protocol}
+\label{sec:audit}
+
+The diagnostics can be assembled into a protocol for deciding whether a
+supracompetitive outcome produced by learning algorithms is collusion. It
+needs what a firm testing its own algorithm, or a supervisor with access to
+a testing environment, typically has: the ability to retrain the algorithm
+and to replay a market from a saved state. Investment firms in the European
+Union must already test trading algorithms in such environments before
+deployment \citep{rts6}, so the protocol adds questions, not infrastructure.
+
+\begin{description}
+\item[Step 1: Benchmark.] Compute the competitive and joint-profit
+  benchmarks of the environment and the collusion index $\Delta$. Only an
+  outcome with $\Delta$ clearly above zero needs the remaining steps.
+\item[Step 2: Feasibility.] Ask whether punishment could sustain the outcome
+  at all (Propositions~\ref{prop:trigger} and~\ref{prop:anypun}). An outcome
+  above what any punishment can sustain is not equilibrium collusion,
+  whatever else is true; one above what Nash reversion can sustain requires
+  harsher punishments, which Step~3 would see.
+\item[Step 3: Deviation test.] Force a one-period best-response deviation in a
+  replayed market and compare it with an undeviated copy under common random
+  numbers. Collusion predicts that rivals respond and that deviating does not
+  pay over the following periods.
+\item[Step 4: Placebos.] Retrain (a) myopically ($\gamma=0$), (b) without
+  memory and (c) with an uninformative memory of the same size. None of
+  these can sustain punishment, and by Proposition~\ref{prop:myopic} (a)
+  plays Nash if its estimates are unbiased. Collusion predicts that the
+  outcome, and any reaction to deviations or shocks, disappears.
+\item[Step 5: Learning rule.] Retrain with a different step size and with
+  counterfactual updates. An equilibrium is a property of the game and should
+  not scale with the step size; a learning bias should.
+\end{description}
+
+\noindent The verdict is \emph{collusion} if rivals respond to the deviation
+and deviating does not pay (Step 3), and the learners that cannot punish
+(Step 4) show no such response; \emph{learning bias} if deviating pays and
+the outcome is reproduced by a placebo or moves with the learning rule
+(Steps 4 and 5); and inconclusive otherwise. The verdict rests on the
+response to deviations, not on the level of prices or trading: Steps 4 and 5
+show how easily that level is produced without punishment. Each step can
+fail, and a genuine punishment scheme passes all of them.
+
+Table~\ref{tab:audit} applies the protocol to every market in this paper. It
+returns \emph{collusion} in exactly one case: the \citet{calvano2020}
+baseline. Every case among informed traders, and the memoryless pricing
+duopoly, returns \emph{learning bias}, although several of them would pass a
+test based on the price or trading level alone, and one (the myopic
+shared-table learner at $\xi=500$) would pass a test based on the reaction to
+price shocks.
+
+\begin{table}[t]
+  \centering
+  \caption{The audit protocol applied to each market. $\Delta$: profit-based
+  (Bertrand, dealers) or intensity-based (Kyle). Deviation: does the rival
+  respond and does deviating lose? Placebo: does a learner that cannot punish
+  reproduce the outcome? Rule: does the outcome change with the learning
+  rule (counterfactual updates or step size)?}
+  \label{tab:audit}
+  \resizebox{\linewidth}{!}{\input{table_audit.tex}}
+\end{table}

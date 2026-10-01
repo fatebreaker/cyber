@@ -113,3 +113,86 @@ $\xi=500$, $\theta=0.1$, $I=2$) the ratio is about $625$. Detectability
 is therefore consistent with the regime split that \citet{dou2025} report
 (over-pruning only at $\xi=0$, price triggers at $\xi=500$), although, as we
 show below, detectability alone does not make Q-learners punish.
+
+\subsection{Can trigger strategies sustain collusion?}
+\label{sec:sustain}
+
+Detectability tells us whether a deviation can be seen; whether collusion
+can be an equilibrium depends also on what a deviation gains and what
+punishment costs. We ask this in the spirit of \citet{green1984} and
+\citet{abreu1990}. On the
+collusive path every learner trades $b$ per unit of $v$ and the market maker
+prices at $\lambda(Ib)$. A deviator plays its static best response for one
+period. The market maker re-estimates price impact slowly, so its $\lambda$
+does not react within the period. Rivals observe last period's value and
+order flow and start a punishment phase when the order-flow surprise
+$\operatorname{sign}(v)(y-Ibv)$ exceeds $k\sigma_u$. Noise triggers
+punishment by mistake with probability $q_0=1-\Phi(k)$; a deviation at
+value $v$ triggers it with probability $q_1(v)=1-\Phi(k-d(v))$, where
+$d(v)=(\beta^d-b)|v|/\sigma_u$.
+
+\begin{proposition}[Nash-reversion trigger strategies]\label{prop:trigger}
+Let punishment be $T$ periods of static Nash play ($T=\infty$: grim
+trigger), and let $V$ be the value of the collusive regime including
+mistaken punishments,
+\[
+V=\frac{\pi(b)+\delta q_0\pi^N w_T}{1-\delta(1-q_0)-\delta^{T+1}q_0},\qquad
+w_T=\frac{1-\delta^T}{1-\delta}.
+\]
+Intensity $b$ is sustainable with threshold $k$ if and only if, at every value
+$v$,
+\[
+g(v)\;\le\;\delta\,\big(q_1(v)-q_0\big)\,(1-\delta^T)\Big(V-\frac{\pi^N}{1-\delta}\Big),
+\]
+where $g(v)$ is the one-period gain of the best-response deviation.
+\end{proposition}
+
+\begin{proposition}[A bound for any punishment]\label{prop:anypun}
+Whatever the strategies, a deviation at value $v$ changes the distribution of
+everything rivals observe by at most the total-variation distance
+$2\Phi(d(v)/2)-1$, and a trader's continuation value lies between $0$ (it can
+always stop trading) and $I\pi^C/(1-\delta)$ (with the market maker pricing
+rationally, no trader can earn more than the whole cartel). Hence a stationary outcome $b$ can be sustained by \emph{some}
+punishment scheme only if
+\[
+g(v)\;\le\;\frac{\delta}{1-\delta}\,\big(2\Phi(d(v)/2)-1\big)\,I\,\pi^C
+\quad\text{for every }v.
+\]
+\end{proposition}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figures/fig_sustain.pdf}
+  \caption{Most collusive outcome (in units of $\Delta$ intensity) that trigger
+  strategies can sustain, by discount factor. Solid lines: static-Nash
+  reversion with the best threshold, forever (grim) or for one period (the
+  harshest phase a memory-one strategy can run). Dashed: the necessary
+  condition of Proposition~\ref{prop:anypun}, which no scheme can beat. Dotted:
+  $\delta=0.95$, used in all experiments. Left: $\sigma_u=1$, 5 values;
+  right: \citet{dou2025}'s calibration, 10 values.}
+  \label{fig:sustain}
+\end{figure}
+
+Figure~\ref{fig:sustain} evaluates both conditions, optimising the threshold
+$k$ (proofs and computations in Appendix~\ref{app:proofs}). Three facts
+matter for what follows. First, in the standard Kyle market Nash reversion
+sustains \emph{no} collusion for any $\delta\le0.99$, grim or not: a
+deviation is less than half a noise standard deviation, so detection is weak,
+while the collusive surplus $\pi^C-\pi^N$ is small relative to the deviation
+gain, and the mistaken punishments needed to catch deviations destroy the
+surplus faster than they deter (the \citet{green1984} problem in its
+starkest form). Collusion is not impossible: the bound of
+Proposition~\ref{prop:anypun} allows full collusion at $\delta=0.95$, but only
+with punishments far harsher than reverting to Nash. Second, with many
+information-insensitive investors monitoring is almost perfect, and grim
+Nash reversion sustains full collusion once $\delta\ge\SusDouGrimDelta$.
+Third, a one-period punishment, the most a strategy that remembers one period
+can impose by reverting to Nash, sustains at most $\Delta=\SusDouTOne$ at
+$\delta=0.95$ (\SusDouTOneMax{} as $\delta\to1$): the gain from deviating at
+the largest value exceeds one period of lost surplus.
+
+These benchmarks sharpen the empirical question. In the standard market an
+outcome near the cartel can only be an equilibrium if traders punish much
+harder than Nash reversion, which the deviation test can see. In the
+\citet{dou2025} market, outcomes above $\SusDouTOne$ reached by learners that
+remember a single period cannot rest on Nash reversion either.

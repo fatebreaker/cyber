@@ -1,0 +1,71 @@
+\subsection{Do the diagnostics detect punishment where it exists?}
+\label{sec:validation}
+
+A test that always says ``no punishment'' would be useless. Before applying
+the diagnostics to traders, we run them on the case where algorithmic
+collusion is held to be sustained by punishment: the logit Bertrand duopoly
+of \citet{calvano2020}, with their baseline parameters (demand
+$a_i=2$, $a_0=0$, $\mu=1/4$, cost $1$, 15 prices spanning the Nash-to-monopoly
+range plus 10\% on each side, memory of both last prices, $\alpha=0.15$,
+$\beta=4\times10^{-6}$, $\delta=0.95$; 100 sessions, $2.5\times10^6$ periods).
+The deviation test is the one used for traders: one firm plays its static
+best response to the rival's greedy price for one period, paired with an
+undeviated copy. Table~\ref{tab:validation} reports the profit-based collusion
+index, the rival's price change one period after the deviation (in units of
+the monopoly--Nash price gap), and the deviator's discounted gain over 16
+periods (in units of the per-period monopoly--Nash profit gap).
+
+\begin{table}[t]
+  \centering
+  \caption{Diagnostics outside the Kyle market. Logit Bertrand: the
+  \citet{calvano2020} baseline and placebos. Dealers: two Q-learning market
+  makers quoting asks against informed and liquidity buyers
+  (Section~\ref{sec:dealers}). Rival response: price change one period after
+  a forced best-response deviation, relative to the monopoly--Nash price gap.
+  Deviator gain: discounted over 16 periods, relative to the per-period
+  monopoly--Nash profit gap. Verdict ``punishment'' when the rival cuts its
+  price and deviating loses, both significantly. 100 sessions; 95\% CIs.}
+  \label{tab:validation}
+  \resizebox{\linewidth}{!}{\input{table_validation.tex}}
+\end{table}
+
+The baseline reproduces \citet{calvano2020}: $\Delta=\BertBase$, and after a
+deviation the rival cuts its price ($\BertBaseRival$) and the deviator loses
+($\BertBaseGain$). The test sees punishment when it is there. The placebos
+then behave as they should, and they also show why the price level is not
+enough. Myopic learners, who by Proposition~\ref{prop:myopic} would play Nash
+if their estimates were unbiased, settle at $\Delta=\BertMyopic$ and do not
+punish; the departure from Nash is their learning bias. Memoryless learners
+reach $\Delta=\BertNone$, \emph{higher} than the baseline, with no rival
+reaction at all and a profitable deviation ($\BertNoneGain$): a price level
+indistinguishable from collusion with nothing behind it, the ``spontaneous
+coupling'' of \citet{banchio2023}. An uninformative memory of the same size as
+the real one collapses prices to $\Delta=\BertRandom$, so in this game what
+memory contains matters, as punishment requires. With noisy profits the
+baseline still gives $\Delta=\BertNoise$ (myopic: $\BertNoiseMyopic$).
+
+The diagnostics therefore discriminate. They find punishment in the game
+where the literature finds it, and in the same game they flag a
+supracompetitive outcome without punishment when memory is removed. What
+they find among traders is not a property of the tests.
+
+\subsection{A second market: dealers under adverse selection}
+\label{sec:dealers}
+
+Q-learning market makers also sustain supracompetitive quotes
+\citep{colliard2026}. We apply the same diagnostics to a stylised dealer
+market. Two dealers post ask quotes on a 15-point grid spanning the
+competitive and monopoly asks plus 10\%; each period one buyer arrives. With
+probability $\pi=0.3$ the buyer is informed and buys only when the asset is
+worth $v=+\sigma$ ($v=\pm\sigma$, $\sigma=0.5$); otherwise it is a liquidity
+buyer with valuation $w\sim U[0,1]$ who buys if $w$ exceeds the best ask. The
+dealer with the lower ask serves the order (ties split) and earns ask minus
+$v$. The competitive ask is the zero-profit \citet{glosten1985} quote
+($a^N=\QuoteAN$) and the monopoly ask maximises expected profit
+($a^M=\QuoteAM$). Feedback is noisy, as the buyer's type and the asset value are
+random, and the profit every ask would have earned against the same buyer is
+known, so counterfactual updates apply exactly. Dealers remember both last
+quotes, as in \citet{calvano2020}, and learn with the same parameters.
+
+The lower panel of Table~\ref{tab:validation} reports the results.
+\QuoteSentence

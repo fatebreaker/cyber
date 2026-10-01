@@ -65,3 +65,22 @@ Status: [ ] unverified, [x] verified against the paper, [!] needs a change.
 - [ ] Thrun & Schwartz (1993), van Hasselt (2010): max-operator over-estimation.
 - [ ] Even-Dar & Mansour (2003): learning rates for Q-learning.
 - [ ] All bibliographic details (volumes, pages, years) in refs.bib.
+
+## Added with the validation, theory and dealer sections
+
+- [ ] Calvano et al. (2020) baseline: a_i = 2, a_0 = 0, mu = 1/4, c = 1, m = 15,
+      xi = 0.1 grid extension, alpha = 0.15, beta = 4e-6, delta = 0.95, memory
+      one; Nash price ~1.473 and monopoly ~1.925 (our code reproduces these
+      numbers); Delta ~0.85 at baseline; impulse response shows punishment
+      followed by gradual return.
+- [ ] Banchio & Mantegazza (2023): "spontaneous coupling" as the term for
+      supracompetitive play by memoryless Q-learners.
+- [ ] Green & Porter (1984, Econometrica 52(1):87-100): trigger strategies
+      under imperfect monitoring with price wars on the equilibrium path.
+- [ ] Abreu, Pearce & Stacchetti (1990, Econometrica 58(5):1041-1063).
+- [ ] Glosten & Milgrom (1985, JFE 14(1):71-100): zero-profit competitive quote.
+- [ ] Commission Delegated Regulation (EU) 2017/589 (RTS 6): investment firms
+      must test algorithms before deployment (check article and wording:
+      testing environments / conformance testing).
+- [ ] Colliard, Foucault & Lovo: our dealer market is "stylised", not their
+      model; check that the description of their findings matches the paper.

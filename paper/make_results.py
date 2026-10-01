@@ -675,6 +675,42 @@ if rob:
     lines += ["\\bottomrule", "\\end{tabular}"]
     open(os.path.join(ROOT, "paper", "table_robust.tex"), "w").write("\n".join(lines))
 
+# ---------------------------------------- three traders (exp14)
+exp14 = {tag_of(r): r for r in load("exp14_three_traders/*.json")}
+for tag, key in (("residual_g095", "Three"), ("residual_g0", "ThreeMyopic"),
+                 ("none_g095", "ThreeNone"), ("counterfactual_residual", "ThreeCf")):
+    if tag in exp14:
+        r = [exp14[tag]]
+        m, c, _ = pooled(r, "delta_intensity")
+        macro(f"{key}DeltaInt", fmt(m))
+        macro(f"{key}DeltaIntCI", fmt(c))
+        imp = impulse_pooled(r)
+        if imp:
+            macro(f"{key}RivalLagOne", fmt(imp[0][1], 3))
+            macro(f"{key}RivalLagOneCI", fmt(imp[1][1], 3))
+            macro(f"{key}Gain", fmt(imp[2], 3))
+            macro(f"{key}GainCI", fmt(imp[3], 3))
+
+# ---------------------------------------- Dou-scale runs (exp15, 2e8 periods)
+exp15 = {tag_of(r): r for r in load("exp15_long/*.json")}
+for tag, key in (("shared_g095_200M", "LongShared"), ("shared_g0_200M", "LongSharedMyopic"),
+                 ("separate_g095_200M", "LongSep"), ("separate_g0_200M", "LongSepMyopic")):
+    if tag in exp15:
+        r = [exp15[tag]]
+        m, c, _ = pooled(r, "delta_intensity")
+        macro(f"{key}DeltaInt", fmt(m))
+        macro(f"{key}DeltaIntCI", fmt(c))
+        for devs, sfx in ((0.25, "ShockMid"), (1.0, "ShockLarge")):
+            sm, sc = shock_pooled(r, devs)
+            macro(f"{key}{sfx}", fmt(sm))
+            macro(f"{key}{sfx}CI", fmt(sc))
+        rv = rival_pct(r)
+        macro(f"{key}Rival", fmt(rv[0]))
+        macro(f"{key}RivalCI", fmt(rv[1]))
+        macro(f"{key}Gain", fmt(rv[2]))
+        if "policy_change_onpath" in r[0]["summary"]:
+            macro(f"{key}PolicyChange", fmt(r[0]["summary"]["policy_change_onpath"]["mean"], 3))
+
 # ------------------------------------- Figure: sustainability of collusion
 sus_f = os.path.join(RES, "theory", "sustain.json")
 if os.path.exists(sus_f):

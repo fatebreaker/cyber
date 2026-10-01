@@ -45,7 +45,17 @@ a trigger on observed flow would fire mostly on noise. It is also consistent wit
 their reimplementation \citep{esquinas2026}, which attributes collusion at $\xi=0$
 to over-pruning. What our diagnostics add is that even perfect monitoring, which
 removes the detectability problem entirely, does not lead Q-learners to
-discover punishment.
+discover punishment. It also agrees with Proposition~\ref{prop:trigger}: in
+this market Nash reversion cannot sustain any collusion, so the outcome
+learners reach could only be an equilibrium under much harsher punishment,
+of which the deviation test shows no trace.
+
+\paragraph{Three traders.} Nothing changes with $I=3$. Forward-looking
+learners close $\ThreeDeltaInt$ of the gap to the cartel; rivals do not react
+to a deviation ($\ThreeRivalLagOne\pm\ThreeRivalLagOneCI$) and deviating pays
+($\ThreeGain\pm\ThreeGainCI$). Myopic learners again trade at or beyond the
+cartel ($\Delta=\ThreeMyopicDeltaInt$), memoryless learners reach
+$\ThreeNoneDeltaInt$, and counterfactual updates give $\ThreeCfDeltaInt$.
 
 \paragraph{Convergence.} With a constant step size and noisy payoffs, greedy
 strategies keep changing among neighbouring orders: on-path orders moved by

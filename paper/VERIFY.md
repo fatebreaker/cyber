@@ -8,31 +8,49 @@ Each must be checked against the original before submission.
 
 Status: [ ] unverified, [x] verified against the paper, [!] needs a change.
 
-## Dou, Goldstein & Ji (2025), NBER w34054 — critical
+## Dou, Goldstein & Ji (2025), NBER w34054 — checked against the PDF (uploaded 2026-10-01)
 
-- [ ] Model: multiple informed speculators, information-insensitive investors
-      z = -xi (p - v_bar), market maker minimising theta (p - E[v|y])^2 + (y+z)^2
-      (model.tex Sec 3.1; eq. 1).
-- [ ] Benchmarks at sigma_u = 0.1, theta = 0.1, xi = 500, I = 2:
-      chi^N ~ 166.667, chi^M = 125, lambda^N ~ 0.002 (tests, appendix).
-- [ ] Q-learning protocol: state (p_{t-1}, v_{t-1}, v_t); 10 values; 15 orders
-      per value on the cartel-to-Nash bracket +-10%; 31 price bins per lagged
-      value; alpha = 0.05; rho = 0.95; beta = 5e-6 with value-specific exploration
-      counters; Q initialised to payoff against uniform rivals (method.tex,
-      results_dou.tex).
-- [ ] Separate Q-tables per speculator is their specification (results_dou.tex).
-- [ ] Two channels named "price-trigger" (artificial intelligence) and
-      "over-pruning" / "homogenised learning biases" (artificial stupidity)
-      (intro.tex, related.tex).
-- [ ] Noise-shock impulse response is their test, Section 5.3, shock sizes as %
-      of E|x| (method.tex D2).
-- [ ] Their classification: over-pruning only at xi = 0 / low sigma_u (their
-      "case iii"); price triggers when information-insensitive investors are
-      present (model.tex Sec 3.3, results_kyle.tex, related.tex).
-- [ ] Training horizons 2e7 to 5e10 periods; 1,000 sessions; convergence
-      criterion (discussion_body.tex limitations).
-- [ ] Does their market maker learn lambda or use the equilibrium value?
-      (our market maker learns; stated as a difference in limitations).
+- [x] Model: I informed speculators, information-insensitive investors, market
+      maker trading off pricing error and inventory with weight theta (Sec. 3).
+- [x] Calibration: I = 2, xi = 500, theta = 0.1, rho = 0.95, sigma_u = 0.1 (low)
+      and 100 (high); n_v = 10 (equiprobable normal quantiles), n_x = 15 on
+      the cartel-to-Nash bracket +-iota, iota = 0.1, n_p = 31 (Sec. 4.2).
+- [!] Learning: alpha = 0.01, beta = 5e-7 with VALUE-SPECIFIC counters,
+      eps = exp(-beta t(v)). Our main replication used alpha = 0.05 (from
+      Esquinas) and calendar-time exploration. FIXED in text; faithful runs
+      (exp16) use alpha = 0.01, value counters, their common price grid.
+- [x] State (p_{t-1}, v_{t-1}, v_t); separate Q-matrices per speculator.
+- [!] Price grid: one common grid over [p_L - iota span, p_H + iota span],
+      p_H/L = lambda^N I max/min{x^M, x^N} +- 1.96 sigma_u. Our "grid" binning
+      is per lagged value. Added price_bins = "dou" (exact) for exp16.
+- [!] Market maker: rolling-window OLS over T_m = 10,000 periods, estimating
+      both the z-demand slope and E[v|y] (eq. 4.1-4.2). Ours: EWMA moments,
+      half-life 2,000, xi known. Disclosed in limitations.
+- [x] Q init: payoff vs uniform rivals, zero noise, lambda^N (Sec. 4.2).
+- [x] 1,000 sessions; convergence = greedy strategies unchanged for 1e6
+      periods; 2e7 to 5e10 periods.
+- [x] Channel names: "artificial intelligence" (price trigger) and "artificial
+      stupidity" (over-pruning); mechanism of over-pruning = asymmetric
+      exploitation after adverse vs beneficial noise shocks (Sec. 5.1).
+- [!] Regimes: (i) high xi & low sigma_u -> price trigger; (ii) high xi & high
+      sigma_u -> over-pruning; (iii) low xi (xi = 5) -> over-pruning.
+      Our earlier wording ("over-pruning only at xi = 0") was wrong. FIXED.
+- [x] Noise-shock test (Sec. 5.3, Fig. 3): shocks of 0.25, 2.5, 11.5, 15% of
+      average |x_i|; no response to small, similar aggressive response to
+      larger shocks, punishment ~2 periods.
+- [x] Deviation test (Fig. 5): at xi = 500, sigma_u = 0.1 both speculators trade
+      aggressively at t = 4; at high sigma_u and at xi = 5 the rival does not
+      react.
+- [x] Removing p_{t-1} from the state drops Delta_C to zero at xi = 500,
+      sigma_u = 0.1 (Sec. 5.3). Tested directly in exp16 (memory = value).
+- [x] Theory: price-trigger equilibria impossible with high sigma_u or low xi
+      (Prop. 3.1). Our sustainability section now credits this.
+- [x] Their collusion index Delta_C is profit-based (normalized trading
+      profitability). Our Dou-replication tables report intensity; profit
+      index to be shown alongside in the exp16 results.
+- [x] Benchmarks at sigma_u = 0.1, xi = 500: our code gives chi^N = 166.667,
+      chi^M = 125, lambda ~ 0.002 (consistent with their formulas; their
+      paper computes benchmarks with the discretized sigma_v-hat = 0.938).
 
 ## Esquinas Coves (2026), GitHub report — read directly (LaTeX source)
 

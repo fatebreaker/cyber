@@ -32,14 +32,18 @@ tacit collusion among market-making algorithms in dealer markets.
 \citet{dou2025} extend \citet{kyle1985} to several informed speculators,
 information-insensitive investors, and a market maker who trades off pricing
 error against inventory. They show that Q-learning speculators sustain
-collusive profits and reduce price informativeness, and separate price-trigger
-collusion from over-pruning bias with noise-shock impulse responses, finding
-the former only when information-insensitive investors are present. An
+collusive profits and reduce price informativeness. Their theory shows that
+price-trigger equilibria exist only when information-insensitive investors
+are numerous and noise trading is low; in simulations they separate
+price-trigger collusion from over-pruning with noise-shock and deviation
+impulse responses, finding the former in that region and the latter
+elsewhere, and find that removing the lagged price from the state
+eliminates collusion in the price-trigger region. An
 independent reimplementation \citep{esquinas2026} reproduces both regimes and
 finds that the level of collusion depends on the update protocol. Our paper
 adds the rival-deviation test, the myopic placebo and the learning-rate
-sensitivity analysis, explains the regime difference analytically, and
-provides a validated open testbed.
+sensitivity analysis, quantifies the monitoring problem behind their regime
+split, and provides a validated open testbed.
 
 \paragraph{Estimation bias in Q-learning.} The max operator makes Q-learning
 over-estimate action values under noise \citep{thrun1993,vanhasselt2010}. The

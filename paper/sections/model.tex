@@ -110,17 +110,22 @@ noise. With information-insensitive investors, price impact is pinned near
 $1/\xi$, intensities scale with $\xi$, and deviations become enormous relative
 to noise: in the \citet{dou2025} calibration ($\sigma_v=1$, $\sigma_u=0.1$,
 $\xi=500$, $\theta=0.1$, $I=2$) the ratio is about $625$. Detectability
-is therefore consistent with the regime split that \citet{dou2025} report
-(over-pruning only at $\xi=0$, price triggers at $\xi=500$), although, as we
-show below, detectability alone does not make Q-learners punish.
+is therefore consistent with the regime split that \citet{dou2025} report:
+price-trigger collusion with many information-insensitive investors and
+little noise trading, over-pruning when information-insensitive investors are
+few or noise trading is heavy (their Section 5.2).
 
 \subsection{Can trigger strategies sustain collusion?}
 \label{sec:sustain}
 
 Detectability tells us whether a deviation can be seen; whether collusion
 can be an equilibrium depends also on what a deviation gains and what
-punishment costs. We ask this in the spirit of \citet{green1984} and
-\citet{abreu1990}. On the
+punishment costs. \citet{dou2025} show that collusive equilibria sustained by
+price-trigger strategies, in the sense of \citet{green1984} and
+\citet{abreu1990}, exist when information-insensitive investors are numerous
+and noise trading is low, and not when noise risk is high or such investors
+are few (their Proposition 3.1). We quantify this for the calibrations we
+simulate, and add a bound that holds for any punishment scheme. On the
 collusive path every learner trades $b$ per unit of $v$ and the market maker
 prices at $\lambda(Ib)$. A deviator plays its static best response for one
 period. The market maker re-estimates price impact slowly, so its $\lambda$

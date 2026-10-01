@@ -407,6 +407,58 @@ if os.path.exists(mech_f):
     fig.savefig(os.path.join(FIG, "fig_mechanism.pdf"))
     plt.close(fig)
 
+# ------------------------------------------ interventions (exp9) and deep RL (exp8)
+exp9 = load("exp9_interventions/*.json")
+exp8 = load("exp8_deep/*.json")
+NAMES = {
+    "random35": "RandomMem", "random35_myopic": "RandomMemMyopic",
+    "counterfactual_residual": "CfResid", "counterfactual_none": "CfNone",
+    "counterfactual_residual_myopic": "CfResidMyopic",
+    "opaque_residual": "Opaque", "passive2_residual": "Passive",
+    "dqn_g095": "Dqn", "dqn_g0": "DqnMyopic", "ppo_g095": "Ppo", "ppo_g0": "PpoMyopic",
+}
+design_rows = []
+for r in exp9 + exp8:
+    tag = os.path.basename(r["_file"])[:-5]
+    key = NAMES.get(tag)
+    if not key:
+        continue
+    for metric, t in (("delta_intensity", "Int"), ("delta_profit", "Profit"), ("delta_info", "Info")):
+        m, c, _ = pooled([r], metric)
+        macro(f"{key}Delta{t}", fmt(m))
+        macro(f"{key}Delta{t}CI", fmt(c))
+    imp = impulse_pooled([r])
+    if imp:
+        macro(f"{key}RivalLagOne", fmt(imp[0][1], 3))
+        macro(f"{key}RivalLagOneCI", fmt(imp[1][1], 3))
+        macro(f"{key}Gain", fmt(imp[2], 3))
+        macro(f"{key}GainCI", fmt(imp[3], 3))
+    design_rows.append((tag, key, r, imp))
+
+LABELS = {
+    "random35": "Random memory, 35 states", "random35_myopic": "Random memory, myopic",
+    "counterfactual_residual": "Counterfactual updates, residual memory",
+    "counterfactual_none": "Counterfactual updates, no memory",
+    "counterfactual_residual_myopic": "Counterfactual updates, residual, myopic",
+    "opaque_residual": "Reduced transparency (disclosure noise $2\\sigma_u$)",
+    "passive2_residual": "Two passive Nash traders",
+    "dqn_g095": "DQN", "dqn_g0": "DQN, myopic", "ppo_g095": "PPO", "ppo_g0": "PPO, myopic",
+}
+if design_rows:
+    order = list(LABELS)
+    design_rows.sort(key=lambda x: order.index(x[0]) if x[0] in order else 99)
+    lines = ["\\begin{tabular}{lcccc}", "\\toprule",
+             "Treatment ($\\xi=0$, $I=2$) & $\\Delta$ intensity & $\\Delta$ profit & Rival $\\Delta\\beta_1$ & Deviator gain \\\\",
+             "\\midrule"]
+    for tag, key, r, imp in design_rows:
+        di = pooled([r], "delta_intensity")
+        dp = pooled([r], "delta_profit")
+        rv = pm(imp[0][1], imp[1][1], 3) if imp else "--"
+        gn = pm(imp[2], imp[3], 3) if imp else "--"
+        lines.append(f"{LABELS.get(tag, tag)} & ${pm(*di[:2])}$ & ${pm(*dp[:2])}$ & ${rv}$ & ${gn}$ \\\\")
+    lines += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(ROOT, "paper", "table_design.tex"), "w").write("\n".join(lines))
+
 # ------------------------------------------------ Appendix: robustness table
 exp1 = load("exp1/q_*.json")
 rob = []

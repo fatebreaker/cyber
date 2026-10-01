@@ -55,6 +55,22 @@ collusion only from $\FaDeltaProfit$ to $\FaNoPriceDeltaProfit$, whereas
 any kind appears, as they report for over-pruning, although the level is
 below the $0.7$ of their corresponding cell.
 
+\paragraph{Session by session.} An average over sessions could hide a
+minority of sessions that do punish. \citet{dou2025} classify each session as
+price-trigger collusion if, one period after a noise shock that moves the
+price by 1.2\%, both speculators' orders rise significantly (their online
+appendix, Section 4.5), and report that the pattern holds across sessions in
+this regime. We apply the same rule to each of $\PsBaseSessions$ retrained
+markets, averaging $\PsBaseReps$ paired replays per market, for shocks that
+move the price by 0.12\%, 1.2\%, 5.5\% and 7.2\% (their small, medium, large
+and ultra-large deviations). No forward-looking session qualifies at any shock
+size ($\PsBaseTrigMed$\% at the medium shock, $\PsBaseTrigUltra$\% at the
+largest). At the medium shock $\PsBaseFlatMed$\% of sessions show no
+significant change in either trader's order, and the interquartile range of
+the session responses is $[\PsBaseIqrLoMed, \PsBaseIqrHiMed]$\% of the
+mean order. The only sessions the rule flags belong to the myopic placebo
+($\PsMyopicTrigLarge$\% at the large shock), which cannot be punishing.
+
 What we cannot reproduce is therefore the evidence that separates their
 price-trigger regime from over-pruning: the level of collusion, the
 dependence on the lagged price, and a shock response that a myopic learner

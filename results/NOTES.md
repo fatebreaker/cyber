@@ -292,3 +292,18 @@ Deviating pays in every condition. Dou et al. report Delta_C ~ 0.75 here,
 collusion -> 0 without the lagged price, and trigger responses at 2.5-15%
 shocks; we reproduce none of these. The 40% shock response is shared by the
 myopic placebo.
+
+## Per-session classification with Dou et al.'s rule (results/per_session)
+
+Faithful protocol, 4e8 periods, 100 sessions, 200 paired replays per session.
+Rule (their OA 4.5): price-trigger if both traders' orders rise significantly
+one period after a shock moving the price by 1.2%.
+
+| learner | price move 0.12% / 1.2% / 5.5% / 7.2%: share classified trigger | share flat |
+|---|---|---|
+| gamma 0.95 | 0 / 0 / 0 / 0 % | 100 / 86 / 74 / 63 % |
+| gamma 0 (myopic) | 0 / 1 / 6 / 5 % | 100 / 80 / 65 / 68 % |
+
+Medium-shock session responses: IQR [-0.08, 0.10]% of the mean order.
+Their alpha/beta grid (OA Fig. IA.9): baseline cell 0.7, three of four
+neighbours 0.3; our faithful Delta_C 0.29.

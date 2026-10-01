@@ -752,6 +752,20 @@ if exp16:
     lines += ["\\bottomrule", "\\end{tabular}"]
     open(os.path.join(ROOT, "paper", "table_faithful.tex"), "w").write("\n".join(lines))
 
+# ------------------------------- per-session classification (Dou et al. rule)
+for name, key in (("baseline_g095", "PsBase"), ("myopic_g0", "PsMyopic")):
+    f = os.path.join(RES, "per_session", f"{name}.json")
+    if os.path.exists(f):
+        r = json.load(open(f))
+        for sh, sfx in zip(r["shocks"], ("Tiny", "Med", "Large", "Ultra")):
+            macro(f"{key}Trig{sfx}", fmt(100 * sh["share_trigger"], 0))
+            macro(f"{key}Flat{sfx}", fmt(100 * sh["share_flat"], 0))
+            q = sh["resp_quantiles"]
+            macro(f"{key}IqrLo{sfx}", fmt(q[1]))
+            macro(f"{key}IqrHi{sfx}", fmt(q[3]))
+        macro(f"{key}Sessions", str(r["sessions"]))
+        macro(f"{key}Reps", str(r["reps"]))
+
 # ------------------------------------- Figure: sustainability of collusion
 sus_f = os.path.join(RES, "theory", "sustain.json")
 if os.path.exists(sus_f):

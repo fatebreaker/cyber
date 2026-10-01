@@ -1,0 +1,48 @@
+baseline_g095: 20,000,000 steps (66s)
+baseline_g095: 40,000,000 steps (126s)
+baseline_g095: 60,000,000 steps (184s)
+baseline_g095: 80,000,000 steps (241s)
+baseline_g095: 100,000,000 steps (299s)
+baseline_g095: 120,000,000 steps (356s)
+baseline_g095: 140,000,000 steps (414s)
+baseline_g095: 160,000,000 steps (474s)
+baseline_g095: 180,000,000 steps (536s)
+baseline_g095: 200,000,000 steps (596s)
+baseline_g095: 220,000,000 steps (655s)
+baseline_g095: 240,000,000 steps (714s)
+baseline_g095: 260,000,000 steps (775s)
+baseline_g095: 280,000,000 steps (835s)
+baseline_g095: 300,000,000 steps (895s)
+baseline_g095: 320,000,000 steps (956s)
+baseline_g095: 340,000,000 steps (1017s)
+baseline_g095: 360,000,000 steps (1079s)
+baseline_g095: 380,000,000 steps (1139s)
+baseline_g095: 400,000,000 steps (1201s)
+baseline_g095 price dev 0.12%: move 0.12%, resp -0.010%, trigger 0%, flat 100%, quantiles [-0.09 -0.01  0.    0.01  0.06]
+baseline_g095 price dev 1.20%: move 1.20%, resp +0.013%, trigger 0%, flat 86%, quantiles [-0.22 -0.08 -0.    0.1   0.27]
+baseline_g095 price dev 5.50%: move 5.50%, resp -0.048%, trigger 0%, flat 74%, quantiles [-0.8  -0.37 -0.01  0.25  0.67]
+baseline_g095 price dev 7.20%: move 7.20%, resp -0.142%, trigger 0%, flat 63%, quantiles [-0.93 -0.5  -0.15  0.23  0.72]
+myopic_g0: 20,000,000 steps (65s)
+myopic_g0: 40,000,000 steps (126s)
+myopic_g0: 60,000,000 steps (187s)
+myopic_g0: 80,000,000 steps (245s)
+myopic_g0: 100,000,000 steps (304s)
+myopic_g0: 120,000,000 steps (362s)
+myopic_g0: 140,000,000 steps (419s)
+myopic_g0: 160,000,000 steps (477s)
+myopic_g0: 180,000,000 steps (534s)
+myopic_g0: 200,000,000 steps (590s)
+myopic_g0: 220,000,000 steps (647s)
+myopic_g0: 240,000,000 steps (703s)
+myopic_g0: 260,000,000 steps (760s)
+myopic_g0: 280,000,000 steps (817s)
+myopic_g0: 300,000,000 steps (874s)
+myopic_g0: 320,000,000 steps (931s)
+myopic_g0: 340,000,000 steps (987s)
+myopic_g0: 360,000,000 steps (1043s)
+myopic_g0: 380,000,000 steps (1100s)
+myopic_g0: 400,000,000 steps (1158s)
+myopic_g0 price dev 0.12%: move 0.12%, resp -0.008%, trigger 0%, flat 100%, quantiles [-0.08 -0.01  0.    0.01  0.04]
+myopic_g0 price dev 1.20%: move 1.20%, resp +0.001%, trigger 1%, flat 80%, quantiles [-0.3  -0.08 -0.01  0.13  0.23]
+myopic_g0 price dev 5.50%: move 5.50%, resp +0.036%, trigger 6%, flat 65%, quantiles [-0.78 -0.32  0.05  0.3   0.77]
+myopic_g0 price dev 7.20%: move 7.20%, resp -0.018%, trigger 5%, flat 68%, quantiles [-0.75 -0.37 -0.    0.31  0.83]

@@ -42,7 +42,12 @@ indistinguishable from collusion with nothing behind it, the ``spontaneous
 coupling'' of \citet{banchio2023}. An uninformative memory of the same size as
 the real one collapses prices to $\Delta=\BertRandom$, so in this game what
 memory contains matters, as punishment requires. With noisy profits the
-baseline still gives $\Delta=\BertNoise$ (myopic: $\BertNoiseMyopic$).
+baseline still gives $\Delta=\BertNoise$ and still punishes (myopic:
+$\BertNoiseMyopic$). Counterfactual updates lower prices to
+$\Delta=\BertCf$, as \citet{asker2022} find for synchronous learning, but what
+remains is still enforced: the rival cuts its price after a deviation
+($\BertCfRival$) and deviating loses ($\BertCfGain$). The learning rule
+changes the level, not the nature, of collusion in this game.
 
 The diagnostics therefore discriminate. They find punishment in the game
 where the literature finds it, and in the same game they flag a
@@ -67,5 +72,18 @@ random, and the profit every ask would have earned against the same buyer is
 known, so counterfactual updates apply exactly. Dealers remember both last
 quotes, as in \citet{calvano2020}, and learn with the same parameters.
 
-The lower panel of Table~\ref{tab:validation} reports the results.
-\QuoteSentence
+The lower panel of Table~\ref{tab:validation} reports the results. Dealers
+quote well above the competitive ask: the best ask closes $\QuoteBase$ of the
+gap to the monopoly ask and dealers earn $\QuoteBaseProfit$ of the monopoly
+profit gap. Nothing in this outcome is enforced. After a forced undercut the
+rival does not lower its quote ($\QuoteBaseRival$), and undercutting pays
+($+\QuoteBaseGain$). Every placebo reproduces the markup: myopic dealers
+quote even higher ($\QuoteMyopic$), as do dealers without memory
+($\QuoteNone$) or with an uninformative one ($\QuoteRandom$). Counterfactual
+updates, which remove the selection effect, bring the best ask most of the
+way to the competitive level ($\QuoteCf$; without memory $\QuoteCfNone$).
+This is the pattern of a learning bias, and it agrees with the reading of
+\citet{colliard2026}, who trace dealers' markups to limited experimentation
+and noisy feedback rather than to punishment. The protocol separates the two
+markets cleanly: the same tests that find punishment in the pricing duopoly
+find none among dealers, although both reach similar price levels.

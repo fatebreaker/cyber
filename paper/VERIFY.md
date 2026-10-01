@@ -135,3 +135,15 @@ validation section and table.
 Metadata only: the content claims for these papers (and for Dou et al.,
 Colliard-Foucault-Lovo, Cartea et al., Asker et al. 2022) still need the
 full texts, which are paywalled or on SSRN (blocks automated access).
+
+## Dou et al. online appendix (data.nber.org/data-appendix/w34054, read 2026-10-01)
+
+- [x] Delta_C (IA.4.1): profit-based, realised-shock benchmarks, averaged over
+      1e5 periods after convergence. Our delta_profit is the same quantity in
+      expectation.
+- [x] Session classification (4.5): shock calibrated to a 1.2% price move;
+      price-trigger if both speculators' orders rise significantly at t = 4.
+      Replicated per session in experiments/per_session.py.
+- [x] Figure IA.9: at sigma_u = 0.1, Delta_C = 0.7 at the baseline (alpha 0.01,
+      beta 5e-7) but 0.3 at three of four neighbouring cells and at
+      alpha = 0.05, beta = 5e-7. At sigma_u = 100 the baseline cell is 0.7.

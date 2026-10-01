@@ -29,10 +29,19 @@ shocks are in deviation units, $0.05$, $0.25$ and $1$ corresponding to about
 \end{table}
 
 Three results stand out. First, collusion is lower than in our first
-replication and well below the $\Delta_C\approx0.75$ that \citet{dou2025}
-use to calibrate their theoretical benchmark to their simulations in this
-regime (their Section 5.3): $\Delta_C=\FaDeltaProfit$ (intensity:
-$\FaDeltaInt$). Second, the
+replication and below the $\Delta_C\approx0.75$ that \citet{dou2025} use to
+calibrate their theoretical benchmark to their simulations in this regime
+(their Section 5.3): $\Delta_C=\FaDeltaProfit$ (intensity: $\FaDeltaInt$).
+Their own robustness grid puts this gap in perspective (their online
+appendix, Figure IA.9). At $\sigma_u=0.1$ their baseline cell
+($\alpha=0.01$, $\beta=5\times10^{-7}$) gives $\Delta_C=0.7$, but three of
+its four neighbours ($\beta=5\times10^{-8}$ or $5\times10^{-6}$ at the same
+$\alpha$, and $\alpha=0.05$ at the same $\beta$) give $0.3$, as does most of
+the grid. Our faithful run ($\FaDeltaProfit$) and our earlier runs at
+$\alpha=0.05$ under the first protocol ($0.31$--$0.33$) match those
+neighbouring cells. The level of
+collusion in this regime is thus sensitive to the hyperparameters in their
+simulations too, and our replication lands where most of their grid does. Second, the
 forward-looking learner ignores shocks of 2\% and 10\% of its order, and
 responds to a shock of 40\% ($\FaShockLarge\pm\FaShockLargeCI\%$ of $\beta^N$),
 a threshold-like pattern; but the myopic placebo, which cannot punish,
@@ -43,7 +52,8 @@ still pays. The rival's reaction to a deviation is small and borderline
 collusion only from $\FaDeltaProfit$ to $\FaNoPriceDeltaProfit$, whereas
 \citet{dou2025} find that it falls to zero. With heavy noise trading
 ($\sigma_u=100$) collusion is higher ($\FaHighDeltaProfit$) and no reaction of
-any kind appears, as they report for over-pruning.
+any kind appears, as they report for over-pruning, although the level is
+below the $0.7$ of their corresponding cell.
 
 What we cannot reproduce is therefore the evidence that separates their
 price-trigger regime from over-pruning: the level of collusion, the

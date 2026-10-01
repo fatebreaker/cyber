@@ -263,6 +263,17 @@ INPUT ./figures/fig_deviation.pdf
 INPUT ./sections/results_dou.tex
 INPUT ./sections/results_dou.tex
 INPUT sections/results_dou.tex
+INPUT ./sections/results_shared.tex
+INPUT ./sections/results_shared.tex
+INPUT sections/results_shared.tex
+INPUT ./table_dou.tex
+INPUT ./table_dou.tex
+INPUT table_dou.tex
+INPUT ./figures/fig_dou.pdf
+INPUT ./figures/fig_dou.pdf
+INPUT ./figures/fig_dou.pdf
+INPUT ./figures/fig_dou.pdf
+INPUT ./figures/fig_dou.pdf
 INPUT ./sections/results_design.tex
 INPUT ./sections/results_design.tex
 INPUT sections/results_design.tex
@@ -279,6 +290,11 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT ./sections/appendix.tex
 INPUT ./sections/appendix.tex
 INPUT sections/appendix.tex
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT ./table_robust.tex
 INPUT ./table_robust.tex
 INPUT table_robust.tex
@@ -289,6 +305,7 @@ INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb

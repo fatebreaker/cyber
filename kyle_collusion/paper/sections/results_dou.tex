@@ -1,1 +1,61 @@
-% pending
+\subsection{The Dou et al.\ regime: detectable deviations, still no punishment}
+\label{sec:dou}
+
+We next replicate the \citet{dou2025} setting: their calibration
+($\sigma_u=0.1$, $\theta=0.1$, $\alpha=0.05$), 10 values, a 15-point order grid
+per value spanning the cartel-to-Nash range plus 10\%, and the lagged price and
+value as state, at $\xi=0$ and at $\xi=500$, where Proposition~\ref{prop:snr}
+puts a best-response deviation at about 625 noise standard deviations. Each
+trader has its own Q-table, as in the paper's description and the primary
+specification of \citet{esquinas2026}. Table~\ref{tab:dou} and
+Figure~\ref{fig:dou} report the results.
+
+\paragraph{Levels.} Forward-looking learners with price memory reach
+$\Delta=\KyleStratDeltaInt$ at $\xi=0$ and $\DouStratDeltaInt$ at $\xi=500$. The
+$\xi=500$ value matches the $0.31$ that \citet{esquinas2026} report for
+separate Q-tables in this regime, which supports the fidelity of our
+implementation. Our $\xi=0$ value is below their $0.72$, which we attribute to
+training horizon: their runs last $5\times10^8$ periods, ours $1.5\times10^7$.
+
+\paragraph{No punishment, even when deviations are glaring.} In both regimes
+the learned strategies ignore noise shocks: a shock as large as a full
+best-response deviation (515 noise standard deviations at $\xi=500$) changes
+next-period trading intensity by less than 1\% of $\beta^N$, with confidence
+intervals covering zero, and forced deviations draw no reaction from rivals
+and pay. Detectability is necessary for punishment but not sufficient:
+separate-table Q-learners do not discover trigger strategies within our
+horizon even when deviations are hundreds of standard deviations large.
+
+\paragraph{The placebo at $\xi=0$.} As in the standard Kyle experiments,
+myopic learners under-trade more than forward-looking ones at $\xi=0$
+($\KyleMyopicDeltaInt$ versus $\KyleStratDeltaInt$). At $\xi=500$ the order
+reverses ($\DouMyopicDeltaInt$ versus $\DouStratDeltaInt$), but without any
+reaction to shocks or deviations in either case, so the difference cannot be
+attributed to punishment.
+
+\input{sections/results_shared.tex}
+
+\begin{table}[t]
+  \centering
+  \small
+  \resizebox{\linewidth}{!}{\input{table_dou.tex}}
+  \caption{\citet{dou2025} calibration with separate Q-tables
+  ($1.5\times10^7$ periods, 100 markets). Shock response: change in
+  per-trader intensity one period after a noise shock equal to one
+  best-response deviation, as a fraction of $\beta^N$. Rival reaction: change
+  in rivals' intensity one period after a forced best-response deviation, as a
+  fraction of $\beta^N$. The informativeness index is omitted because at
+  $\xi=500$ the Nash and cartel informativeness both equal one to four
+  decimals. 95\% CIs.}
+  \label{tab:dou}
+\end{table}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/fig_dou.pdf}
+  \caption{Noise-shock impulse responses in the \citet{dou2025} calibration.
+  A noise-trader shock equal to one best-response deviation hits at lag 0;
+  lines show the change in per-trader intensity relative to $\beta^N$. Under
+  price-trigger strategies intensity would jump at lag 1; it does not.}
+  \label{fig:dou}
+\end{figure}

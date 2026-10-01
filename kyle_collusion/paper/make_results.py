@@ -303,9 +303,9 @@ if exp7:
     fig.savefig(os.path.join(FIG, "fig_dou.pdf"))
     plt.close(fig)
 
-    lines = ["\\begin{tabular}{llccc}", "\\toprule",
-             "$\\xi$ & Learners & $\\Delta$ intensity & Shock response $\\Delta\\beta_1/\\beta^N$ & "
-             "Rival $\\Delta\\beta_1/\\beta^N$ after deviation \\\\", "\\midrule"]
+    lines = ["\\begin{tabular}{llcccc}", "\\toprule",
+             "$\\xi$ & Learners & $\\Delta$ intensity & $\\Delta$ profit & Shock response & "
+             "Rival reaction \\\\", "\\midrule"]
     for xi, lab, m, c, sh, imp in rows:
         s1 = "--"
         scale = None
@@ -316,7 +316,11 @@ if exp7:
             s1 = pm(sh["d_beta_all"][1] / scale, sh["d_beta_all_ci95"][1] / scale, 3)
         d1 = pm(imp[0][1] / scale, imp[1][1] / scale, 3) if imp and scale else "--"
         lab_tex = lab.replace("γ", "$\\gamma$")
-        lines.append(f"{int(xi)} & {lab_tex} & ${pm(m, c)}$ & ${s1}$ & ${d1}$ \\\\")
+        rr = [r for r in exp7 if abs(r["config"]["xi"] - xi) < 1e-9 and r["config"]["memory"] ==
+              ("none" if "no memory" in lab else "price") and
+              abs(r["agent_kwargs"].get("gamma", 0.95) - (0.0 if "myopic" in lab else 0.95)) < 1e-9]
+        dpm, dpc, _ = pooled(rr, "delta_profit") if rr else (float("nan"), float("nan"), 0)
+        lines.append(f"{int(xi)} & {lab_tex} & ${pm(m, c)}$ & ${pm(dpm, dpc)}$ & ${s1}$ & ${d1}$ \\\\")
     lines += ["\\bottomrule", "\\end{tabular}"]
     open(os.path.join(ROOT, "paper", "table_dou.tex"), "w").write("\n".join(lines))
 

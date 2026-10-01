@@ -558,5 +558,5 @@ with open(os.path.join(ROOT, "paper", "numbers.tex"), "w") as fh:
     for name in sorted(used - set(macros)):
         if name in {"Delta", "Large", "Big", "Longrightarrow", "Rightarrow", "Pr", "E"}:
             continue
-        fh.write(f"\\providecommand{{\\{name}}}{{--}}\n")
+        fh.write(f"\\providecommand{{\\{name}}}{{{'' if name.endswith('Sentence') else '--'}}}\n")
 print(f"wrote {len(macros)} macros; figures: {sorted(os.listdir(FIG))}")

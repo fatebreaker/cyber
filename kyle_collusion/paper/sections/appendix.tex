@@ -125,6 +125,7 @@ entry), and it is excluded from the main results.
 \begin{table}[h]
   \centering
   \small
+  \resizebox{\linewidth}{!}{%
   \begin{tabular}{ll}
     \toprule
     Parameter & Value \\
@@ -142,7 +143,7 @@ entry), and it is excluded from the main results.
     DQN & 2$\times$64 MLP, Double DQN, Huber loss, Adam $10^{-3}$, buffer $5\times10^4$, batch 64 \\
     PPO & 2$\times$64 actor-critic, clip 0.2, GAE $\lambda=0.95$, 4 epochs, rollout 256, entropy annealed to 0 \\
     \bottomrule
-  \end{tabular}
+  \end{tabular}}
   \caption{Default parameters.}
   \label{tab:params}
 \end{table}

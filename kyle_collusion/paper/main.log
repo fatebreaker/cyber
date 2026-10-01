@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.30)  1 OCT 2026 07:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.30)  1 OCT 2026 07:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -501,20 +501,20 @@ File: figures/fig_deviation.pdf Graphic file (type pdf)
 Package pdftex.def Info: figures/fig_deviation.pdf  used on input line 81.
 (pdftex.def)             Requested size: 422.77664pt x 184.97482pt.
 ) (./sections/results_dou.tex [9] [10 <./figures/fig_core.pdf> <./figures/fig_d
-eviation.pdf>] (./sections/results_shared.tex (./table_shared.tex)
-<figures/fig_shared.pdf, id=555, 260.17201pt x 180.675pt>
-File: figures/fig_shared.pdf Graphic file (type pdf)
-<use figures/fig_shared.pdf>
-Package pdftex.def Info: figures/fig_shared.pdf  used on input line 42.
-(pdftex.def)             Requested size: 234.8775pt x 163.11876pt.
-) (./table_dou.tex)
-<figures/fig_dou.pdf, id=558, 462.52798pt x 180.675pt>
+eviation.pdf>] (./table_dou.tex)
+<figures/fig_dou.pdf, id=549, 462.52798pt x 180.675pt>
 File: figures/fig_dou.pdf Graphic file (type pdf)
 <use figures/fig_dou.pdf>
-Package pdftex.def Info: figures/fig_dou.pdf  used on input line 58.
+Package pdftex.def Info: figures/fig_dou.pdf  used on input line 56.
 (pdftex.def)             Requested size: 422.77664pt x 165.15608pt.
-) (./sections/results_design.tex [11] [12 <./figures/fig_shared.pdf> <./figures
-/fig_dou.pdf>]
+(./sections/results_shared.tex [11 <./figures/fig_dou.pdf>] (./table_shared.tex
+)
+<figures/fig_shared.pdf, id=632, 260.17201pt x 180.675pt>
+File: figures/fig_shared.pdf Graphic file (type pdf)
+<use figures/fig_shared.pdf>
+Package pdftex.def Info: figures/fig_shared.pdf  used on input line 43.
+(pdftex.def)             Requested size: 234.8775pt x 163.11876pt.
+)) (./sections/results_design.tex [12 <./figures/fig_shared.pdf>]
 <figures/fig_alpha.pdf, id=709, 245.718pt x 173.448pt>
 File: figures/fig_alpha.pdf Graphic file (type pdf)
 <use figures/fig_alpha.pdf>
@@ -561,16 +561,8 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-(./sections/appendix_rare.tex [18]) (./table_robust.tex)
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Overfull \hbox (48.80493pt too wide) in paragraph at lines 128--146
- [][] 
- []
-
-[19]) [20] (./main.aux)
+(./sections/appendix_rare.tex [18]) [19] (./table_robust.tex)) [20] (./main.aux
+)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -579,13 +571,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 5BC6A8D727AAE0EF6BDEF9B30C6EB336;4174.
  ) 
 Here is how much of TeX's memory you used:
- 15373 strings out of 476182
- 242269 string characters out of 5795595
- 1947975 words of memory out of 5000000
- 36785 multiletter control sequences out of 15000+600000
+ 15372 strings out of 476182
+ 242250 string characters out of 5795595
+ 1948975 words of memory out of 5000000
+ 36784 multiletter control sequences out of 15000+600000
  576918 words of font info for 190 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,12n,83p,1001b,599s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,83p,1001b,593s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
@@ -606,7 +598,7 @@ ts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/symbols/msbm10.pfb>
-Output written on main.pdf (20 pages, 472907 bytes).
+Output written on main.pdf (20 pages, 473359 bytes).
 PDF statistics:
  1011 PDF objects out of 1200 (max. 8388607)
  549 compressed objects within 6 object streams

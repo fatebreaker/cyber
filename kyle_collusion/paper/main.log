@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.30)  1 OCT 2026 05:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.30)  1 OCT 2026 06:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -483,7 +483,7 @@ Package pdftex.def Info: figures/fig_snr.pdf  used on input line 92.
 (pdftex.def)             Requested size: 258.36668pt x 182.39836pt.
 ) (./sections/method.tex [5 <./figures/fig_snr.pdf>] [6]) (./sections/results.t
 ex (./sections/results_body.tex (./sections/results_mechanism.tex [7]
-<figures/fig_mechanism.pdf, id=302, 462.52798pt x 173.448pt>
+<figures/fig_mechanism.pdf, id=305, 462.52798pt x 173.448pt>
 File: figures/fig_mechanism.pdf Graphic file (type pdf)
 <use figures/fig_mechanism.pdf>
 Package pdftex.def Info: figures/fig_mechanism.pdf  used on input line 46.
@@ -500,8 +500,8 @@ File: figures/fig_deviation.pdf Graphic file (type pdf)
 <use figures/fig_deviation.pdf>
 Package pdftex.def Info: figures/fig_deviation.pdf  used on input line 81.
 (pdftex.def)             Requested size: 422.77664pt x 184.97482pt.
-) (./sections/results_dou.tex [9 <./figures/fig_core.pdf>] (./sections/results_
-shared.tex [10 <./figures/fig_deviation.pdf>] (./table_shared.tex)
+) (./sections/results_dou.tex [9] [10 <./figures/fig_core.pdf> <./figures/fig_d
+eviation.pdf>] (./sections/results_shared.tex (./table_shared.tex)
 <figures/fig_shared.pdf, id=549, 260.17201pt x 180.675pt>
 File: figures/fig_shared.pdf Graphic file (type pdf)
 <use figures/fig_shared.pdf>
@@ -513,22 +513,21 @@ File: figures/fig_dou.pdf Graphic file (type pdf)
 <use figures/fig_dou.pdf>
 Package pdftex.def Info: figures/fig_dou.pdf  used on input line 55.
 (pdftex.def)             Requested size: 422.77664pt x 158.54985pt.
-) (./sections/results_design.tex [11 <./figures/fig_shared.pdf>] [12 <./figures
-/fig_dou.pdf>]
-<figures/fig_alpha.pdf, id=699, 245.718pt x 173.448pt>
+) (./sections/results_design.tex [11] [12 <./figures/fig_shared.pdf>]
+<figures/fig_alpha.pdf, id=638, 245.718pt x 173.448pt>
 File: figures/fig_alpha.pdf Graphic file (type pdf)
 <use figures/fig_alpha.pdf>
 Package pdftex.def Info: figures/fig_alpha.pdf  used on input line 61.
 (pdftex.def)             Requested size: 211.38832pt x 149.22324pt.
-<figures/fig_design.pdf, id=700, 448.07399pt x 180.675pt>
+<figures/fig_design.pdf, id=639, 448.07399pt x 180.675pt>
 File: figures/fig_design.pdf Graphic file (type pdf)
 <use figures/fig_design.pdf>
 Package pdftex.def Info: figures/fig_design.pdf  used on input line 70.
 (pdftex.def)             Requested size: 399.29463pt x 161.00699pt.
-(./table_design.tex)) (./sections/results_deep.tex [13 <./figures/fig_alpha.pdf
->] (./table_deep.tex)))) (./sections/discussion.tex (./sections/discussion_body
-.tex [14 <./figures/fig_design.pdf>])) (./main.bbl [15] [16]) (./sections/appen
-dix.tex
+(./table_design.tex)) (./sections/results_deep.tex [13 <./figures/fig_dou.pdf> 
+<./figures/fig_alpha.pdf>] (./table_deep.tex)))) (./sections/discussion.tex (./
+sections/discussion_body.tex [14 <./figures/fig_design.pdf>] [15])) (./main.bbl
+[16]) (./sections/appendix.tex [17]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 38.
@@ -545,10 +544,13 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 38.
 
-[17] (./sections/appendix_rare.tex) [18] (./table_robust.tex)
+(./sections/appendix_rare.tex [18]) (./table_robust.tex)
 Overfull \hbox (48.80493pt too wide) in paragraph at lines 104--122
  [][] 
  []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 ) [19] [20] (./main.aux)
  ***********
@@ -559,13 +561,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D10064866DCA350173808251A50B8A8B;3985.
  ) 
 Here is how much of TeX's memory you used:
- 15328 strings out of 476182
- 241515 string characters out of 5795595
- 1942975 words of memory out of 5000000
- 36748 multiletter control sequences out of 15000+600000
- 576987 words of font info for 191 fonts, out of 8000000 for 9000
+ 15333 strings out of 476182
+ 241568 string characters out of 5795595
+ 1944975 words of memory out of 5000000
+ 36749 multiletter control sequences out of 15000+600000
+ 577095 words of font info for 192 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,12n,83p,1001b,605s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,83p,1001b,593s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
@@ -586,10 +588,10 @@ ts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/symbols/msbm10.pfb>
-Output written on main.pdf (20 pages, 467275 bytes).
+Output written on main.pdf (20 pages, 469009 bytes).
 PDF statistics:
- 995 PDF objects out of 1000 (max. 8388607)
- 534 compressed objects within 6 object streams
- 131 named destinations out of 1000 (max. 500000)
+ 999 PDF objects out of 1000 (max. 8388607)
+ 538 compressed objects within 6 object streams
+ 133 named destinations out of 1000 (max. 500000)
  31961 words of extra memory for PDF output out of 35830 (max. 10000000)
 

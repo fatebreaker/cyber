@@ -72,10 +72,23 @@ signature, that outcome or signature does not identify collusion.
 condition on the past, so no punishment strategy exists; any supracompetitive
 outcome is a learning bias.
 
-\paragraph{D5: learning-rate sensitivity.} A strategic equilibrium is a
+\paragraph{D5: uninformative memory.} We replace an informative memory by a
+\emph{random} state of the same size, drawn independently each period from a
+separate random stream (so the value and noise draws are unchanged). If the
+outcome survives, the content of memory, which punishment would require, is
+not what produces it.
+
+\paragraph{D6: a falsification test with passive traders.} When passive Nash
+traders outnumber the learners by more than one, the cartel intensity lies
+\emph{above} the Nash intensity (Remark~\ref{rem:passive}). Collusion then predicts more
+trading and a learning bias predicts less, so the direction of the outcome
+discriminates between them.
+
+\paragraph{D7: learning-rate sensitivity.} A strategic equilibrium is a
 property of the game; a bias of the learning procedure should scale with the
-step size and weaken under decaying step sizes. We vary the constant $\alpha$
-and compare with decaying step sizes.
+step size. We vary the constant $\alpha$, compare with decaying step sizes,
+and replace the standard update with counterfactual updates, which remove the
+selection effect.
 
 \paragraph{Convergence.} Constant-step Q-learning with noisy payoffs keeps
 estimates moving, so greedy strategies need not settle. We report the share

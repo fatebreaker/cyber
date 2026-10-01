@@ -261,3 +261,16 @@ no memory 0.25; counterfactual -0.12.
 All second-seed replications agree with seed 0 to within a few hundredths;
 pooled numbers in the paper. Runs marked "engine": "numba" in their JSON use
 the compiled engine.
+
+## Dou-scale runs (exp15, 2e8 periods, numba engine, xi = 500, grid price bins)
+
+| learners | Delta intensity | shock 1 dev (% beta^N) | rival reaction (% beta^N) |
+|---|---|---|---|
+| separate, gamma 0.95 | 0.33 | 0.16 ± 0.40 | -0.31 ± 0.54 |
+| separate, gamma 0 | 0.13 | 0.45 ± 0.23 | 0.18 ± 0.30 |
+| shared, gamma 0.95 | 0.76 | -0.03 ± 0.37 | 0.01 ± 0.39 |
+| shared, gamma 0 | 0.85 | 3.64 ± 0.20 | 2.35 ± 0.16 |
+
+Separate-table index matches Esquinas Coves's 0.31 at 5e8. Diagnostics
+unchanged from 1.5e7 periods. On-path greedy entries still change (~0.9
+share over the last 1e7 periods) with constant step size.

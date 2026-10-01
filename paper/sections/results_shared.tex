@@ -25,6 +25,27 @@ orders close to their Nash-like initialisation (Appendix~\ref{app:rare}).
 Reactions to shocks or deviations therefore identify punishment only if a
 myopic learner trained in the same way does not show them.
 
+\paragraph{Longer training.} Because the forward-looking learner might
+discover punishment only with more experience, we repeat the four
+$\xi=500$ conditions with $2\times10^8$ periods per market (100 markets,
+$\beta=3\times10^{-8}$, so exploration decays over the same number of
+$e$-foldings), using the compiled engine. With separate tables the index
+settles at $\LongSepDeltaInt$, close to the $0.31$ that \citet{esquinas2026}
+report after $5\times10^8$ periods; with a shared table it rises to
+$\LongSharedDeltaInt$ (theirs: $0.87$). The diagnostics do not change.
+Forward-looking learners still ignore noise shocks
+($\LongSharedShockLarge\pm\LongSharedShockLargeCI\%$ of $\beta^N$ after a
+one-unit shock, shared; $\LongSepShockLarge\pm\LongSepShockLargeCI\%$,
+separate) and forced deviations
+($\LongSharedRival\pm\LongSharedRivalCI\%$ and
+$\LongSepRival\pm\LongSepRivalCI\%$), and deviating pays. The myopic shared
+learner, now at $\Delta=\LongSharedMyopicDeltaInt$, above its forward-looking
+counterpart, still reacts to large shocks
+($\LongSharedMyopicShockLarge\pm\LongSharedMyopicShockLargeCI\%$) and to
+deviations ($\LongSharedMyopicRival\pm\LongSharedMyopicRivalCI\%$). Training
+for thirteen times longer moves the level of the index but not what the tests
+say about it.
+
 \begin{table}[t]
   \centering
   \small

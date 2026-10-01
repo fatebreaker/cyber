@@ -39,13 +39,16 @@ rivals may find punishment strategies these do not. Constant-step Q-learning
 does not converge in the strict sense of \citet{calvano2020}: greedy
 strategies still change on path by one to two grid steps over the last
 $10^5$ periods, although outcomes are stable across seeds, schedules and
-horizons. Our training horizons ($6\times10^6$ to $1.5\times10^7$ periods) are
-shorter than those of \citet{dou2025} and \citet{esquinas2026} (up to
-$5\times10^{10}$ and $5\times10^8$), and the forward-looking shared-table
-learner, which in their runs shows a price-trigger signature at
-$\xi=500$, shows none at our horizon; longer training could change this
-comparison, which is why the placebo, not the absence of a response, carries
-our argument there. The market maker learns its price impact from
+horizons. Our main training horizons ($6\times10^6$ to $1.5\times10^7$
+periods) are shorter than those of \citet{dou2025} and \citet{esquinas2026}
+(up to $5\times10^{10}$ and $5\times10^8$). Runs of $2\times10^8$ periods
+in the $\xi=500$ calibration reproduce the separate-table index of
+\citet{esquinas2026} and leave every diagnostic unchanged, but we cannot rule
+out that still longer training would let forward-looking learners discover
+punishment; the placebo, not the absence of a response, carries our argument
+there. Even at $2\times10^8$ periods greedy strategies keep changing in most
+on-path states ($\LongSharedPolicyChange$ of entries over the last $10^7$
+periods for the shared table), as expected with a constant step size. The market maker learns its price impact from
 exponentially weighted moments rather than being fixed at the equilibrium
 value. Finally, the stylised market abstracts from inventory dynamics,
 multiple assets and long-lived information.

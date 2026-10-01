@@ -1,8 +1,0 @@
-Rc files read:
-  /etc/LatexMk
-Latexmk: Run number 1 of rule 'pdflatex'
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex)
- restricted \write18 enabled.
-entering extended mode
-Latexmk: Getting log file 'main.log'
-

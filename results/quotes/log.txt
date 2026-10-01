@@ -6,3 +6,5 @@ nomemory: best-ask Delta 0.647+-0.026
 nomemory: Delta 0.859+-0.019 rival dp1 +0.000 gain +0.0787+-0.0115
 random: best-ask Delta 0.742+-0.003
 random: Delta 0.922+-0.002 rival dp1 +0.000 gain +0.1032+-0.0132
+counterfactual: best-ask Delta 0.186+-0.019
+counterfactual: Delta 0.304+-0.030 rival dp1 +0.047 gain +0.0498+-0.0320

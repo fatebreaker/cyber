@@ -17,6 +17,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+import matplotlib.ticker  # noqa: E402,F401
 import numpy as np  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -362,13 +363,28 @@ if os.path.exists(mech_f):
         c = [mech["results"][f"{upd}_{x}"]["ci95"] for x in a]
         ax.errorbar(a, m, yerr=c, color=col, marker="o", ms=4, lw=1.2, capsize=2, label=lab)
     ax.axhline(1.0, color="k", lw=0.6)
+    a_arr = np.array(mech["alphas"])
+    short = 1 - np.array([mech["results"][f"taken_{x}"]["mean"] for x in mech["alphas"]])
+    cf_ = float((np.sqrt(a_arr) * short).sum() / a_arr.sum())
+    xs = np.geomspace(a_arr.min(), a_arr.max(), 100)
+    ax.plot(xs, 1 - cf_ * np.sqrt(xs), color=C["grey"], lw=0.8, ls="--", label=f"1 − {cf_:.2f}√α")
     ax.set_xscale("log")
+    ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
+    ax.set_xticks(mech["alphas"], [str(x) for x in mech["alphas"]])
     ax.set_xlabel("Step size α")
     ax.set_ylabel("Learned / optimal intensity")
     ax.legend(fontsize=7)
     fig.tight_layout()
     fig.savefig(os.path.join(FIG, "fig_mechanism.pdf"))
     plt.close(fig)
+    a_arr = np.array(mech["alphas"])
+    short = 1 - np.array([mech["results"][f"taken_{x}"]["mean"] for x in mech["alphas"]])
+    c_fit = float((np.sqrt(a_arr) * short).sum() / (a_arr).sum())  # least squares through origin
+    resid = short - c_fit * np.sqrt(a_arr)
+    r2 = 1 - (resid**2).sum() / ((short - short.mean()) ** 2).sum()
+    macro("MechSqrtCoef", fmt(c_fit))
+    macro("MechSqrtRsq", fmt(r2, 3))
+    xs = np.linspace(min(a_arr), max(a_arr), 100)
     for upd, tag in (("taken", "Taken"), ("counterfactual", "Cf")):
         for x, name in zip(mech["alphas"], ("A", "B", "C", "D", "E")):
             macro(f"Mech{tag}{name}", fmt(mech["results"][f"{upd}_{x}"]["mean"]))

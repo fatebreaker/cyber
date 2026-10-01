@@ -1,1 +1,45 @@
-Discussion pending.
+\paragraph{What the diagnostics show.} Three findings recur across our
+experiments. First, the supracompetitive outcomes of Q-learning informed
+traders in the standard Kyle market do not rest on punishment: rivals do not
+react to deviations even with perfect monitoring, and deviating pays. Second,
+the same learning procedure under-trades with no rival at all, by an amount
+that grows with $\sqrt\alpha$ and disappears under counterfactual updates.
+Third, detectability, not learning sophistication, decides whether punishment
+is even feasible: in the standard Kyle market a deviation is a fraction of a
+noise standard deviation (Proposition~\ref{prop:snr}), whereas with many
+information-insensitive investors it is hundreds of standard deviations.
+
+\paragraph{Policy.} If supracompetitive trading is a learning bias, the
+interventions that target collusion through information, such as delayed or
+coarser order-flow disclosure, will not work, and our reduced-transparency
+treatment confirms this. What does work is algorithm design:
+counterfactual (full-information) updating removes the bias. This mirrors the
+conclusion of \citet{asker2022,asker2024} and \citet{abada2023} for pricing
+algorithms and extends it to informed trading. It also suggests a practical
+audit for supervisors: before treating a supracompetitive outcome as
+collusion, retrain the algorithm myopically and check whether the outcome
+survives. A behaviour that a myopic learner reproduces cannot be a punishment
+scheme.
+
+\paragraph{Limitations.} Our evidence concerns tabular Q-learning and two deep
+RL algorithms with standard hyperparameters; more sophisticated learners, for
+instance ones that model their rivals, may find punishment strategies that
+these do not. Convergence of constant-step Q-learning is not complete in the
+strict sense of \citet{calvano2020}: greedy strategies still change on path by
+about one grid step over the last $10^5$ periods, although outcomes are stable
+across seeds, schedules and horizons. Our market maker learns its price impact
+from exponentially weighted moments rather than being fixed at the
+equilibrium value, which is realistic but differs from some prior designs; our
+\citet{dou2025} replication follows their calibration, grid and state, but not
+every implementation detail (for example their state-dependent exploration
+schedule and training horizons of up to $5\times10^{10}$ periods). Finally,
+the stylised market abstracts from inventory dynamics, multiple assets and
+long-lived information, where the scope for monitoring and punishment may
+differ.
+
+\paragraph{Conclusion.} Low trading intensity by learning algorithms is
+easy to produce and easy to misread. Telling collusion from learning bias
+requires diagnostics that can fail: a deviation test, a placebo that cannot
+collude, and a check of whether the outcome moves with the learning rule. In
+the canonical market for informed trading, these diagnostics point to pruning,
+not punishment.

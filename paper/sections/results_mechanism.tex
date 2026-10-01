@@ -24,7 +24,12 @@ chosen and quickly corrected. The asymmetry acts like a penalty proportional
 to $\sqrt\alpha\,\lambda\sigma_u|x|$, which shifts the learned order toward
 zero by an amount proportional to $\sqrt\alpha$ (Appendix~\ref{app:sqrt}
 gives a heuristic derivation). Counterfactual updates remove
-the selection, because every order is updated every period.
+the selection, because every order is updated every period. What remains
+under counterfactual updates is the ordinary winner's curse of acting on the
+largest of several noisy estimates, which favours the noisier, larger
+orders; consistent with this, counterfactual learners trade marginally more
+than the optimum here (\MechCfA--\MechCfE) and in the market
+($\Delta=\CfResidDeltaInt$, Section~\ref{sec:design}).
 
 The bias also depends on the discount factor (Figure~\ref{fig:mechanism}b).
 At $\alpha=0.15$ the learned intensity rises from \MechGammaA{} of the optimum

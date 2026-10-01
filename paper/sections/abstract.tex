@@ -6,11 +6,13 @@ Whether this is \emph{collusion}, sustained by the threat of punishment, or a
 first calls for limits on transparency, the second for standards on algorithm
 design. We separate the two with a paired rival-deviation test and three
 placebos that cannot collude: myopic learners, an uninformative memory, and
-passive traders that move the cartel above Nash. Analytically, a one-period
-deviation in the standard Kyle market moves order flow by only $(I-1)/(2I)$
-noise standard deviations per unit of the value signal, whatever the noise
-volume; with many information-insensitive investors the ratio is in the
-hundreds. In simulations, Q-learners close \ResidDeltaInt{} of the gap from
+passive traders that move the cartel above Nash. The same diagnostics find
+punishment in the pricing game of Calvano et al.\ (2020), so they can fail.
+Analytically, a one-period deviation in the standard Kyle market moves order
+flow by only $(I-1)/(2I)$ noise standard deviations per unit of the value
+signal, whatever the noise volume, and Nash-reversion trigger strategies
+cannot sustain any collusion; with many information-insensitive investors
+deviations are hundreds of noise standard deviations large. In simulations, Q-learners close \ResidDeltaInt{} of the gap from
 competition to the cartel, yet never punish deviations, even with perfect
 monitoring, and deviating pays. Myopic learners trade even less
 (\MyopicResidDeltaInt{}), an uninformative memory reproduces the outcome, and
@@ -21,7 +23,7 @@ transparency changes nothing (\OpaqueDeltaInt{}); counterfactual updating
 restores competition (\CfResidDeltaInt{}). Where deviations are hundreds of noise standard deviations large,
 forward-looking learners still never punish, while a myopic shared-table
 learner shows the reactions to price shocks and deviations that have been read
-as punishment. We release a
+as punishment. We turn the diagnostics into an audit protocol and release a
 validated, CPU-only testbed with exact benchmarks, tabular and deep RL agents,
 and all diagnostics.
 \end{abstract}

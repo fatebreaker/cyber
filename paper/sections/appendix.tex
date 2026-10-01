@@ -104,7 +104,16 @@ equally for all orders and makes the comparison less sensitive to the
 size-dependent part, which is why the shortfall shrinks with $\gamma$
 (Figure~\ref{fig:mechanism}b). We do not offer this as a proof; it is the
 intuition behind the selection effect, and the experiments test its
-predictions.
+predictions. Two pieces of it do rest on standard results. With a constant
+step size and persistent exploration, the mean dynamics of Q-learning in a
+stationary single-agent problem have the true expected payoffs as their
+unique rest point, and constant-step stochastic approximation keeps the
+iterates within a distance of order $\sqrt\alpha$ of the rest point in
+distribution \citep{kushner2003,borkar2008}. A departure of the greedy order
+from the optimum is therefore at most of order $\sqrt\alpha$, the scaling we
+find, and vanishes as $\alpha\to0$. What these results do not give is the
+\emph{sign} of the departure, which is what the selection argument supplies
+and what Figure~\ref{fig:mechanism}a measures.
 
 \section{Price-state binning at $\xi=500$}
 \label{app:binning}

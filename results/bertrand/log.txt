@@ -2,3 +2,4 @@ baseline: Delta 0.863+-0.020 rival dp1 -0.237 gain -0.1940+-0.0231
 myopic: Delta 0.218+-0.018 rival dp1 -0.014 gain +0.0025+-0.0099
 nomemory: Delta 0.953+-0.009 rival dp1 +0.000 gain +0.0551+-0.0036
 random: Delta 0.053+-0.003 rival dp1 +0.000 gain +0.0085+-0.0050
+noise: Delta 0.789+-0.028 rival dp1 -0.195 gain -0.2375+-0.0407

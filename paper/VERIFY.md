@@ -84,3 +84,6 @@ Status: [ ] unverified, [x] verified against the paper, [!] needs a change.
       testing environments / conformance testing).
 - [ ] Colliard, Foucault & Lovo: our dealer market is "stylised", not their
       model; check that the description of their findings matches the paper.
+- [ ] Kushner & Yin (2003) / Borkar (2008): constant-step SA iterates
+      concentrate within O(sqrt(alpha)) of the ODE equilibrium (check the
+      exact theorem and its conditions, e.g. Kushner-Yin ch. 10, Borkar ch. 9).

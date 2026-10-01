@@ -569,6 +569,26 @@ if exp10:
     lines += ["\\bottomrule", "\\end{tabular}"]
     open(os.path.join(ROOT, "paper", "table_shared.tex"), "w").write("\n".join(lines))
 
+if exp8:
+    lines = ["\\begin{tabular}{lcccc}", "\\toprule",
+             "Learner (residual memory) & $\\Delta$ intensity & $\\Delta$ informativeness & Rival $\\Delta\\beta_1$ & Deviator gain \\\\",
+             "\\midrule"]
+    tabq = [("Tabular Q, $\\gamma=0.95$", sel(exp5, memory="residual", gamma=0.95)),
+            ("Tabular Q, $\\gamma=0$", sel(exp5, memory="residual", gamma=0.0))]
+    deep = [(f"{lab}", [r for r in exp8 if os.path.basename(r["_file"])[:-5] == tag])
+            for tag, lab in (("dqn_g095", "DQN, $\\gamma=0.95$"), ("dqn_g0", "DQN, $\\gamma=0$"),
+                             ("ppo_g095", "PPO, $\\gamma=0.95$"), ("ppo_g0", "PPO, $\\gamma=0$"))]
+    for lab, runs in tabq + deep:
+        if not runs:
+            continue
+        di, dinf = pooled(runs, "delta_intensity"), pooled(runs, "delta_info")
+        imp = impulse_pooled(runs)
+        rv = pm(imp[0][1], imp[1][1], 3) if imp else "--"
+        gn = pm(imp[2], imp[3], 3) if imp else "--"
+        lines.append(f"{lab} & ${pm(*di[:2])}$ & ${pm(*dinf[:2])}$ & ${rv}$ & ${gn}$ \\\\")
+    lines += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(ROOT, "paper", "table_deep.tex"), "w").write("\n".join(lines))
+
 # ------------------------------------------------ Appendix: robustness table
 exp1 = load("exp1/q_*.json")
 rob = []

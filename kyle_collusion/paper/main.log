@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.30)  1 OCT 2026 05:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.30)  1 OCT 2026 05:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -476,53 +476,53 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]) (./sections/related.t
 ex) (./sections/model.tex [3] [4]
-<figures/fig_snr.pdf, id=199, 245.718pt x 173.448pt>
+<figures/fig_snr.pdf, id=203, 245.718pt x 173.448pt>
 File: figures/fig_snr.pdf Graphic file (type pdf)
 <use figures/fig_snr.pdf>
 Package pdftex.def Info: figures/fig_snr.pdf  used on input line 92.
 (pdftex.def)             Requested size: 258.36668pt x 182.39836pt.
 ) (./sections/method.tex [5 <./figures/fig_snr.pdf>] [6]) (./sections/results.t
 ex (./sections/results_body.tex (./sections/results_mechanism.tex [7]
-<figures/fig_mechanism.pdf, id=298, 462.52798pt x 173.448pt>
+<figures/fig_mechanism.pdf, id=302, 462.52798pt x 173.448pt>
 File: figures/fig_mechanism.pdf Graphic file (type pdf)
 <use figures/fig_mechanism.pdf>
 Package pdftex.def Info: figures/fig_mechanism.pdf  used on input line 46.
 (pdftex.def)             Requested size: 422.77664pt x 158.54985pt.
 ) (./sections/results_kyle.tex [8 <./figures/fig_mechanism.pdf>] (./table_core.
 tex)
-<figures/fig_core.pdf, id=373, 448.07399pt x 173.448pt>
+<figures/fig_core.pdf, id=377, 448.07399pt x 173.448pt>
 File: figures/fig_core.pdf Graphic file (type pdf)
 <use figures/fig_core.pdf>
 Package pdftex.def Info: figures/fig_core.pdf  used on input line 73.
 (pdftex.def)             Requested size: 375.80544pt x 145.47565pt.
-<figures/fig_deviation.pdf, id=374, 462.52798pt x 202.356pt>
+<figures/fig_deviation.pdf, id=378, 462.52798pt x 202.356pt>
 File: figures/fig_deviation.pdf Graphic file (type pdf)
 <use figures/fig_deviation.pdf>
 Package pdftex.def Info: figures/fig_deviation.pdf  used on input line 81.
 (pdftex.def)             Requested size: 422.77664pt x 184.97482pt.
 ) (./sections/results_dou.tex [9 <./figures/fig_core.pdf>] (./sections/results_
 shared.tex [10 <./figures/fig_deviation.pdf>] (./table_shared.tex)
-<figures/fig_shared.pdf, id=545, 260.17201pt x 180.675pt>
+<figures/fig_shared.pdf, id=549, 260.17201pt x 180.675pt>
 File: figures/fig_shared.pdf Graphic file (type pdf)
 <use figures/fig_shared.pdf>
 Package pdftex.def Info: figures/fig_shared.pdf  used on input line 44.
 (pdftex.def)             Requested size: 234.8775pt x 163.11876pt.
 ) (./table_dou.tex)
-<figures/fig_dou.pdf, id=548, 462.52798pt x 173.448pt>
+<figures/fig_dou.pdf, id=552, 462.52798pt x 173.448pt>
 File: figures/fig_dou.pdf Graphic file (type pdf)
 <use figures/fig_dou.pdf>
 Package pdftex.def Info: figures/fig_dou.pdf  used on input line 55.
 (pdftex.def)             Requested size: 422.77664pt x 158.54985pt.
 ) (./sections/results_design.tex [11 <./figures/fig_shared.pdf>] [12 <./figures
 /fig_dou.pdf>]
-<figures/fig_design.pdf, id=692, 448.07399pt x 180.675pt>
+<figures/fig_design.pdf, id=696, 448.07399pt x 180.675pt>
 File: figures/fig_design.pdf Graphic file (type pdf)
 <use figures/fig_design.pdf>
 Package pdftex.def Info: figures/fig_design.pdf  used on input line 54.
 (pdftex.def)             Requested size: 399.29463pt x 161.00699pt.
-(./table_design.tex)))) (./sections/discussion.tex (./sections/discussion_body.
-tex [13 <./figures/fig_design.pdf>])) (./main.bbl [14] [15]) (./sections/append
-ix.tex
+(./table_design.tex)) (./sections/results_deep.tex [13 <./figures/fig_design.pd
+f>] (./table_deep.tex)))) (./sections/discussion.tex (./sections/discussion_bod
+y.tex [14])) (./main.bbl [15] [16]) (./sections/appendix.tex
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 38.
@@ -539,7 +539,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 38.
 
-[16] (./sections/appendix_rare.tex) (./table_robust.tex)
+[17] (./sections/appendix_rare.tex) (./table_robust.tex)
 Overfull \hbox (48.80493pt too wide) in paragraph at lines 104--122
  [][] 
  []
@@ -547,20 +547,20 @@ Overfull \hbox (48.80493pt too wide) in paragraph at lines 104--122
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [17] [18] (./main.aux)
+) [18] [19] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: EF126974B8E300E8E9A5DD5E6B13C08F;3786.
+(rerunfilecheck)             Checksum: D10064866DCA350173808251A50B8A8B;3985.
  ) 
 Here is how much of TeX's memory you used:
- 15250 strings out of 476182
- 240167 string characters out of 5795595
+ 15315 strings out of 476182
+ 241198 string characters out of 5795595
  1944975 words of memory out of 5000000
- 36686 multiletter control sequences out of 15000+600000
- 576744 words of font info for 189 fonts, out of 8000000 for 9000
+ 36735 multiletter control sequences out of 15000+600000
+ 576924 words of font info for 192 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,12n,83p,1001b,617s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
@@ -583,10 +583,10 @@ ts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/symbols/msbm10.pfb>
-Output written on main.pdf (18 pages, 447891 bytes).
+Output written on main.pdf (19 pages, 452664 bytes).
 PDF statistics:
- 921 PDF objects out of 1000 (max. 8388607)
- 499 compressed objects within 5 object streams
- 125 named destinations out of 1000 (max. 500000)
- 31948 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 940 PDF objects out of 1000 (max. 8388607)
+ 516 compressed objects within 6 object streams
+ 129 named destinations out of 1000 (max. 500000)
+ 31956 words of extra memory for PDF output out of 35830 (max. 10000000)
 

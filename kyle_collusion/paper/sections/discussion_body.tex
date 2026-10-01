@@ -1,45 +1,63 @@
-\paragraph{What the diagnostics show.} Three findings recur across our
+\paragraph{What the diagnostics show.} Four findings recur across our
 experiments. First, the supracompetitive outcomes of Q-learning informed
-traders in the standard Kyle market do not rest on punishment: rivals do not
-react to deviations even with perfect monitoring, and deviating pays. Second,
-the same learning procedure under-trades with no rival at all, by an amount
-that grows with $\sqrt\alpha$ and disappears under counterfactual updates.
-Third, detectability, not learning sophistication, decides whether punishment
-is even feasible: in the standard Kyle market a deviation is a fraction of a
-noise standard deviation (Proposition~\ref{prop:snr}), whereas with many
-information-insensitive investors it is hundreds of standard deviations.
+traders do not rest on punishment: rivals do not react to deviations, even
+with perfect monitoring or when deviations are hundreds of noise standard
+deviations large, and deviating pays. Second, the same learning procedure
+under-trades with no rival at all, by an amount that grows with
+$\sqrt\alpha$ and disappears under counterfactual updates; in the market,
+counterfactual updating restores competition while degrading information does
+nothing. Third, placebos that cannot collude reproduce the conventional
+evidence of collusion: myopic learners score at or beyond the cartel on
+intensity- and informativeness-based indices, an uninformative memory
+reproduces the effect of an informative one, and a myopic shared-table learner
+shows the threshold-shaped reaction to price shocks that has been read as a
+price trigger. Fourth, detectability rather than learning sophistication
+decides whether punishment is even feasible: in the standard Kyle market a
+deviation is a fraction of a noise standard deviation
+(Proposition~\ref{prop:snr}).
 
-\paragraph{Policy.} If supracompetitive trading is a learning bias, the
-interventions that target collusion through information, such as delayed or
-coarser order-flow disclosure, will not work, and our reduced-transparency
-treatment confirms this. What does work is algorithm design:
-counterfactual (full-information) updating removes the bias. This mirrors the
-conclusion of \citet{asker2022,asker2024} and \citet{abada2023} for pricing
-algorithms and extends it to informed trading. It also suggests a practical
-audit for supervisors: before treating a supracompetitive outcome as
-collusion, retrain the algorithm myopically and check whether the outcome
-survives. A behaviour that a myopic learner reproduces cannot be a punishment
-scheme.
+\paragraph{Implications for auditing algorithms.} Our results suggest a
+simple protocol before treating a supracompetitive outcome as collusion:
+(i) run a paired deviation test and check that deviating does not pay;
+(ii) retrain the algorithm myopically and check that the outcome and any
+response to shocks disappear; (iii) replace its informative state by an
+uninformative one of the same size; and (iv) check whether the outcome
+survives a change to the update rule that removes selection effects. Each
+step can fail, and a genuine punishment scheme would pass all four. None of
+the outcomes we study does.
 
-\paragraph{Limitations.} Our evidence concerns tabular Q-learning and two deep
-RL algorithms with standard hyperparameters; more sophisticated learners, for
-instance ones that model their rivals, may find punishment strategies that
-these do not. Convergence of constant-step Q-learning is not complete in the
-strict sense of \citet{calvano2020}: greedy strategies still change on path by
-about one grid step over the last $10^5$ periods, although outcomes are stable
-across seeds, schedules and horizons. Our market maker learns its price impact
-from exponentially weighted moments rather than being fixed at the
-equilibrium value, which is realistic but differs from some prior designs; our
-\citet{dou2025} replication follows their calibration, grid and state, but not
-every implementation detail (for example their state-dependent exploration
-schedule and training horizons of up to $5\times10^{10}$ periods). Finally,
-the stylised market abstracts from inventory dynamics, multiple assets and
-long-lived information, where the scope for monitoring and punishment may
-differ.
+\paragraph{Implications for policy.} If supracompetitive trading is a learning
+bias, interventions aimed at collusion through information, such as delayed or
+coarser order-flow disclosure, will not work; our reduced-transparency
+treatment confirms this. What works is algorithm design: counterfactual
+(full-information) updating removes the bias. This mirrors conclusions of
+\citet{asker2022,asker2024} and \citet{abada2023} for pricing algorithms and
+extends them to informed trading. A bias is not harmless: it still lowers
+liquidity and price informativeness, myopic learners push trading below even
+the cartel level, and with passive traders it costs the learners themselves
+\PassiveProfitPct\% of their equilibrium profit. But its remedy is a
+design standard, not a cartel investigation.
 
-\paragraph{Conclusion.} Low trading intensity by learning algorithms is
-easy to produce and easy to misread. Telling collusion from learning bias
-requires diagnostics that can fail: a deviation test, a placebo that cannot
-collude, and a check of whether the outcome moves with the learning rule. In
-the canonical market for informed trading, these diagnostics point to pruning,
-not punishment.
+\paragraph{Limitations.} Our evidence concerns tabular Q-learning with standard
+hyperparameters and, more briefly, DQN and PPO; learners that model their
+rivals may find punishment strategies these do not. Constant-step Q-learning
+does not converge in the strict sense of \citet{calvano2020}: greedy
+strategies still change on path by one to two grid steps over the last
+$10^5$ periods, although outcomes are stable across seeds, schedules and
+horizons. Our training horizons ($6\times10^6$ to $1.5\times10^7$ periods) are
+shorter than those of \citet{dou2025} and \citet{esquinas2026} (up to
+$5\times10^{10}$ and $5\times10^8$), and the forward-looking shared-table
+learner, which in their runs shows a price-trigger signature at
+$\xi=500$, shows none at our horizon; longer training could change this
+comparison, which is why the placebo, not the absence of a response, carries
+our argument there. The market maker learns its price impact from
+exponentially weighted moments rather than being fixed at the equilibrium
+value. Finally, the stylised market abstracts from inventory dynamics,
+multiple assets and long-lived information.
+
+\paragraph{Conclusion.} Low trading by learning algorithms is easy to produce
+and easy to misread. Telling collusion from learning bias requires
+diagnostics that can fail: a deviation test, placebos that cannot collude, and
+a check of whether the outcome moves with the learning rule. In the canonical
+market for informed trading, and in the regime where deviations are most
+visible, these diagnostics point to pruning, not punishment.

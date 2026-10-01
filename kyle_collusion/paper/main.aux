@@ -132,18 +132,26 @@
 \newlabel{fig:dou}{{6}{12}{Noise-shock impulse responses in the \citet {dou2025} calibration. A noise-trader shock equal to one best-response deviation hits at lag 0; lines show the change in per-trader intensity relative to $\beta ^N$. Under price-trigger strategies intensity would jump at lag 1; it does not}{figure.caption.32}{}}
 \@writefile{toc}{\contentsline {paragraph}{Information does not matter.}{12}{section*.33}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Learning design matters.}{12}{section*.34}\protected@file@percent }
+\citation{thrun1993,vanhasselt2016}
+\citation{deng2024}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Interventions in the standard Kyle market. Treatments that change what traders observe leave the outcome unchanged; treatments that change how they learn move it to, or past, competition.}}{13}{figure.caption.36}\protected@file@percent }
 \newlabel{fig:design}{{7}{13}{Interventions in the standard Kyle market. Treatments that change what traders observe leave the outcome unchanged; treatments that change how they learn move it to, or past, competition}{figure.caption.36}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Treatments in the standard Kyle market ($\xi =0$, $I=2$, residual memory unless noted, $6\times 10^6$ periods, 200 markets). Baseline: $\Delta $ intensity $0.86$. 95\% CIs.}}{13}{table.caption.37}\protected@file@percent }
 \newlabel{tab:design}{{4}{13}{Treatments in the standard Kyle market ($\xi =0$, $I=2$, residual memory unless noted, $6\times 10^6$ periods, 200 markets). Baseline: $\Delta $ intensity $\ResidDeltaInt $. 95\% CIs}{table.caption.37}{}}
 \@writefile{toc}{\contentsline {paragraph}{When collusion means trading more.}{13}{section*.35}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Discussion}{13}{section.6}\protected@file@percent }
-\newlabel{sec:discussion}{{6}{13}{Discussion}{section.6}{}}
-\@writefile{toc}{\contentsline {paragraph}{What the diagnostics show.}{13}{section*.38}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Learning algorithms in the standard Kyle market ($\xi =0$, $I=2$, residual memory). Tabular Q: 600 markets, $6\times 10^6$ periods; DQN and PPO: 50 markets, $4\times 10^5$ periods. 95\% CIs.}}{14}{table.caption.38}\protected@file@percent }
+\newlabel{tab:deep}{{5}{14}{Learning algorithms in the standard Kyle market ($\xi =0$, $I=2$, residual memory). Tabular Q: 600 markets, $6\times 10^6$ periods; DQN and PPO: 50 markets, $4\times 10^5$ periods. 95\% CIs}{table.caption.38}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Deep reinforcement learning}{14}{subsection.5.5}\protected@file@percent }
+\newlabel{sec:deep}{{5.5}{14}{Deep reinforcement learning}{subsection.5.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Discussion}{14}{section.6}\protected@file@percent }
+\newlabel{sec:discussion}{{6}{14}{Discussion}{section.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{What the diagnostics show.}{14}{section*.39}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Implications for auditing algorithms.}{14}{section*.40}\protected@file@percent }
 \citation{asker2022,asker2024}
 \citation{abada2023}
 \citation{calvano2020}
 \citation{dou2025}
+\citation{esquinas2026}
 \bibstyle{plainnat}
 \bibdata{refs}
 \bibcite{abada2023}{{1}{2023}{{Abada and Lambin}}{{}}}
@@ -152,9 +160,9 @@
 \bibcite{banchio2023}{{4}{2023}{{Banchio and Mantegazza}}{{}}}
 \bibcite{calvano2020}{{5}{2020}{{Calvano et~al.}}{{Calvano, Calzolari, Denicol{\`o}, and Pastorello}}}
 \bibcite{calvano2023}{{6}{2023}{{Calvano et~al.}}{{Calvano, Calzolari, Denicol{\`o}, and Pastorello}}}
-\@writefile{toc}{\contentsline {paragraph}{Policy.}{14}{section*.39}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Limitations.}{14}{section*.40}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Conclusion.}{14}{section*.41}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Implications for policy.}{15}{section*.41}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Limitations.}{15}{section*.42}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Conclusion.}{15}{section*.43}\protected@file@percent }
 \bibcite{cartea2022}{{7}{2022}{{Cartea et~al.}}{{Cartea, Chang, and Penalva}}}
 \bibcite{colliard2026}{{8}{forthcoming}{{Colliard et~al.}}{{Colliard, Foucault, and Lovo}}}
 \bibcite{cont2024}{{9}{2024}{{Cont and Xiong}}{{}}}
@@ -175,22 +183,22 @@
 \bibcite{thrun1993}{{24}{1993}{{Thrun and Schwartz}}{{}}}
 \bibcite{vanhasselt2010}{{25}{2010}{{van Hasselt}}{{}}}
 \bibcite{vanhasselt2016}{{26}{2016}{{van Hasselt et~al.}}{{van Hasselt, Guez, and Silver}}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Proofs}{16}{appendix.A}\protected@file@percent }
-\newlabel{app:proofs}{{A}{16}{Proofs}{appendix.A}{}}
-\@writefile{toc}{\contentsline {paragraph}{Proposition~\ref {prop:bench}.}{16}{section*.43}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Proposition~\ref {prop:snr}.}{16}{section*.44}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {B}Why pruning scales with $\sqrt  {\alpha }$: a heuristic}{16}{appendix.B}\protected@file@percent }
-\newlabel{app:sqrt}{{B}{16}{Why pruning scales with $\sqrt {\alpha }$: a heuristic}{appendix.B}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Proofs}{17}{appendix.A}\protected@file@percent }
+\newlabel{app:proofs}{{A}{17}{Proofs}{appendix.A}{}}
+\@writefile{toc}{\contentsline {paragraph}{Proposition~\ref {prop:bench}.}{17}{section*.45}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Proposition~\ref {prop:snr}.}{17}{section*.46}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B}Why pruning scales with $\sqrt  {\alpha }$: a heuristic}{17}{appendix.B}\protected@file@percent }
+\newlabel{app:sqrt}{{B}{17}{Why pruning scales with $\sqrt {\alpha }$: a heuristic}{appendix.B}{}}
 \citation{dou2025}
-\@writefile{toc}{\contentsline {section}{\numberline {C}Rare states and the shock response}{17}{appendix.C}\protected@file@percent }
-\newlabel{app:rare}{{C}{17}{Rare states and the shock response}{appendix.C}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {D}Robustness}{17}{appendix.D}\protected@file@percent }
-\newlabel{app:robust}{{D}{17}{Robustness}{appendix.D}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Robustness of the standard-Kyle outcomes. $\beta $ is the exploration decay ($\varepsilon _t=e^{-\beta t}$). 100--200 markets per row; 95\% CIs.}}{17}{table.caption.45}\protected@file@percent }
-\newlabel{tab:robust}{{5}{17}{Robustness of the standard-Kyle outcomes. $\beta $ is the exploration decay ($\varepsilon _t=e^{-\beta t}$). 100--200 markets per row; 95\% CIs}{table.caption.45}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {E}Implementation details}{17}{appendix.E}\protected@file@percent }
-\newlabel{app:impl}{{E}{17}{Implementation details}{appendix.E}{}}
-\@writefile{toc}{\contentsline {paragraph}{Validation.}{17}{section*.47}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Default parameters.}}{18}{table.caption.46}\protected@file@percent }
-\newlabel{tab:params}{{6}{18}{Default parameters}{table.caption.46}{}}
-\gdef \@abspage@last{18}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Rare states and the shock response}{18}{appendix.C}\protected@file@percent }
+\newlabel{app:rare}{{C}{18}{Rare states and the shock response}{appendix.C}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {D}Robustness}{18}{appendix.D}\protected@file@percent }
+\newlabel{app:robust}{{D}{18}{Robustness}{appendix.D}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Robustness of the standard-Kyle outcomes. $\beta $ is the exploration decay ($\varepsilon _t=e^{-\beta t}$). 100--200 markets per row; 95\% CIs.}}{18}{table.caption.47}\protected@file@percent }
+\newlabel{tab:robust}{{6}{18}{Robustness of the standard-Kyle outcomes. $\beta $ is the exploration decay ($\varepsilon _t=e^{-\beta t}$). 100--200 markets per row; 95\% CIs}{table.caption.47}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {E}Implementation details}{18}{appendix.E}\protected@file@percent }
+\newlabel{app:impl}{{E}{18}{Implementation details}{appendix.E}{}}
+\@writefile{toc}{\contentsline {paragraph}{Validation.}{18}{section*.49}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Default parameters.}}{19}{table.caption.48}\protected@file@percent }
+\newlabel{tab:params}{{7}{19}{Default parameters}{table.caption.48}{}}
+\gdef \@abspage@last{19}

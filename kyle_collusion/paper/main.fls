@@ -293,6 +293,12 @@ INPUT ./figures/fig_design.pdf
 INPUT ./table_design.tex
 INPUT ./table_design.tex
 INPUT table_design.tex
+INPUT ./sections/results_deep.tex
+INPUT ./sections/results_deep.tex
+INPUT sections/results_deep.tex
+INPUT ./table_deep.tex
+INPUT ./table_deep.tex
+INPUT table_deep.tex
 INPUT ./sections/discussion.tex
 INPUT ./sections/discussion.tex
 INPUT sections/discussion.tex

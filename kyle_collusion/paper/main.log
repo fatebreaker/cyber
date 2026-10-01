@@ -540,6 +540,10 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 38.
 
 [17] (./sections/appendix_rare.tex) (./table_robust.tex)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
 Overfull \hbox (48.80493pt too wide) in paragraph at lines 104--122
  [][] 
  []
@@ -583,10 +587,10 @@ ts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/symbols/msbm10.pfb>
-Output written on main.pdf (19 pages, 452664 bytes).
+Output written on main.pdf (19 pages, 454430 bytes).
 PDF statistics:
- 940 PDF objects out of 1000 (max. 8388607)
- 516 compressed objects within 6 object streams
+ 943 PDF objects out of 1000 (max. 8388607)
+ 519 compressed objects within 6 object streams
  129 named destinations out of 1000 (max. 500000)
  31956 words of extra memory for PDF output out of 35830 (max. 10000000)
 

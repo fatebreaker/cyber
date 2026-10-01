@@ -1,0 +1,31 @@
+To check why a myopic shared-table learner reacts to large noise shocks at
+$\xi=500$, we trained one more time (20 markets, $1.5\times10^7$ periods,
+otherwise as in Table~\ref{tab:shared}), then recorded which price states greedy
+play visits and the greedy trading intensity in every state, expressed on a
+scale where 0 is the cartel and 1 is Nash.
+
+Greedy play visits only the two outermost price-surprise bins
+(together 100.0\% of visits). Because the learners trade well below
+Nash, the realised price is hundreds of noise standard deviations away from the
+Nash-expected price that our state is centred on, so the surprise saturates
+the outer bins. In those visited states the learned intensity is close to the
+cartel (0.29--0.29 on the 0--1 scale). The thirteen interior
+bins are never visited in greedy play, and their greedy orders remain close to
+the initialisation, which favours Nash-like trading (0.79--0.81).
+
+This explains the shock response. A shock in the direction of $v$ moves the
+price towards the Nash-expected price and hence the next state towards the
+interior bins. Small shocks do not reach them; large ones do, and there the
+learner trades as it was initialised, harder than on path. The resulting
+threshold-shaped reaction is not a learned punishment but the behaviour of a
+learner in states it never learned about.
+
+Two caveats follow. First, our price state bins the surprise in units of
+noise-driven price variation, which saturates at $\xi=500$; \citet{dou2025}
+bin the price over the range implied by the order grid, which may leave more
+states on path. Our replication therefore does not reproduce their state
+space exactly, and the separate-table learners in Section~\ref{sec:dou} saw
+an effectively coarse price signal. Second, the general lesson does not depend
+on the binning: whenever shocks move a Q-learner into rarely or never visited
+states, its reaction reflects initialisation and incomplete exploration rather
+than strategy, which is exactly what the myopic placebo detects.

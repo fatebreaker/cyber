@@ -100,3 +100,20 @@ Calvano et al.'s "modest profit gains" for memoryless algorithms use delta = 0,
 alpha = 0.25, beta = 1e-4 (online appendix A4.1). We reproduce Delta = 0.16
 with that spec; the same spec with delta = 0.95 gives 0.93. Added to the
 validation section and table.
+
+## Bibliographic metadata checked against Crossref (2026-10-01)
+
+- [x] Green & Porter 1984, Econometrica 52(1):87-100
+- [x] Abreu, Pearce & Stacchetti 1990, Econometrica 58(5):1041-1063
+- [x] Glosten & Milgrom 1985, JFE 14(1):71-100
+- [x] Klein 2021, RAND 52(3):538-558
+- [x] Abada & Lambin 2023, Management Science 69(9):5042-5065 (pages added)
+- [x] Calvano et al. 2023, IJIO 90:102973 (article number added)
+- [x] Asker, Fershtman & Pakes 2024, JEMS 33(2):276-304 (issue added)
+- [x] Cont & Xiong 2024, Mathematical Finance 34(2):467-521 (added)
+- [x] den Boer, Meylahn & Schinkel, Management Science, online 2026-06-09,
+      doi 10.1287/mnsc.2024.08557 (no volume yet)
+
+Metadata only: the content claims for these papers (and for Dou et al.,
+Colliard-Foucault-Lovo, Cartea et al., Asker et al. 2022) still need the
+full texts, which are paywalled or on SSRN (blocks automated access).

@@ -271,67 +271,107 @@ for mem, runs in visits.items():
         m, c, _ = pooled(runs, "delta_intensity")
         macro("Visits" + mem.capitalize(), fmt(m))
 
-# -------------------------------------------------- Figure 4: Dou regime
+# -------------------------------------------------- Dou regime (exp7, exp10-12)
+exp10 = load("exp10_shared/*.json")
+exp11 = load("exp11_dou_gridprice/*.json")
+exp12 = load("exp12_dou_seeds/*.json")
+
+
+def tag_of(r):
+    return os.path.basename(r["_file"])[:-5]
+
+
+def dou_runs(xi, gamma, memory="price", shared=False, binning=None):
+    """Runs for one Dou-regime cell. At xi = 500 the price state uses grid
+    binning (exp11/12, pooled over seeds) unless binning='noise' asks for the
+    original noise-unit runs (exp7/exp10)."""
+    def match(r):
+        return (abs(r["config"]["xi"] - xi) < 1e-9 and r["config"]["memory"] == memory
+                and abs(r["agent_kwargs"].get("gamma", 0.95) - gamma) < 1e-9
+                and bool(r["agent_kwargs"].get("shared", False)) == shared)
+    if memory == "price" and xi == 500.0 and binning != "noise":
+        return [r for r in exp11 + exp12 if match(r)]
+    pool = exp10 if shared else exp7
+    return [r for r in pool if match(r)]
+
+
+def shock_pooled(runs, devs, lag=1):
+    """Event-weighted response at `lag` to a shock of `devs` deviation units,
+    as a percentage of beta^N, combined across runs."""
+    ms, ses, ws = [], [], []
+    for r in runs:
+        bn = r["benchmarks"]["beta_nash"]
+        for sh in r.get("noise_shocks", []):
+            if abs(sh["shock_devs"] - devs) < 1e-9:
+                ms.append(100 * sh["d_beta_all"][lag] / bn)
+                ses.append(100 * sh["d_beta_all_ci95"][lag] / bn / 1.96)
+                ws.append(sh["n_events"])
+    if not ms:
+        return float("nan"), float("nan")
+    w = np.array(ws, float) / sum(ws)
+    return float((w * ms).sum()), float(1.96 * np.sqrt((w**2 * np.array(ses) ** 2).sum()))
+
+
+def shock_profile(runs, devs, K=6):
+    prof = [shock_pooled(runs, devs, lag=k) for k in range(K)]
+    return np.array([p[0] for p in prof]), np.array([p[1] for p in prof])
+
+
+def rival_pct(runs):
+    imp = impulse_pooled(runs)
+    if not imp:
+        return float("nan"), float("nan"), float("nan"), float("nan")
+    bn = runs[0]["benchmarks"]["beta_nash"]
+    return 100 * imp[0][1] / bn, 100 * imp[1][1] / bn, imp[2], imp[3]
+
+
+DOU_ROWS = [  # (xi, gamma, memory, label, macro key)
+    (0.0, 0.95, "price", "$\\gamma=0.95$, remembers price", "KyleStrat"),
+    (0.0, 0.0, "price", "$\\gamma=0$ (myopic placebo)", "KyleMyopic"),
+    (0.0, 0.95, "none", "$\\gamma=0.95$, no memory", "KyleNone"),
+    (500.0, 0.95, "price", "$\\gamma=0.95$, remembers price", "DouStrat"),
+    (500.0, 0.0, "price", "$\\gamma=0$ (myopic placebo)", "DouMyopic"),
+    (500.0, 0.95, "none", "$\\gamma=0.95$, no memory", "DouNone"),
+]
 if exp7:
-    fig, axes = plt.subplots(1, 2, figsize=(6.4, 2.4), sharey=False)
-    rows = []
+    lines_t = ["\\begin{tabular}{llccccc}", "\\toprule",
+               "$\\xi$ & Separate Q-tables & $\\Delta$ intensity & $\\Delta$ profit & Shock response & "
+               "Rival reaction & Seeds \\\\", "\\midrule"]
+    for xi, g, mem, lab, key in DOU_ROWS:
+        runs = dou_runs(xi, g, mem)
+        if not runs:
+            continue
+        di, dp = pooled(runs, "delta_intensity"), pooled(runs, "delta_profit")
+        s1 = shock_pooled(runs, 1.0)
+        rv = rival_pct(runs)
+        macro(key + "DeltaInt", fmt(di[0]))
+        macro(key + "Shock", fmt(s1[0], 2))
+        macro(key + "ShockCI", fmt(s1[1], 2))
+        macro(key + "Rival", fmt(rv[0], 2))
+        macro(key + "RivalCI", fmt(rv[1], 2))
+        lines_t.append(f"{int(xi)} & {lab} & ${pm(*di[:2])}$ & ${pm(*dp[:2])}$ & ${pm(*s1)}$ & "
+                       f"${pm(rv[0], rv[1])}$ & {len(runs)} \\\\")
+    lines_t += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(ROOT, "paper", "table_dou.tex"), "w").write("\n".join(lines_t))
+
+    fig, axes = plt.subplots(1, 2, figsize=(6.4, 2.5))
     for ax, xi in zip(axes, (0.0, 500.0)):
-        for gam, mem, col, lab in ((0.95, "price", C["strategic"], "γ=0.95, remembers price"),
-                                   (0.0, "price", C["myopic"], "γ=0 (myopic placebo)"),
-                                   (0.95, "none", C["none"], "γ=0.95, no memory")):
-            runs = [r for r in sel(exp7, memory=mem, gamma=gam) if abs(r["config"]["xi"] - xi) < 1e-9]
+        for g, mem, col, lab in ((0.95, "price", C["strategic"], "γ=0.95, remembers price"),
+                                 (0.0, "price", C["myopic"], "γ=0 (myopic placebo)"),
+                                 (0.95, "none", C["none"], "γ=0.95, no memory")):
+            runs = dou_runs(xi, g, mem)
             if not runs:
                 continue
-            r = runs[0]
-            m, c, _ = pooled(runs, "delta_intensity")
-            shocks = {round(s["shock_devs"], 3): s for s in r.get("noise_shocks", [])}
-            sh = shocks.get(1.0)
-            imp = impulse_pooled(runs)
-            rows.append((xi, lab, m, c, sh, imp))
-            if sh:
-                k = np.arange(len(sh["d_beta_all"]))[:6]
-                scale = r["benchmarks"]["beta_nash"]
-                ax.errorbar(k, np.array(sh["d_beta_all"][:6]) / scale,
-                            yerr=np.array(sh["d_beta_all_ci95"][:6]) / scale,
-                            color=col, marker="o", ms=3, lw=1, capsize=2, label=lab)
+            m, c = shock_profile(runs, 1.0)
+            ax.errorbar(np.arange(len(m)), m, yerr=c, color=col, marker="o", ms=3, lw=1, capsize=2, label=lab)
         ax.axhline(0, color="k", lw=0.6)
         ax.set_title(f"ξ = {int(xi)}")
         ax.set_xlabel("Periods after a 1-deviation noise shock")
-    axes[0].set_ylabel("Change in intensity / β$^N$")
+    axes[0].set_ylabel("Intensity change (% of β$^N$)")
     axes[1].legend(fontsize=6.5)
     fig.tight_layout()
     fig.savefig(os.path.join(FIG, "fig_dou.pdf"))
     plt.close(fig)
-
-    lines = ["\\begin{tabular}{llcccc}", "\\toprule",
-             "$\\xi$ & Learners & $\\Delta$ intensity & $\\Delta$ profit & Shock response & "
-             "Rival reaction \\\\", "\\midrule"]
-    for xi, lab, m, c, sh, imp in rows:
-        s1 = "--"
-        scale = None
-        runs = [r for r in exp7 if abs(r["config"]["xi"] - xi) < 1e-9]
-        if runs:
-            scale = runs[0]["benchmarks"]["beta_nash"]
-        if sh and scale:
-            s1 = pm(sh["d_beta_all"][1] / scale, sh["d_beta_all_ci95"][1] / scale, 3)
-        d1 = pm(imp[0][1] / scale, imp[1][1] / scale, 3) if imp and scale else "--"
-        lab_tex = lab.replace("γ", "$\\gamma$")
-        rr = [r for r in exp7 if abs(r["config"]["xi"] - xi) < 1e-9 and r["config"]["memory"] ==
-              ("none" if "no memory" in lab else "price") and
-              abs(r["agent_kwargs"].get("gamma", 0.95) - (0.0 if "myopic" in lab else 0.95)) < 1e-9]
-        dpm, dpc, _ = pooled(rr, "delta_profit") if rr else (float("nan"), float("nan"), 0)
-        lines.append(f"{int(xi)} & {lab_tex} & ${pm(m, c)}$ & ${pm(dpm, dpc)}$ & ${s1}$ & ${d1}$ \\\\")
-    lines += ["\\bottomrule", "\\end{tabular}"]
-    open(os.path.join(ROOT, "paper", "table_dou.tex"), "w").write("\n".join(lines))
-
-    for xi, lab, m, c, sh, imp in rows:
-        key = ("Kyle" if xi == 0 else "Dou") + {"γ=0.95, remembers price": "Strat",
-                                              "γ=0 (myopic placebo)": "Myopic",
-                                              "γ=0.95, no memory": "None"}[lab]
-        macro(key + "DeltaInt", fmt(m))
-        runs = [r for r in exp7 if abs(r["config"]["xi"] - xi) < 1e-9]
-        if sh and runs:
-            macro(key + "Shock", fmt(sh["d_beta_all"][1] / runs[0]["benchmarks"]["beta_nash"], 3))
 
 # --------------------------------------- Figure: deviation detectability (theory)
 import sys  # noqa: E402
@@ -506,66 +546,78 @@ if pas:
     macro("PassiveAggColl", fmt(b["agg_coll"]))
     macro("PassiveProfitPct", fmt(100 * (1 - p.mean() / b["profit_nash"]), 0))
 
-# ---------------------------------------------- shared tables (exp10)
-exp10 = load("exp10_shared/*.json")
-if exp10:
-    by = {os.path.basename(r["_file"])[:-5]: r for r in exp10}
-    fig, ax = plt.subplots(figsize=(3.6, 2.5))
-    rows_s = []
-    for tag, col, ls, lab in (("xi500_shared_g0", C["myopic"], "-", "ξ=500, myopic (γ=0)"),
-                              ("xi500_shared_g095", C["strategic"], "-", "ξ=500, γ=0.95"),
-                              ("xi0_shared_g0", C["myopic"], ":", "ξ=0, myopic (γ=0)"),
-                              ("xi0_shared_g095", C["strategic"], ":", "ξ=0, γ=0.95")):
-        r = by.get(tag)
-        if not r:
+# ---------------------------------------------- shared tables (exp10-12)
+SHARED_ROWS = [
+    (0.0, 0.95, "$\\gamma=0.95$", "SharedKyleStrat"),
+    (0.0, 0.0, "$\\gamma=0$ (myopic placebo)", "SharedKyleMyopic"),
+    (500.0, 0.95, "$\\gamma=0.95$", "SharedDouStrat"),
+    (500.0, 0.0, "$\\gamma=0$ (myopic placebo)", "SharedDouMyopic"),
+]
+if exp10 or exp11:
+    lines_t = ["\\begin{tabular}{llcccccc}", "\\toprule",
+               "$\\xi$ & Shared Q-table & $\\Delta$ intensity & \\multicolumn{3}{c}{Shock response (\\% of $\\beta^N$)} & Rival reaction & Seeds \\\\",
+               " & & & 0.05 & 0.25 & 1 & (\\% of $\\beta^N$) & \\\\", "\\midrule"]
+    for xi, g, lab, key in SHARED_ROWS:
+        runs = dou_runs(xi, g, "price", shared=True)
+        if not runs:
             continue
-        bn = r["benchmarks"]["beta_nash"]
-        sh = sorted(r.get("noise_shocks", []), key=lambda x: x["shock_devs"])
-        xs = [x["shock_devs"] for x in sh]
-        ys = [100 * x["d_beta_all"][1] / bn for x in sh]
-        cs = [100 * x["d_beta_all_ci95"][1] / bn for x in sh]
-        ax.errorbar(xs, ys, yerr=cs, color=col, ls=ls, marker="o", ms=4, lw=1.2, capsize=2, label=lab)
-        di = pooled([r], "delta_intensity")
-        key = {"xi500_shared_g0": "SharedDouMyopic", "xi500_shared_g095": "SharedDouStrat",
-               "xi0_shared_g0": "SharedKyleMyopic", "xi0_shared_g095": "SharedKyleStrat"}[tag]
+        di = pooled(runs, "delta_intensity")
+        cells = []
+        for dv, nm in ((0.05, "Small"), (0.25, "Mid"), (1.0, "Large")):
+            m, c = shock_pooled(runs, dv)
+            cells.append(pm(m, c))
+            macro(f"{key}Shock{nm}", fmt(m, 2))
+            macro(f"{key}Shock{nm}CI", fmt(c, 2))
+        rv = rival_pct(runs)
         macro(f"{key}DeltaInt", fmt(di[0]))
-        for x in sh:
-            nm = {0.05: "Small", 0.25: "Mid", 1.0: "Large"}.get(round(x["shock_devs"], 2))
-            if nm:
-                macro(f"{key}Shock{nm}", fmt(100 * x["d_beta_all"][1] / bn, 2))
-                macro(f"{key}Shock{nm}CI", fmt(100 * x["d_beta_all_ci95"][1] / bn, 2))
-        imp = impulse_pooled([r])
-        rows_s.append((tag, key, r, di, sh, imp, bn))
+        macro(f"{key}Rival", fmt(rv[0], 2))
+        macro(f"{key}RivalCI", fmt(rv[1], 2))
+        macro(f"{key}Gain", fmt(rv[2], 2))
+        lines_t.append(f"{int(xi)} & {lab} & ${pm(*di[:2])}$ & ${cells[0]}$ & ${cells[1]}$ & ${cells[2]}$ & "
+                       f"${pm(rv[0], rv[1])}$ & {len(runs)} \\\\")
+    lines_t += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(ROOT, "paper", "table_shared.tex"), "w").write("\n".join(lines_t))
+
+    fig, ax = plt.subplots(figsize=(3.6, 2.5))
+    for xi, g, col, ls, lab in ((500.0, 0.0, C["myopic"], "-", "ξ=500, myopic (γ=0)"),
+                                (500.0, 0.95, C["strategic"], "-", "ξ=500, γ=0.95"),
+                                (0.0, 0.0, C["myopic"], ":", "ξ=0, myopic (γ=0)"),
+                                (0.0, 0.95, C["strategic"], ":", "ξ=0, γ=0.95")):
+        runs = dou_runs(xi, g, "price", shared=True)
+        if not runs:
+            continue
+        xs = [0.05, 0.25, 1.0]
+        mc = [shock_pooled(runs, x) for x in xs]
+        ax.errorbar(xs, [m for m, _ in mc], yerr=[c for _, c in mc], color=col, ls=ls, marker="o",
+                    ms=4, lw=1.2, capsize=2, label=lab)
     ax.axhline(0, color="k", lw=0.6)
     ax.set_xscale("log")
     ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
     ax.set_xticks([0.05, 0.25, 1.0], ["0.05", "0.25", "1"])
     ax.set_xlabel("Noise shock (deviation units)")
-    ax.set_ylabel("Next-period intensity change (% of β$^N$)")
+    ax.set_ylabel("Lag-1 intensity change\n(% of β$^N$)")
     ax.legend(fontsize=6.5)
     fig.tight_layout()
     fig.savefig(os.path.join(FIG, "fig_shared.pdf"))
     plt.close(fig)
 
-    labs = {"xi0_shared_g095": ("0", "$\\gamma=0.95$"), "xi0_shared_g0": ("0", "$\\gamma=0$ (myopic placebo)"),
-            "xi500_shared_g095": ("500", "$\\gamma=0.95$"), "xi500_shared_g0": ("500", "$\\gamma=0$ (myopic placebo)")}
-    lines = ["\\begin{tabular}{llccccc}", "\\toprule",
-             "$\\xi$ & Shared Q-table & $\\Delta$ intensity & \\multicolumn{3}{c}{Shock response (\\% of $\\beta^N$)} & Rival reaction \\\\",
-             " & & & 0.05 & 0.25 & 1 & (\\% of $\\beta^N$) \\\\", "\\midrule"]
-    for tag in ("xi0_shared_g095", "xi0_shared_g0", "xi500_shared_g095", "xi500_shared_g0"):
-        row = [x for x in rows_s if x[0] == tag]
-        if not row:
-            continue
-        _, key, r, di, sh, imp, bn = row[0]
-        cells = []
-        for target in (0.05, 0.25, 1.0):
-            m = [x for x in sh if abs(x["shock_devs"] - target) < 1e-9]
-            cells.append(pm(100 * m[0]["d_beta_all"][1] / bn, 100 * m[0]["d_beta_all_ci95"][1] / bn, 2) if m else "--")
-        rv = pm(100 * imp[0][1] / bn, 100 * imp[1][1] / bn, 2) if imp else "--"
-        xi_s, lab = labs[tag]
-        lines.append(f"{xi_s} & {lab} & ${pm(*di[:2])}$ & ${cells[0]}$ & ${cells[1]}$ & ${cells[2]}$ & ${rv}$ \\\\")
-    lines += ["\\bottomrule", "\\end{tabular}"]
-    open(os.path.join(ROOT, "paper", "table_shared.tex"), "w").write("\n".join(lines))
+    # Appendix: price-state binning robustness at xi = 500
+    lines_t = ["\\begin{tabular}{llcccc}", "\\toprule",
+               "Learners ($\\xi=500$) & Price state & $\\Delta$ intensity & Shock response (1 dev.) & Rival reaction & Seeds \\\\",
+               "\\midrule"]
+    for shared, g, lab in ((False, 0.95, "Separate, $\\gamma=0.95$"), (False, 0.0, "Separate, $\\gamma=0$"),
+                           (True, 0.95, "Shared, $\\gamma=0.95$"), (True, 0.0, "Shared, $\\gamma=0$")):
+        for binning, bl in (("noise", "noise units"), ("grid", "grid range")):
+            runs = dou_runs(500.0, g, "price", shared=shared, binning=binning)
+            if not runs:
+                continue
+            di = pooled(runs, "delta_intensity")
+            s1 = shock_pooled(runs, 1.0)
+            rv = rival_pct(runs)
+            lines_t.append(f"{lab} & {bl} & ${pm(*di[:2])}$ & ${pm(*s1)}$ & ${pm(rv[0], rv[1])}$ & {len(runs)} \\\\")
+    lines_t += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(ROOT, "paper", "table_binning.tex"), "w").write("\n".join(lines_t))
+
 
 if exp8:
     lines = ["\\begin{tabular}{lcccc}", "\\toprule",

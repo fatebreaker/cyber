@@ -72,6 +72,30 @@ size-dependent part, which is why the shortfall shrinks with $\gamma$
 intuition behind the selection effect, and the experiments test its
 predictions.
 
+\section{Price-state binning at $\xi=500$}
+\label{app:binning}
+
+Our first replication binned the lagged price as a surprise relative to the
+Nash-expected price, in units of noise-driven price variation ($\pm2.5$
+standard deviations, 15 bins). At $\xi=500$ this saturates: learners that
+trade below Nash move the price hundreds of noise standard deviations from the
+Nash-expected value, so greedy play visits only the two outer bins. The main
+text therefore uses a grid-range state like the price grid of \citet{dou2025}:
+15 equal bins over the range of prices the order grid can produce given
+$v_{t-1}$, with a $\pm2\sigma_u$ margin. Table~\ref{tab:binning} reports both.
+The qualitative conclusions are the same: forward-looking learners never react
+to shocks or deviations, and the myopic shared learner reacts to large shocks
+under both binnings.
+
+\begin{table}[h]
+  \centering
+  \small
+  \resizebox{\linewidth}{!}{\input{table_binning.tex}}
+  \caption{$\xi=500$ results under the two price-state binnings. Shock
+  response and rival reaction in \% of $\beta^N$; 95\% CIs.}
+  \label{tab:binning}
+\end{table}
+
 \section{Rare states and the shock response}
 \label{app:rare}
 \input{sections/appendix_rare.tex}

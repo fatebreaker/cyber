@@ -67,12 +67,13 @@ informed traders in the canonical \citet{kyle1985} market and in the
 \item \textbf{What fixes it.} Blurring the order flow traders observe changes
   nothing ($\Delta=\OpaqueDeltaInt$), while counterfactual updating, a change
   to the learning rule alone, restores competition ($\Delta=\CfResidDeltaInt$).
-  In the \citet{dou2025} regime, where deviations are glaring, our
-  separate-table learners match the independent replication's collusion
-  level ($\DouStratDeltaInt$) and still do not punish. With a shared Q-table, a \emph{myopic} learner
-  reproduces both the high collusion index ($\SharedDouMyopicDeltaInt$) and the
-  threshold-shaped response to noise shocks that has been read as a price
-  trigger, so that signature does not identify collusion without a placebo.
+  In the \citet{dou2025} regime, where deviations are glaring,
+  forward-looking learners still never react to shocks or deviations, while a
+  \emph{myopic} shared-table learner reacts to both: it shows the
+  threshold-shaped response to price shocks read as a price trigger, and
+  rivals trade harder after a forced deviation, although it has no reason to
+  punish and deviating still pays. These signatures do not identify collusion
+  without a placebo.
 \item \textbf{An open testbed.} A batched, CPU-only simulator with exact
   benchmarks, tabular Q-learning, DQN and PPO agents, all diagnostics, and a
   test suite that validates the economics and the diagnostics against

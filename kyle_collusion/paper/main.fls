@@ -322,6 +322,9 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT ./table_binning.tex
+INPUT ./table_binning.tex
+INPUT table_binning.tex
 INPUT ./sections/appendix_rare.tex
 INPUT ./sections/appendix_rare.tex
 INPUT sections/appendix_rare.tex

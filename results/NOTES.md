@@ -214,3 +214,50 @@ The myopic shared learner shows both "punishment" signatures; deviating still
 pays. Rare-state check (grid binning): intensity 0.30 in common states, 0.35
 in rare, 0.47 in never-visited (0 = cartel, 1 = Nash): uneven training across
 states produces the reactions.
+
+## Validation: Calvano et al. (2020) logit Bertrand (results/bertrand)
+
+100 sessions, 2.5e6 periods, Calvano baseline parameters. Benchmarks
+reproduce p^N = 1.473, p^M = 1.925.
+
+| variant | Delta (profit) | rival price at lag 1 | deviator gain | verdict |
+|---|---|---|---|---|
+| baseline (memory 1, gamma 0.95) | 0.86 | -0.24 | -0.19 | punishment |
+| myopic | 0.22 | ~0 | ~0 | none |
+| no memory | 0.95 | 0 | +0.055 | none (spontaneous coupling) |
+| uninformative memory | 0.05 | 0 | +0.009 | none |
+| noisy profits | 0.79 | -0.20 | -0.24 | punishment |
+| noisy profits, myopic | 0.03 | ~0 | ~0 | none |
+| counterfactual updates | 0.33 | -0.11 | -0.04 | punishment |
+
+## Dealers under adverse selection (results/quotes)
+
+Two Q-learning dealers quote asks; informed buyers (pi = 0.3) buy at v = +0.5,
+liquidity buyers have w ~ U[0,1]. a^N = 0.10 (zero profit), a^M = 0.61.
+
+| variant | Delta best ask | Delta profit | punishment |
+|---|---|---|---|
+| baseline | 0.64 | 0.84 | no (undercutting pays) |
+| myopic | 0.84 | 0.97 | no |
+| no memory | 0.65 | 0.86 | no |
+| uninformative memory | 0.74 | 0.92 | no |
+| counterfactual | 0.19 | 0.30 | no |
+| counterfactual, no memory | 0.17 | 0.28 | no |
+
+## Sustainability bounds (results/theory/sustain.json)
+
+xi = 0: Nash reversion (grim or one period) sustains no collusion for
+delta <= 0.99; the any-punishment necessary condition allows full collusion
+at delta = 0.95. xi = 500: grim Nash reversion sustains full collusion for
+delta >= 0.8; one-period reversion at most Delta 0.43 (0.44 as delta -> 1).
+
+## Three traders (exp14, numba engine except counterfactual)
+
+residual gamma 0.95: Delta 0.73, no reaction, deviating pays; myopic 1.02;
+no memory 0.25; counterfactual -0.12.
+
+## Second seeds (exp13)
+
+All second-seed replications agree with seed 0 to within a few hundredths;
+pooled numbers in the paper. Runs marked "engine": "numba" in their JSON use
+the compiled engine.

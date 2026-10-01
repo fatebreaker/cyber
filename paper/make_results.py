@@ -92,6 +92,9 @@ def fmt(x: float, d: int = 2) -> str:
 
 
 def pm(m: float, c: float, d: int = 2) -> str:
+    # Show at least one significant digit of the CI instead of a misleading "0.00".
+    if np.isfinite(c) and 0 < c < 0.5 * 10 ** (-d):
+        return f"{fmt(m, d + 1)} \\pm {fmt(c, d + 1)}"
     return f"{fmt(m, d)} \\pm {fmt(c, d)}"
 
 

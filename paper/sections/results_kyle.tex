@@ -8,7 +8,7 @@ $\alpha=0.15$, 200 markets per seed and three seeds per condition.
 \paragraph{Outcomes.} Forward-looking learners that remember what their rivals
 and the noise traders did (\emph{residual} memory) trade far below Nash: their
 aggregate intensity covers $\ResidDeltaInt$ of the distance from competition to
-the cartel (seed means $\ResidSeedRange$), informativeness $\ResidDeltaInfo$,
+the cartel (seed means \ResidSeedRange), informativeness $\ResidDeltaInfo$,
 and profit $\ResidDeltaProfit$. With perfect monitoring of each other's
 orders, the index is $\OrdersDeltaInt$. Without memory, where punishment is
 impossible, learners still close $\NoneDeltaInt$ of the gap. Read
@@ -25,7 +25,7 @@ thus scores higher on the intensity- and informativeness-based indices than
 learners that might. These indices measure how little algorithms trade, not
 why, and cannot by themselves identify collusion.
 
-\paragraph{Punishment tests.} The rival-deviation test is decisive.
+\paragraph{Punishment tests.} The rival-deviation test is the most direct evidence.
 Figure~\ref{fig:deviation} shows that after a forced one-period best-response
 deviation, rivals' trading intensity is unchanged at every lag in every
 condition: the reaction at the first lag is $\ResidRivalLagOne\pm\ResidRivalLagOneCI$
@@ -41,9 +41,9 @@ self-enforcing, which is the signature of pruning.
 
 This matches Proposition~\ref{prop:snr}: at $\xi=0$ a best-response deviation
 is about a quarter of a noise standard deviation per unit of $v/\sigma_v$, so
-a trigger on observed flow would fire mostly on noise. It also matches the
-classification of \citet{dou2025}, who attribute collusion at $\xi=0$ to
-over-pruning. What our diagnostics add is that even perfect monitoring, which
+a trigger on observed flow would fire mostly on noise. It is also consistent with the classification of \citet{dou2025}, as reported in
+their reimplementation \citep{esquinas2026}, which attributes collusion at $\xi=0$
+to over-pruning. What our diagnostics add is that even perfect monitoring, which
 removes the detectability problem entirely, does not lead Q-learners to
 discover punishment.
 

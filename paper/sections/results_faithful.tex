@@ -71,20 +71,33 @@ the session responses is $[\PsBaseIqrLoMed, \PsBaseIqrHiMed]$\% of the
 mean order. The only sessions the rule flags belong to the myopic placebo
 ($\PsMyopicTrigLarge$\% at the large shock), which cannot be punishing.
 
-What we cannot reproduce is therefore the evidence that separates their
-price-trigger regime from over-pruning: the level of collusion, the
+We thus do not reproduce three things: the level of collusion, its
 dependence on the lagged price, and a shock response that a myopic learner
-does not share. Two differences in protocol remain. Their market maker
+does not share.
+
+Two differences in protocol remained. Their market maker
 estimates the investors' demand slope and $\mathbb E[v\mid y]$ by least squares
 over the last $10^4$ periods; since that demand is deterministic, the slope is
 recovered exactly and the pricing rule differs from ours only in weighting
 past data equally over $10^4$ periods rather than exponentially with a
-half-life of $2{,}000$. The larger difference is their stopping rule: each
-session runs until greedy strategies are unchanged for $10^6$ periods, which
-takes up to $5\times10^{10}$ periods, whereas on-path strategies in our runs
-still change ($\FaPolicyChange$ of entries over the last $10^7$ periods).
-Longer training could matter, and we do not claim that price-trigger
-collusion cannot arise under their exact design. Our claim is
-narrower: under a protocol that matches theirs in every element of the
-learning algorithm and state, the signatures that would identify punishment
-either do not appear or appear equally in a learner that cannot punish.
+half-life of $2{,}000$. The other is their stopping rule: each session learns
+until its greedy strategies are unchanged for $10^6$ consecutive periods,
+whereas on-path strategies in our fixed-horizon runs still change
+($\FaPolicyChange$ of entries over the last $10^7$ periods). We therefore
+repeat the baseline and the no-lagged-price control with their rule (capped
+at $2\times10^9$ periods). All sessions meet it ($\SrConvShare$\%), after
+$\SrConvMin$ to $\SrConvMax\times10^8$ periods (median $\SrConvMed\times10^8$),
+inside the range they report. Nothing changes: $\Delta_C=\SrDeltaProfit$
+with the lagged price and $\SrNoPriceDeltaProfit$ without it; the response
+to a 2\% shock is $\SrShockSmall\pm\SrShockSmallCI\%$ of $\beta^N$ and to a
+40\% shock $\SrShockLarge\pm\SrShockLargeCI\%$; the rival's reaction to a
+forced deviation is $\SrRival\pm\SrRivalCI\%$, and deviating pays.
+
+What we cannot reproduce is therefore the evidence that separates their
+price-trigger regime from over-pruning, under a protocol that matches theirs
+in the learning algorithm, the state, the exploration schedule, the grids and
+the stopping rule, and differs only in the weighting of the market maker's
+estimates. We do not claim that price-trigger collusion cannot arise in their
+implementation; we claim that the signatures that would identify it are not
+robust to an independent implementation of the same design, and that where a
+trigger-like response does appear, a learner that cannot punish shows it too.

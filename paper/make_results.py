@@ -752,6 +752,32 @@ if exp16:
     lines += ["\\bottomrule", "\\end{tabular}"]
     open(os.path.join(ROOT, "paper", "table_faithful.tex"), "w").write("\n".join(lines))
 
+# ------------------------ faithful protocol + their stopping rule (exp17)
+for name, key in (("price_g095", "Sr"), ("value_g095", "SrNoPrice")):
+    f = os.path.join(RES, "exp17_stoprule", f"{name}.json")
+    if os.path.exists(f):
+        r = json.load(open(f))
+        m, c, _ = pooled([r], "delta_profit")
+        macro(f"{key}DeltaProfit", fmt(m))
+        macro(f"{key}DeltaProfitCI", fmt(c))
+        macro(f"{key}ConvShare", fmt(100 * r.get("converged_share", float("nan")), 0))
+        q = r.get("converged_periods_quantiles") or [float("nan")] * 5
+        macro(f"{key}ConvMin", fmt(q[0] / 1e8, 1))
+        macro(f"{key}ConvMed", fmt(q[2] / 1e8, 1))
+        macro(f"{key}ConvMax", fmt(q[4] / 1e8, 1))
+        r["_file"] = f
+        sm, sc = shock_pooled([r], 1.0)
+        macro(f"{key}ShockLarge", fmt(sm))
+        macro(f"{key}ShockLargeCI", fmt(sc))
+        sm, sc = shock_pooled([r], 0.05)
+        macro(f"{key}ShockSmall", fmt(sm))
+        macro(f"{key}ShockSmallCI", fmt(sc))
+        rv = rival_pct([r])
+        macro(f"{key}Rival", fmt(rv[0]))
+        macro(f"{key}RivalCI", fmt(rv[1]))
+        macro(f"{key}Gain", fmt(rv[2]))
+        macro(f"{key}GainCI", fmt(rv[3]))
+
 # ------------------------------- per-session classification (Dou et al. rule)
 for name, key in (("baseline_g095", "PsBase"), ("myopic_g0", "PsMyopic")):
     f = os.path.join(RES, "per_session", f"{name}.json")

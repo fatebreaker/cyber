@@ -43,10 +43,11 @@ horizons. Our main training horizons ($6\times10^6$ to $1.5\times10^7$
 periods) are shorter than those of \citet{dou2025} and \citet{esquinas2026}
 (up to $5\times10^{10}$ and $5\times10^8$). Runs of $2\times10^8$ periods
 in the $\xi=500$ calibration reproduce the separate-table index of
-\citet{esquinas2026} and leave every diagnostic unchanged, but we cannot rule
-out that still longer training would let forward-looking learners discover
-punishment; the placebo, not the absence of a response, carries our argument
-there. Even at $2\times10^8$ periods greedy strategies keep changing in most
+\citet{esquinas2026} and leave every diagnostic unchanged, and runs with the
+stopping rule of \citet{dou2025}, which every session meets within
+$2\times10^9$ periods, change nothing. We cannot rule out that other
+implementation details let their learners discover punishment, which is why
+the placebo, not the absence of a response, carries our argument there. Even at $2\times10^8$ periods greedy strategies keep changing in most
 on-path states ($\LongSharedPolicyChange$ of entries over the last $10^7$
 periods for the shared table), as expected with a constant step size. The market maker learns its price impact from
 exponentially weighted moments rather than being fixed at the equilibrium

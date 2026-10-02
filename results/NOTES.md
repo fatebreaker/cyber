@@ -307,3 +307,11 @@ one period after a shock moving the price by 1.2%.
 Medium-shock session responses: IQR [-0.08, 0.10]% of the mean order.
 Their alpha/beta grid (OA Fig. IA.9): baseline cell 0.7, three of four
 neighbours 0.3; our faithful Delta_C 0.29.
+
+## Faithful protocol + Dou et al.'s stopping rule (exp17, cap 2e9)
+
+All 100 sessions met "greedy strategies unchanged for 1e6 periods": price
+memory after 2.2e8 - 1.05e9 periods (median 5.3e8); lagged-value-only after
+1.2e8 - 3.0e8. Delta_C 0.29 (price) / 0.26 (no lagged price). Shock lag-1
+response 0.05 ± 0.07 % (0.05 dev) and 2.01 ± 0.30 % (1 dev); rival reaction
+0.40 ± 0.21 %; deviating pays (gain 0.44 ± 0.13). Identical to fixed horizon.

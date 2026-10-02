@@ -1,0 +1,76 @@
+\contentsline {section}{Abstract}{0}{section*.1}%
+\contentsline {section}{Contents}{0}{section*.2}%
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {paragraph}{Contributions.}{1}{section*.3}%
+\contentsline {section}{\numberline {2}Related Work}{2}{section.2}%
+\contentsline {paragraph}{Algorithmic collusion.}{2}{section*.4}%
+\contentsline {paragraph}{Algorithms in financial markets.}{3}{section*.5}%
+\contentsline {paragraph}{Estimation bias in Q-learning.}{3}{section*.6}%
+\contentsline {section}{\numberline {3}Model}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}The repeated market}{3}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Benchmarks}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}How detectable is a deviation?}{4}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Can trigger strategies sustain collusion?}{4}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Learning Traders and Diagnostics}{6}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Learning algorithms}{6}{subsection.4.1}%
+\contentsline {paragraph}{Tabular Q-learning.}{6}{section*.8}%
+\contentsline {paragraph}{Deep RL.}{6}{section*.9}%
+\contentsline {paragraph}{Memory.}{6}{section*.10}%
+\contentsline {paragraph}{Market maker.}{6}{section*.11}%
+\contentsline {subsection}{\numberline {4.2}Diagnostics}{6}{subsection.4.2}%
+\contentsline {paragraph}{D1: rival-deviation test.}{7}{section*.12}%
+\contentsline {paragraph}{D2: noise-shock test.}{7}{section*.13}%
+\contentsline {paragraph}{D3: myopic placebo.}{7}{section*.14}%
+\contentsline {paragraph}{D4: no-memory control.}{7}{section*.15}%
+\contentsline {paragraph}{D5: uninformative memory.}{7}{section*.16}%
+\contentsline {paragraph}{D6: a falsification test with passive traders.}{7}{section*.17}%
+\contentsline {paragraph}{D7: learning-rate sensitivity.}{8}{section*.18}%
+\contentsline {paragraph}{Convergence.}{8}{section*.19}%
+\contentsline {subsection}{\numberline {4.3}Experimental design and implementation}{8}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Results}{8}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Do the diagnostics detect punishment where it exists?}{8}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}A second market: dealers under adverse selection}{9}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Pruning without a game}{10}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}The standard Kyle market: low trading without punishment}{11}{subsection.5.4}%
+\contentsline {paragraph}{Outcomes.}{11}{section*.22}%
+\contentsline {paragraph}{The myopic placebo.}{11}{section*.23}%
+\contentsline {paragraph}{Punishment tests.}{11}{section*.24}%
+\contentsline {paragraph}{Three traders.}{12}{section*.25}%
+\contentsline {paragraph}{Convergence.}{12}{section*.26}%
+\contentsline {subsection}{\numberline {5.5}The Dou et al.\ regime: detectable deviations, still no punishment}{13}{subsection.5.5}%
+\contentsline {paragraph}{Levels.}{13}{section*.29}%
+\contentsline {paragraph}{No punishment, even when deviations are glaring.}{13}{section*.30}%
+\contentsline {paragraph}{The placebo.}{13}{section*.31}%
+\contentsline {paragraph}{Shared Q-tables.}{13}{section*.34}%
+\contentsline {paragraph}{The \citet {dou2025} protocol, exactly.}{14}{section*.35}%
+\contentsline {paragraph}{Session by session.}{15}{section*.37}%
+\contentsline {subsection}{\numberline {5.6}What changes the outcome: information or learning design?}{15}{subsection.5.6}%
+\contentsline {paragraph}{Information does not matter.}{16}{section*.38}%
+\contentsline {paragraph}{Learning design matters.}{16}{section*.39}%
+\contentsline {paragraph}{When collusion means trading more.}{16}{section*.40}%
+\contentsline {section}{\numberline {6}An Audit Protocol}{17}{section.6}%
+\contentsline {section}{\numberline {7}Discussion}{18}{section.7}%
+\contentsline {paragraph}{What the diagnostics show.}{18}{section*.44}%
+\contentsline {paragraph}{Implications for auditing algorithms.}{18}{section*.45}%
+\contentsline {paragraph}{Implications for policy.}{18}{section*.46}%
+\contentsline {paragraph}{Limitations.}{18}{section*.47}%
+\contentsline {paragraph}{Conclusion.}{18}{section*.48}%
+\contentsline {section}{References}{19}{section*.50}%
+\contentsline {section}{\numberline {A}Additional results}{20}{appendix.A}%
+\contentsline {paragraph}{Shared Q-tables and the placebo.}{20}{section*.53}%
+\contentsline {paragraph}{Longer training.}{21}{section*.54}%
+\contentsline {subsection}{\numberline {A.1}Deep reinforcement learning}{21}{subsection.A.1}%
+\contentsline {section}{\numberline {B}Proofs}{23}{appendix.B}%
+\contentsline {paragraph}{Proposition\nonbreakingspace \ref {prop:bench}.}{23}{section*.59}%
+\contentsline {paragraph}{Proposition\nonbreakingspace \ref {prop:snr}.}{23}{section*.60}%
+\contentsline {paragraph}{Proposition\nonbreakingspace \ref {prop:trigger}.}{23}{section*.61}%
+\contentsline {paragraph}{Proposition\nonbreakingspace \ref {prop:anypun}.}{23}{section*.62}%
+\contentsline {section}{\numberline {C}Why pruning scales with $\sqrt {\alpha }$: a heuristic}{24}{appendix.C}%
+\contentsline {section}{\numberline {D}Price-state binning at $\xi =500$}{24}{appendix.D}%
+\contentsline {section}{\numberline {E}Rare states and the shock response}{25}{appendix.E}%
+\contentsline {paragraph}{Noise-unit binning.}{25}{section*.64}%
+\contentsline {paragraph}{Grid-range binning.}{25}{section*.65}%
+\contentsline {paragraph}{Interpretation.}{25}{section*.66}%
+\contentsline {section}{\numberline {F}Robustness}{25}{appendix.F}%
+\contentsline {section}{\numberline {G}Implementation details}{26}{appendix.G}%
+\contentsline {paragraph}{Validation.}{26}{section*.69}%

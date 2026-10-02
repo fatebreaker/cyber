@@ -24,25 +24,19 @@ outcome (Figure~\ref{fig:alpha}): with residual memory the index is
 $\AlphaResidLow$, $\AlphaResidMid$ and $\AlphaResidHigh$ at $\alpha=0.05$,
 $0.15$ and $0.3$, and without memory $\AlphaNoneLow$, $\AlphaNoneMid$ and
 $\AlphaNoneHigh$, running from competition to beyond the cartel, with no
-punishment at any step size. Learning parameters can also change which strategic equilibrium a learner
-reaches, but a monotone path from competition to beyond the cartel, with no
-punishment at any point, is what the square-root law of
-Section~\ref{sec:mechanism} predicts. Two further changes to
-the learning rule move the outcome substantially. Counterfactual updating, which removes the selection
+punishment at any step size, as the square-root law of
+Section~\ref{sec:mechanism} predicts. Two further changes to the learning
+rule move the outcome substantially. Counterfactual updating, which removes the selection
 effect, eliminates the supracompetitive outcome: forward-looking learners end
 at $\Delta=\CfResidDeltaInt$ with residual memory and $\CfNoneDeltaInt$ without,
 that is, at (marginally beyond) the competitive level, with price
 informativeness at its Nash value ($\Delta$ informativeness
 $\CfResidDeltaInfo$). The market, the agents' information and the exploration
 schedule are unchanged; only the update rule differs. Per-entry decaying step sizes
-change even the sign: with the schedule of Section~\ref{sec:method}, learners
-\emph{over}-trade relative to Nash ($\Delta=\VisitsResidual$ with residual
-memory, $\VisitsNone$ without), because step sizes shrink while the market
-maker's price impact is still depressed by heavy exploration, freezing
-estimates around best responses to a market that is too cheap to trade in.
-These learners are not converged either (on-path orders still move by
-$\VisitsShift$ grid steps), which underlines how strongly the learning
-procedure, rather than the game, shapes the outcome.
+change even the sign: learners \emph{over}-trade relative to Nash
+($\Delta=\VisitsResidual$ with residual memory, $\VisitsNone$ without),
+because step sizes shrink while heavy exploration still depresses the market
+maker's price impact.
 
 \paragraph{When collusion means trading more.} Adding two passive informed
 traders who play the Nash strategy reverses the benchmarks: facing outside
@@ -57,14 +51,7 @@ learning bias predicts and the opposite of what collusion predicts. (In the
 collusion index this appears as $\Delta=\PassiveDeltaInt$, which is why
 Table~\ref{tab:design} should be read with the benchmarks in mind.)
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.45\linewidth]{figures/fig_alpha.pdf}
-  \caption{The collusion index rises with the constant step size $\alpha$
-  (standard Kyle market, $\gamma=0.95$, 200 markets per point). No
-  configuration punishes deviations.}
-  \label{fig:alpha}
-\end{figure}
+\ECfloat{sections/fig_alpha}
 
 \begin{figure}[t]
   \centering

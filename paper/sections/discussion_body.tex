@@ -1,20 +1,9 @@
-\paragraph{What the diagnostics show.} Four findings recur across our
-experiments. First, the supracompetitive outcomes of Q-learning informed
-traders do not rest on punishment: rivals do not react to deviations, even
-with perfect monitoring or when deviations are hundreds of noise standard
-deviations large, and deviating pays. Second, the same learning procedure
-under-trades with no rival at all, by an amount that grows with
-$\sqrt\alpha$ and disappears under counterfactual updates; in the market,
-counterfactual updating restores competition while degrading information does
-nothing. Third, placebos that cannot collude reproduce the conventional
-evidence of collusion: myopic learners score at or beyond the cartel on
-intensity- and informativeness-based indices, an uninformative memory
-reproduces the effect of an informative one, and a myopic shared-table learner
-shows the threshold-shaped reaction to price shocks that has been read as a
-price trigger. Fourth, detectability rather than learning sophistication
-decides whether punishment is even feasible: in the standard Kyle market a
-deviation is a fraction of a noise standard deviation
-(Proposition~\ref{prop:snr}).
+\paragraph{What the diagnostics show.} The supracompetitive outcomes of
+Q-learning informed traders do not rest on punishment: rivals do not react to
+deviations, deviating pays, placebos that cannot collude reproduce both the
+outcome and the reactions that have been read as punishment, and the outcome
+moves with the learning rule rather than with what traders can observe. The
+same tests find punishment in the pricing game where it is known to exist.
 
 \paragraph{Implications for auditing algorithms.} Section~\ref{sec:audit}
 turns the diagnostics into a protocol. Its value is that every step can fail:
@@ -33,31 +22,18 @@ the cartel level, and with passive traders it costs the learners themselves
 \PassiveProfitPct\% of their equilibrium profit. But its remedy is a
 design standard, not a cartel investigation.
 
-\paragraph{Limitations.} Our evidence concerns tabular Q-learning with standard
-hyperparameters and, more briefly, DQN and PPO; learners that model their
-rivals may find punishment strategies these do not. Constant-step Q-learning
-does not converge in the strict sense of \citet{calvano2020}: greedy
-strategies still change on path by one to two grid steps over the last
-$10^5$ periods, although outcomes are stable across seeds, schedules and
-horizons. Our main training horizons ($6\times10^6$ to $1.5\times10^7$
-periods) are shorter than those of \citet{dou2025} and \citet{esquinas2026}
-(up to $5\times10^{10}$ and $5\times10^8$). Runs of $2\times10^8$ periods
-in the $\xi=500$ calibration reproduce the separate-table index of
-\citet{esquinas2026} and leave every diagnostic unchanged, and runs with the
-stopping rule of \citet{dou2025}, which every session meets within
-$2\times10^9$ periods, change nothing. We cannot rule out that other
-implementation details let their learners discover punishment, which is why
-the placebo, not the absence of a response, carries our argument there. Even at $2\times10^8$ periods greedy strategies keep changing in most
-on-path states ($\LongSharedPolicyChange$ of entries over the last $10^7$
-periods for the shared table), as expected with a constant step size. The market maker learns its price impact from
-exponentially weighted moments rather than being fixed at the equilibrium
-value; replacing it by the rolling least-squares market maker of
-\citet{dou2025} leaves the results unchanged. Finally, the stylised market abstracts from inventory dynamics,
-multiple assets and long-lived information.
+\paragraph{Limitations.} Our evidence concerns tabular Q-learning and, more
+briefly, DQN and PPO; learners that model their rivals may find punishment
+strategies these do not. Constant-step Q-learning does not converge in the
+strict sense of \citet{calvano2020}, although outcomes are stable across seeds,
+schedules and horizons up to $2\times10^9$ periods. Our replication of
+\citet{dou2025} matches every element of their published protocol, but not
+their code; we cannot rule out that other implementation details let their
+learners discover punishment, which is why the placebo, not the absence of a
+response, carries our argument there. Finally, the stylised market abstracts
+from inventory dynamics, multiple assets and long-lived information.
 
 \paragraph{Conclusion.} Low trading by learning algorithms is easy to produce
-and easy to misread. Telling collusion from learning bias requires
-diagnostics that can fail: a deviation test, placebos that cannot collude, and
-a check of whether the outcome moves with the learning rule. In the canonical
-market for informed trading, and in the regime where deviations are most
-visible, these diagnostics point to pruning, not punishment.
+and easy to misread; telling collusion from learning bias requires
+diagnostics that can fail. Among informed traders, even where deviations are
+most visible, they point to pruning, not punishment.

@@ -1,0 +1,56 @@
+% EC submission version: same section files as main.tex, EC'26 style.
+% Build: cd paper && latexmk -pdf main_ec.tex
+\documentclass[format=acmsmall, review=false]{acmart}
+\makeatletter
+\usepackage{acm-ec-26}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\setcitestyle{authoryear}
+
+% acmart defines theorem, proposition, corollary, definition, ...
+\theoremstyle{acmdefinition}
+\newtheorem{remark}{Remark}
+
+\input{numbers.tex}
+% Defer some material to the appendix to respect the 18-page body limit.
+\def\ECVERSION{}
+\newcommand{\ECdeferred}{}
+\newcommand{\ECfloat}[1]{\g@addto@macro\ECdeferred{\input{#1.tex}}}
+\newcommand{\ECdefer}[1]{\g@addto@macro\ECdeferred{\input{#1.tex}}}
+\newcommand{\ECsummary}[1]{\input{#1.tex}}
+
+\makeatother
+\title[Punishment or Pruning?]{Punishment or Pruning? Diagnosing Algorithmic Collusion among Reinforcement-Learning Traders}
+\author{Submission XXX}
+\renewcommand{\shortauthors}{Submission XXX}
+
+\input{sections/abstract.tex}
+
+\begin{document}
+\begin{titlepage}
+\maketitle
+\vspace{0.5cm}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\end{titlepage}
+
+\input{sections/intro.tex}
+\input{sections/related.tex}
+\input{sections/model.tex}
+\input{sections/method.tex}
+\input{sections/results.tex}
+\input{sections/audit.tex}
+\input{sections/discussion.tex}
+
+\label{lastbodypage}
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{refs}
+
+\appendix
+\section{Additional results}
+\label{app:additional}
+\ECdeferred
+\input{sections/appendix.tex}
+
+\end{document}

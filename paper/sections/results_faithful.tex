@@ -93,11 +93,21 @@ to a 2\% shock is $\SrShockSmall\pm\SrShockSmallCI\%$ of $\beta^N$ and to a
 40\% shock $\SrShockLarge\pm\SrShockLargeCI\%$; the rival's reaction to a
 forced deviation is $\SrRival\pm\SrRivalCI\%$, and deviating pays.
 
+Finally, we replace our market maker by theirs, re-estimating
+$\mathbb E[v\mid y]$ by least squares over the last $10^4$ periods and pricing
+$p=\hat g_0+\hat\lambda y$, so that every element of their published protocol
+is matched. Again all sessions meet the stopping rule (median
+$\FpConvMed\times10^8$ periods), and again nothing changes: $\Delta_C=\FpDeltaProfit$
+with the lagged price and $\FpNoPriceDeltaProfit$ without it; no response to a
+2\% shock ($\FpShockSmall\pm\FpShockSmallCI\%$ of $\beta^N$), a response to a
+40\% shock ($\FpShockLarge\pm\FpShockLargeCI\%$) of the size the myopic placebo
+also shows; no significant reaction of the rival to a forced deviation
+($\FpRival\pm\FpRivalCI\%$); and deviating pays.
+
 What we cannot reproduce is therefore the evidence that separates their
-price-trigger regime from over-pruning, under a protocol that matches theirs
-in the learning algorithm, the state, the exploration schedule, the grids and
-the stopping rule, and differs only in the weighting of the market maker's
-estimates. We do not claim that price-trigger collusion cannot arise in their
-implementation; we claim that the signatures that would identify it are not
-robust to an independent implementation of the same design, and that where a
-trigger-like response does appear, a learner that cannot punish shows it too.
+price-trigger regime from over-pruning, under an independent implementation
+of every element of the protocol they describe. We do not claim that
+price-trigger collusion cannot arise in their implementation; we claim that
+the signatures that would identify it are not robust to an independent
+implementation of the same design, and that where a trigger-like response
+does appear, a learner that cannot punish shows it too.

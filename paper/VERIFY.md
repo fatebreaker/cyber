@@ -25,7 +25,8 @@ Status: [ ] unverified, [x] verified against the paper, [!] needs a change.
       is per lagged value. Added price_bins = "dou" (exact) for exp16.
 - [!] Market maker: rolling-window OLS over T_m = 10,000 periods, estimating
       both the z-demand slope and E[v|y] (eq. 4.1-4.2). Ours: EWMA moments,
-      half-life 2,000, xi known. Disclosed in limitations.
+      half-life 2,000, xi known. Implemented theirs (--mm-window 10000), exp18:
+      results unchanged.
 - [x] Q init: payoff vs uniform rivals, zero noise, lambda^N (Sec. 4.2).
 - [x] 1,000 sessions; convergence = greedy strategies unchanged for 1e6
       periods; 2e7 to 5e10 periods.

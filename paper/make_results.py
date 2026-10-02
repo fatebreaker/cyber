@@ -753,8 +753,9 @@ if exp16:
     open(os.path.join(ROOT, "paper", "table_faithful.tex"), "w").write("\n".join(lines))
 
 # ------------------------ faithful protocol + their stopping rule (exp17)
-for name, key in (("price_g095", "Sr"), ("value_g095", "SrNoPrice")):
-    f = os.path.join(RES, "exp17_stoprule", f"{name}.json")
+for exp, name, key in (("exp17_stoprule", "price_g095", "Sr"), ("exp17_stoprule", "value_g095", "SrNoPrice"),
+                       ("exp18_fullprotocol", "price_g095", "Fp"), ("exp18_fullprotocol", "value_g095", "FpNoPrice")):
+    f = os.path.join(RES, exp, f"{name}.json")
     if os.path.exists(f):
         r = json.load(open(f))
         m, c, _ = pooled([r], "delta_profit")

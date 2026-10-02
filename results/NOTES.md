@@ -315,3 +315,12 @@ memory after 2.2e8 - 1.05e9 periods (median 5.3e8); lagged-value-only after
 1.2e8 - 3.0e8. Delta_C 0.29 (price) / 0.26 (no lagged price). Shock lag-1
 response 0.05 ± 0.07 % (0.05 dev) and 2.01 ± 0.30 % (1 dev); rival reaction
 0.40 ± 0.21 %; deviating pays (gain 0.44 ± 0.13). Identical to fixed horizon.
+
+## Full Dou et al. protocol incl. rolling least-squares market maker (exp18)
+
+mm_window = 10,000 (E[v|y] by OLS over the window, p = g0 + lambda y) plus
+their stopping rule. All sessions converge (median 2.7e8 periods).
+Delta_C 0.30 (price) / 0.25 (no lagged price); shock lag-1 response
+-0.01 ± 0.07 % (0.05 dev), 1.73 ± 0.34 % (1 dev); rival 0.21 ± 0.23 % (n.s.);
+deviating pays (gain 0.70 ± 0.14). Every element of their published protocol
+is now matched; none of their price-trigger evidence reproduces.
